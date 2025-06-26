@@ -1,0 +1,51 @@
+@use "../../variables.scss" as *;
+
+body {
+  background: #d2daff;
+}
+
+.title {
+  color: #8b9dfc;
+  margin-bottom: 6px;
+  @include manrope-font(800, 48px);
+}
+
+.subtitle {
+  color: #000;
+  font-size: 1.2rem;
+  margin-bottom: 35px;
+  @include manrope-font(400, 36px, black);
+}
+
+.button {
+  @include manrope-font(500, 20, #fff);
+  width: 100%;
+  height: 50px;
+  background: $primary-color;
+  border-radius: 50px;
+  margin-top: 15px;
+  text-transform: none;
+  &:hover {
+    background: #8b9dfc;
+  }
+}
+
+.links {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  margin-top: 45px;
+}
+
+.link {
+  @include manrope-font(500, 20px);
+  line-height: 30px;
+  text-decoration: none;
+  text-align: center;
+  line-height: 20px;
+  &:hover {
+    text-decoration: underline;
+  }
+}

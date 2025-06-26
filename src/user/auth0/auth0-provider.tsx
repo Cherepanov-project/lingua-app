@@ -12,7 +12,8 @@ const Auth0ProviderWithNavigate: React.FC<Auth0ProviderWithNavigateProps> = ({ c
   return (
     <Auth0Provider
       domain={import.meta.env.VITE_AUTH0_DOMAIN}
-      clientId={import.meta.env.VITE_AUTH0_CLIENT_ID}
+      // clientId={import.meta.env.VITE_AUTH0_CLIENT_ID}
+      clientId={import.meta.env.VITE_AUTH0_CLIENT_ID_SPA} // SPA
       authorizationParams={{
         redirect_uri: window.location.origin,
         audience: import.meta.env.VITE_AUTH0_AUDIENCE,

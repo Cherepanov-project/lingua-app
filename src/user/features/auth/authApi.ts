@@ -53,10 +53,13 @@ export const authApi = createApi({
           grant_type: 'password',
           username: credentials.username,
           password: credentials.password,
-          audience: 'https://dev-vsjevx5h8rqzm6di.us.auth0.com/api/v2/',
+          audience: import.meta.env.VITE_AUTH0_AUDIENCE,
           scope: 'openid profile email',
-          client_id: import.meta.env.VITE_AUTH0_CLIENT_ID,
-          client_secret: import.meta.env.VITE_AUTH0_CLIENT_SECRET,
+          // client_id: import.meta.env.VITE_AUTH0_CLIENT_ID,
+          // client_secret: import.meta.env.VITE_AUTH0_CLIENT_SECRET,
+          client_id: import.meta.env.VITE_AUTH0_CLIENT_ID_SPA, // SPA
+          client_secret: import.meta.env.VITE_AUTH0_CLIENT_SECRET_SPA, // SPA
+          connection: 'Username-Password-Authentication'
         }),
       }),
     }),
@@ -84,7 +87,8 @@ export const authApi = createApi({
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          client_id: import.meta.env.VITE_AUTH0_CLIENT_ID,
+          // client_id: import.meta.env.VITE_AUTH0_CLIENT_ID,
+          client_id: import.meta.env.VITE_AUTH0_CLIENT_ID_SPA, // SPA
           email: data.email,
           connection: 'Username-Password-Authentication',
         }),

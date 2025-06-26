@@ -60,6 +60,7 @@ const Register: React.FC = () => {
           fullWidth
           margin="normal"
           variant="outlined"
+          autoComplete="username"
         />
         <RoundedTextField
           placeholder="Email"
@@ -69,6 +70,7 @@ const Register: React.FC = () => {
           fullWidth
           margin="normal"
           variant="outlined"
+          autoComplete='email'
         />
         <RoundedTextField
           placeholder="Ваш пароль"

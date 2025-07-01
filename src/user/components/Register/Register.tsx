@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Container, Box, Button, TextField, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { Link, useNavigate } from 'react-router-dom';
-import { useRegisterUserMutation } from '../../features/auth/authApi';
+import { useRegisterUserMutation, useAuthUserMutation } from '../../features/auth/authApi';
 import stylesObj from '../../stylesObj';
 import styles from './Register.module.scss';
 
@@ -18,6 +18,7 @@ const Register: React.FC = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [registerUser, { isLoading, isError, data }] = useRegisterUserMutation();
+  const [authUser] = useAuthUserMutation();
   const navigate = useNavigate();
 
   const handleRegister = async (e: React.FormEvent) => {
@@ -27,9 +28,11 @@ const Register: React.FC = () => {
       return;
     }
     try {
-      const response = await registerUser({ email, name, password  });
-      console.log('Регистрация успешна:', response);
-      localStorage.setItem('token', response.access_token);
+      await registerUser({ email, name, password }).unwrap(); 
+      const authResponse = await authUser({ username: email, password }).unwrap(); 
+      // console.log('Регистрация успешна, токен:', authResponse);
+      localStorage.setItem('token', authResponse.access_token);
+      
       navigate('/');
     } catch (error) {
       console.error('Ошибка регистрации:', error);

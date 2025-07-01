@@ -1,5 +1,4 @@
 import { Auth0Provider } from '@auth0/auth0-react';
-// import { useNavigate } from 'react-router-dom';
 import type { ReactNode } from 'react';
 
 interface Auth0ProviderWithNavigateProps {
@@ -7,7 +6,6 @@ interface Auth0ProviderWithNavigateProps {
 }
 
 const Auth0ProviderWithNavigate: React.FC<Auth0ProviderWithNavigateProps> = ({ children }) => {
-  // const navigate = useNavigate();
 
   return (
     <Auth0Provider

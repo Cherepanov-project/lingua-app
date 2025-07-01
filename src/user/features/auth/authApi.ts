@@ -38,7 +38,8 @@ export const authApi = createApi({
       query: (userId) => ({
         url: `/api/v2/users/${userId}`,
         headers: {
-          Authorization: `Bearer ${localStorage.getItem('management_token')}`,
+          // Authorization: `Bearer ${localStorage.getItem('management_token')}`,
+          Authorization: `Bearer ${localStorage.getItem('token')}`, //  access_token
         },
       }),
     }),

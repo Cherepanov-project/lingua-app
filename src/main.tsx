@@ -10,8 +10,14 @@ import './user/variables.scss';
 
 worker.start({
   serviceWorker: { url: '/mockServiceWorker.js' },
+  options: { scope: '/' }, // Важно!
   onUnhandledRequest: 'bypass',
-});
+}).then(() => {
+  console.log('MSW started')
+  // window.__USE_MOCKS__ = true; 
+  window.__MSW_STARTED__ = true;
+}
+);
 
 const fetchManagementToken = async () => {
   try {

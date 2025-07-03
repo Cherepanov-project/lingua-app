@@ -4,6 +4,7 @@ import { Container, Box, Button, TextField, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import stylesObj from '../../stylesObj';
 import { useAuthUserMutation } from '../../features/auth/authApi';
+import { setCookie } from '../../utils/cookies';
 import styles from './Login.module.scss';
 
 const RoundedTextField = styled(TextField)({
@@ -23,7 +24,8 @@ const Login: React.FC = () => {
     try {
       const response = await authUser({ username: email, password }).unwrap();
       console.log('Токен получен:', response.access_token);
-      localStorage.setItem('token', response.access_token);
+      // localStorage.setItem('token', response.access_token);
+      setCookie('auth_token', response.access_token);
       navigate('/')
     } catch (error) {
       console.error('Ошибка входа:', error);

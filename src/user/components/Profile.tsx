@@ -4,6 +4,7 @@ import { jwtDecode } from 'jwt-decode';
 import { Navigate } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { getCookie, removeCookie } from '../utils/cookies';
 
 interface JwtPayload {
   sub: string; // userId в JWT
@@ -41,7 +42,8 @@ const Profile: React.FC = () => {
     }
   }, []);
 
-  const token = localStorage.getItem('token');
+  // const token = localStorage.getItem('token');
+  const token = getCookie('auth_token')
   if (!token) {
     return <Navigate to="/login" />;
   }
@@ -62,7 +64,8 @@ const Profile: React.FC = () => {
   }
 
   const handleLogout = () => {
-    localStorage.removeItem('token');
+    // localStorage.removeItem('token');
+    removeCookie('auth_token');
     navigate('/login');
   };
 

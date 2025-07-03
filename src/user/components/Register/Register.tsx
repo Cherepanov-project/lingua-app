@@ -3,6 +3,7 @@ import { Container, Box, Button, TextField, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { Link, useNavigate } from 'react-router-dom';
 import { useRegisterUserMutation, useAuthUserMutation } from '../../features/auth/authApi';
+import { setCookie } from '../../utils/cookies';
 import stylesObj from '../../stylesObj';
 import styles from './Register.module.scss';
 
@@ -31,7 +32,8 @@ const Register: React.FC = () => {
       await registerUser({ email, name, password }).unwrap(); 
       const authResponse = await authUser({ username: email, password }).unwrap(); 
       // console.log('Регистрация успешна, токен:', authResponse);
-      localStorage.setItem('token', authResponse.access_token);
+      // localStorage.setItem('token', authResponse.access_token);
+      setCookie('auth_token', authResponse.access_token);
       
       navigate('/');
     } catch (error) {

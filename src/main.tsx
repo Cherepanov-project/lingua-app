@@ -5,6 +5,7 @@ import App from './App';
 import { worker } from './user/mocks/browser';
 import { store } from './store/store';
 import { StyledEngineProvider } from '@mui/material';
+import { setCookie } from './user/utils/cookies';
 
 import './user/variables.scss';
 
@@ -20,6 +21,7 @@ worker.start({
 );
 
 const fetchManagementToken = async () => {
+  console.log('start')
   try {
     const response = await fetch('https://dev-vsjevx5h8rqzm6di.us.auth0.com/oauth/token', {
       method: 'POST',
@@ -36,7 +38,9 @@ const fetchManagementToken = async () => {
       throw new Error(`HTTP error! status: ${response.status}, message: ${JSON.stringify(errorData)}`);
     }
     const data = await response.json();
-    localStorage.setItem('management_token', data.access_token);
+    // localStorage.setItem('management_token', data.access_token);
+     setCookie('management_token', data.access_token)
+     console.log('management_token')
   } catch (error) {
     console.error('Ошибка получения management_token:', error);
   }

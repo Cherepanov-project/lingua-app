@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { getCookie } from '../../utils/cookies';
 
 interface UserProfile {
   id: string;
@@ -39,7 +40,8 @@ export const authApi = createApi({
         url: `/api/v2/users/${userId}`,
         headers: {
           // Authorization: `Bearer ${localStorage.getItem('management_token')}`,
-          Authorization: `Bearer ${localStorage.getItem('token')}`, //  access_token
+          // Authorization: `Bearer ${localStorage.getItem('token')}`, //  access_token
+          Authorization: `Bearer ${getCookie('auth_token')}`,
         },
       }),
     }),

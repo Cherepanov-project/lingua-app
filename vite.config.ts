@@ -13,4 +13,18 @@ export default defineConfig({
   fs: {
       allow: ['.'],
     },
+      server: {
+    proxy: {
+      '/auth0': {
+        target: 'https://dev-vsjevx5h8rqzm6di.us.auth0.com',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/auth0/, ''),
+        secure: false,
+        headers: {
+          'Access-Control-Allow-Origin': 'http://localhost:5173',
+          'Access-Control-Allow-Credentials': 'true'
+        }
+      }
+    }
+  }
 })

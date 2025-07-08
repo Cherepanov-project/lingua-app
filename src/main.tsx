@@ -2,26 +2,30 @@ import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App';
-import { worker } from './user/mocks/browser';
+// import { worker } from './user/mocks/browser';
 import { store } from './store/store';
 import { StyledEngineProvider } from '@mui/material';
-import { setCookie } from './user/utils/cookies';
+import { getCookie, setCookie } from './user/utils/cookies';
 
 import './user/variables.scss';
 
-worker.start({
-  serviceWorker: { url: '/mockServiceWorker.js' },
-  options: { scope: '/' }, // Важно!
-  onUnhandledRequest: 'bypass',
-}).then(() => {
-  console.log('MSW started')
-  // window.__USE_MOCKS__ = true; 
-  window.__MSW_STARTED__ = true;
-}
-);
+// worker.start({
+//   serviceWorker: { url: '/mockServiceWorker.js' },
+//   options: { scope: '/' }, // Важно!
+//   onUnhandledRequest: 'bypass',
+//   // onUnhandledRequest: (req) => {
+//   //   if (req.url.includes('auth0.com')) return 'bypass'; // Пропускаем запросы к Auth0
+//   //   console.warn('Unhandled:', req.method, req.url);
+//   // },
+// }).then(() => {
+//   console.log('MSW started')
+//   // window.__USE_MOCKS__ = true; 
+//   window.__MSW_STARTED__ = true;
+// }
+// );
+
 
 const fetchManagementToken = async () => {
-  console.log('start')
   try {
     const response = await fetch('https://dev-vsjevx5h8rqzm6di.us.auth0.com/oauth/token', {
       method: 'POST',
@@ -33,27 +37,40 @@ const fetchManagementToken = async () => {
         grant_type: 'client_credentials',
       }),
     });
+
     if (!response.ok) {
       const errorData = await response.json();
       throw new Error(`HTTP error! status: ${response.status}, message: ${JSON.stringify(errorData)}`);
     }
+
     const data = await response.json();
-    // localStorage.setItem('management_token', data.access_token);
-     setCookie('management_token', data.access_token)
-     console.log('management_token')
+    
+    // ! why!!! it is no set 
+    setCookie('management_token', data.access_token, 1); 
+    // ! for registration
+    localStorage.setItem('management_token', data.access_token);
+
+    console.log('Management token:', getCookie('management_token'));
+    return true;
   } catch (error) {
-    console.error('Ошибка получения management_token:', error);
+    console.error('Ошибка получения токена:', error);
+    return false;
   }
 };
 
-fetchManagementToken();
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
-  <StyledEngineProvider injectFirst>
-    <Provider store={store}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </Provider>
-  </StyledEngineProvider>
-);
+fetchManagementToken().then((success) => {
+  if (success) {
+    ReactDOM.createRoot(document.getElementById('root')!).render(
+      <StyledEngineProvider injectFirst>
+        <Provider store={store}>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </Provider>
+      </StyledEngineProvider>
+    );
+  } else {
+    console.error('Не удалось загрузить приложение: management_token не получен');
+  }
+});

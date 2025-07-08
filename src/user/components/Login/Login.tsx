@@ -23,7 +23,7 @@ const Login: React.FC = () => {
     e.preventDefault();
     try {
       const response = await authUser({ username: email, password }).unwrap();
-      console.log('Токен получен:', response.access_token);
+      // console.log('Токен получен:', response.access_token);
       // localStorage.setItem('token', response.access_token);
       setCookie('auth_token', response.access_token);
       navigate('/')

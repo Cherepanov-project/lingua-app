@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "start:server": "node server.cjs"
   },
   "dependencies": {
     "@auth0/auth0-react": "^2.3.0",
@@ -16,6 +17,7 @@
     "@mui/icons-material": "^7.1.2",
     "@mui/material": "^7.1.2",
     "@reduxjs/toolkit": "^2.8.2",
+    "json-server": "0.17.4",
     "jwt-decode": "^4.0.0",
     "msw": "^2.10.2",
     "react": "^19.1.0",

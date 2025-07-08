@@ -3,7 +3,7 @@ import { useGetUserProfileQuery } from '../features/auth/authApi';
 import { jwtDecode } from 'jwt-decode';
 import { Navigate } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+// import { useEffect, useState } from 'react';
 import { getCookie, removeCookie } from '../utils/cookies';
 
 interface JwtPayload {
@@ -11,36 +11,24 @@ interface JwtPayload {
 }
 
 const Profile: React.FC = () => {
-  // const { user, isAuthenticated, logout } = useAuth0();
-  // const { data: userProfile, isLoading } = useGetUserProfileQuery(user?.sub ?? '', {
-  //   skip: !isAuthenticated,
-  // });
-
-  // const handleLogout = () => {
-  //   logout({ logoutParams: { returnTo: window.location.origin } });
-  // };
-
-  // if (isLoading || !userProfile) {
-  //   return <div>Загрузка...</div>;
-  // }
 
   const navigate = useNavigate();
 
-  const [mswReady, setMswReady] = useState(false);
+  // const [mswReady, setMswReady] = useState(false);
 
-  useEffect(() => {
-    if (window.__MSW_STARTED__) {
-      setMswReady(true);
-    } else {
-      const interval = setInterval(() => {
-        if (window.__MSW_STARTED__) {
-          setMswReady(true);
-          clearInterval(interval);
-        }
-      }, 100);
-      return () => clearInterval(interval);
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (window.__MSW_STARTED__) {
+  //     setMswReady(true);
+  //   } else {
+  //     const interval = setInterval(() => {
+  //       if (window.__MSW_STARTED__) {
+  //         setMswReady(true);
+  //         clearInterval(interval);
+  //       }
+  //     }, 100);
+  //     return () => clearInterval(interval);
+  //   }
+  // }, []);
 
   // const token = localStorage.getItem('token');
   const token = getCookie('auth_token')
@@ -50,10 +38,10 @@ const Profile: React.FC = () => {
 
   const decodedToken = jwtDecode<JwtPayload>(token);
   const userId = decodedToken.sub; // userId из access_token
-
-  const { data: userProfile, isLoading, error } = useGetUserProfileQuery(userId, {
-  skip: !mswReady,
-});
+  console.log(decodedToken.sub); // "auth0|658a1c2f3b4d5e6f78901234"
+  const { data: userProfile, isLoading, error } = useGetUserProfileQuery(userId, // 
+  // { skip: !mswReady, }
+);
 
   if (isLoading) {
     return <div>Загрузка...</div>;

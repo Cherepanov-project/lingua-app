@@ -37,8 +37,10 @@ export const authApi = createApi({
   endpoints: (builder) => ({
     getUserProfile: builder.query<UserProfile, string>({
       query: (userId) => ({
-        url: `/api/v2/users/${userId}`,
+        // url: `/api/v2/users/${userId}`,
+        url: `http://localhost:3001/api/v2/users/${userId}`, // Моковые данные
         headers: {
+          
           // Authorization: `Bearer ${localStorage.getItem('management_token')}`,
           // Authorization: `Bearer ${localStorage.getItem('token')}`, //  access_token
           Authorization: `Bearer ${getCookie('auth_token')}`,
@@ -73,6 +75,7 @@ export const authApi = createApi({
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${localStorage.getItem('management_token')}`,
+          // Authorization: `Bearer ${getCookie('management_token') || ''}`,
         },
         body: JSON.stringify({
           email: userData.email,

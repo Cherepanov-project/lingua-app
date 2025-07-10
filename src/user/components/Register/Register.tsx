@@ -25,11 +25,6 @@ const Register: React.FC = () => {
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // const hasToken = document.cookie.includes('management_token=');
-    // if (!hasToken) {
-    //   console.error('Отсутствует management token в cookies');
-    //   return;
-    // }
     
     if (password !== confirmPassword) {
       console.error('Пароли не совпадают');
@@ -38,9 +33,9 @@ const Register: React.FC = () => {
     try {
       await registerUser({ email, name, password }).unwrap(); 
       const authResponse = await authUser({ username: email, password }).unwrap(); 
-      // console.log('Регистрация успешна, токен:', authResponse);
 
-      localStorage.setItem('token', authResponse.access_token);
+      // localStorage.setItem('token', authResponse.access_token);
+      sessionStorage.setItem('token', authResponse.access_token);
       setCookie('auth_token', authResponse.access_token);
       
       navigate('/');

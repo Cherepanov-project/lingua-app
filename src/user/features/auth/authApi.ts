@@ -37,7 +37,6 @@ export const authApi = createApi({
   endpoints: (builder) => ({
     getUserProfile: builder.query<UserProfile, string>({
       query: (userId) => ({
-        // url: `/api/v2/users/${userId}`,
         url: `http://localhost:3001/api/v2/users/${userId}`, // mock
         headers: {
           
@@ -60,8 +59,6 @@ export const authApi = createApi({
           password: credentials.password,
           audience: import.meta.env.VITE_AUTH0_AUDIENCE,
           scope: 'openid profile email',
-          // client_id: import.meta.env.VITE_AUTH0_CLIENT_ID,
-          // client_secret: import.meta.env.VITE_AUTH0_CLIENT_SECRET,
           client_id: import.meta.env.VITE_AUTH0_CLIENT_ID_SPA, // SPA
           client_secret: import.meta.env.VITE_AUTH0_CLIENT_SECRET_SPA, // SPA
           connection: 'Username-Password-Authentication'
@@ -74,8 +71,8 @@ export const authApi = createApi({
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${localStorage.getItem('management_token')}`,
-          // Authorization: `Bearer ${getCookie('management_token') || ''}`,
+          // Authorization: `Bearer ${localStorage.getItem('management_token')}`,
+          Authorization: `Bearer ${sessionStorage.getItem('management_token')}`,
         },
         body: JSON.stringify({
           email: userData.email,
@@ -93,7 +90,6 @@ export const authApi = createApi({
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          // client_id: import.meta.env.VITE_AUTH0_CLIENT_ID,
           client_id: import.meta.env.VITE_AUTH0_CLIENT_ID_SPA, // SPA
           email: data.email,
           connection: 'Username-Password-Authentication',

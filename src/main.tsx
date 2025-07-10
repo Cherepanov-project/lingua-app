@@ -2,27 +2,11 @@ import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App';
-// import { worker } from './user/mocks/browser';
 import { store } from './store/store';
 import { StyledEngineProvider } from '@mui/material';
 import { getCookie, setCookie } from './user/utils/cookies';
 
 import './user/variables.scss';
-
-// worker.start({
-//   serviceWorker: { url: '/mockServiceWorker.js' },
-//   options: { scope: '/' }, // Важно!
-//   onUnhandledRequest: 'bypass',
-//   // onUnhandledRequest: (req) => {
-//   //   if (req.url.includes('auth0.com')) return 'bypass'; // Пропускаем запросы к Auth0
-//   //   console.warn('Unhandled:', req.method, req.url);
-//   // },
-// }).then(() => {
-//   console.log('MSW started')
-//   // window.__USE_MOCKS__ = true; 
-//   window.__MSW_STARTED__ = true;
-// }
-// );
 
 
 const fetchManagementToken = async () => {
@@ -48,7 +32,8 @@ const fetchManagementToken = async () => {
     // ! why!!! it is no set 
     setCookie('management_token', data.access_token, 1); 
     // ! for registration
-    localStorage.setItem('management_token', data.access_token);
+    // localStorage.setItem('management_token', data.access_token);
+    sessionStorage.setItem('management_token', data.access_token);
 
     console.log('Management token:', getCookie('management_token'));
     return true;

@@ -29,8 +29,6 @@ const fetchManagementToken = async () => {
 
     const data = await response.json();
     
-    // ! why!!! it is no set 
-    setCookie('management_token', data.access_token, 1); 
     // ! for registration
     // localStorage.setItem('management_token', data.access_token);
     sessionStorage.setItem('management_token', data.access_token);

@@ -38,7 +38,7 @@ const Profile: React.FC = () => {
 
   const decodedToken = jwtDecode<JwtPayload>(token);
   const userId = decodedToken.sub; // userId из access_token
-  console.log(decodedToken.sub); // "auth0|658a1c2f3b4d5e6f78901234"
+  console.log(decodedToken.sub); // 
   const { data: userProfile, isLoading, error } = useGetUserProfileQuery(userId, // 
   // { skip: !mswReady, }
 );
@@ -61,7 +61,9 @@ const Profile: React.FC = () => {
     <div>
       <h2>Профиль</h2>
       <p>Email: {userProfile.email}</p>
+      {/* <p>Email: {decodedToken.email}</p> */}
       <p>Имя: {userProfile.name}</p>
+      {/* <p>Имя: {decodedToken.name}</p> */}
       {userProfile.picture && <img src={userProfile.picture} alt="Аватар" />}
       <button onClick={handleLogout}>Выйти</button>
     </div>

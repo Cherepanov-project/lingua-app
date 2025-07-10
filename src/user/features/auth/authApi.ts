@@ -37,7 +37,8 @@ export const authApi = createApi({
   endpoints: (builder) => ({
     getUserProfile: builder.query<UserProfile, string>({
       query: (userId) => ({
-        url: `http://localhost:3001/api/v2/users/${userId}`, // mock
+              url: `/api/v2/users/${userId}`,
+        // url: `http://localhost:3001/api/v2/users/${userId}`, // mock
         headers: {
           
           // Authorization: `Bearer ${localStorage.getItem('management_token')}`,

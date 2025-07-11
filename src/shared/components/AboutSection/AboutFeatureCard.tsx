@@ -9,7 +9,7 @@ type Props = {
 
 const AboutFeatureCard = ({ emoji, title, description }: Props) => (
   <Paper sx={cardStyle}>
-    <Typography fontSize={80} mb={2}>
+    <Typography fontSize={40} mb={2}>
       {emoji}
     </Typography>
     <Typography fontWeight={600} mb={1}>

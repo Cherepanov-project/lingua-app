@@ -5,6 +5,7 @@ import Stack from "@mui/material/Stack";
 import StarIcon from "@mui/icons-material/Star";
 
 import { statsConfig } from "../../constants/statsConfig";
+import { starStyle } from "../StatsSection/StatsSection.styles";
 
 const StatsSection = () => {
   return (
@@ -53,57 +54,17 @@ const StatsSection = () => {
               </Avatar>
             )}
 
-            {item.type === "stars" && typeof item.rating === "number" && (
+            {item.type === "stars" && (
               <Stack
                 direction="row"
                 justifyContent="center"
-                alignItems="center"
-                spacing={1}
+                spacing={0.3}
                 mb={1}>
-                <Stack direction="row" spacing={0.3}>
-                  {Array.from({ length: 5 }, (_, index) => {
-                    const isFull = index + 1 <= Math.floor(item.rating);
-                    const isHalf =
-                      index + 1 > Math.floor(item.rating) &&
-                      index < item.rating;
-
-                    return (
-                      <Box
-                        key={index}
-                        sx={{
-                          position: "relative",
-                          width: 20,
-                          height: 20,
-                        }}>
-                        <StarIcon
-                          sx={{
-                            color: "transparent",
-                            stroke: "#000",
-                            strokeWidth: 0.7,
-                            fontSize: 20,
-                          }}
-                        />
-
-                        {(isFull || isHalf) && (
-                          <StarIcon
-                            sx={{
-                              color: "#F1B31C",
-                              fontSize: 20,
-                              position: "absolute",
-                              left: 0,
-                              top: 0,
-                              clipPath: isHalf ? "inset(0 50% 0 0)" : "none",
-                            }}
-                          />
-                        )}
-                      </Box>
-                    );
-                  })}
-                </Stack>
-
-                <Typography variant="h6" fontWeight={700}>
-                  {item.rating}
-                </Typography>
+                <StarIcon fontSize="small" sx={starStyle} />
+                <StarIcon fontSize="small" sx={starStyle} />
+                <StarIcon fontSize="small" sx={starStyle} />
+                <StarIcon fontSize="small" sx={starStyle} />
+                <StarIcon fontSize="small" sx={starStyle} />
               </Stack>
             )}
 

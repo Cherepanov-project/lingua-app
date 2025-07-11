@@ -1,7 +1,6 @@
 import { Box, Grid, Paper, Typography } from "@mui/material";
 import features from "../../constants/aboutFeatures";
 import AboutFeatureCard from "./AboutFeatureCard";
-import { aboutText } from "../../constants/aboutText";
 import {
   wrapperStyle,
   textBlockStyle,
@@ -16,9 +15,13 @@ const AboutSection = () => {
         <Grid container wrap="nowrap">
           <Grid sx={textBlockStyle}>
             <Typography variant="h4" fontWeight={600} mb={3}>
-              {aboutText.title}
+              О нас
             </Typography>
-            <Typography variant="body1">{aboutText.description}</Typography>
+            <Typography variant="body1">
+              Мы — команда лингвистов, разработчиков и дизайнеров,
+              объединившихся ради простой идеи: дать каждому человеку
+              инструмент, чтобы свободно говорить на иностранном языке.
+            </Typography>
           </Grid>
 
           <Grid sx={scrollContainerStyle}>

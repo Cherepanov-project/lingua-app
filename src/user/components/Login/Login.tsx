@@ -26,7 +26,7 @@ const Login: React.FC = () => {
       // console.log('Токен получен:', response.access_token);
       // localStorage.setItem('token', response.access_token);
       setCookie('auth_token', response.access_token);
-      navigate('/')
+      navigate('/profile')
     } catch (error) {
       console.error('Ошибка входа:', error);
     }

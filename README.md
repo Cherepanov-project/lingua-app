@@ -1,3 +1,5 @@
-1. Перешёл на json server. Там варианты юзеров.
+1. Используется json server. Там варианты юзеров.
+
+Для запуска
 
 2. management_token -- в session storage

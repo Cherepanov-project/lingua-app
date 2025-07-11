@@ -38,7 +38,7 @@ const Register: React.FC = () => {
       sessionStorage.setItem('token', authResponse.access_token);
       setCookie('auth_token', authResponse.access_token);
       
-      navigate('/');
+      navigate('/profile');
     } catch (error) {
       console.error('Ошибка регистрации:', error);
     }

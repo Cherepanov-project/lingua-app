@@ -5,15 +5,17 @@ import Register from './user/components/Register/Register';
 import Profile from './user/components/Profile';
 import ProtectedRoute from './user/components/ProtectedRoute';
 import PasswordReset from './user/components/PasswordReset/PasswordReset';
+import HomePage from "./pages/HomePage";
 
 const App: React.FC = () => {
   return (
     <Auth0ProviderWithNavigate>
       <Routes>
+        <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route
-          path="/"
+          path="/profile"
           element={
             <ProtectedRoute>
               <Profile />
@@ -27,3 +29,4 @@ const App: React.FC = () => {
 };
 
 export default App;
+

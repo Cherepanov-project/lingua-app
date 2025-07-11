@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useAuth0 } from '@auth0/auth0-react';
 import { Container, Box, Button, TextField, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { Link } from 'react-router-dom';

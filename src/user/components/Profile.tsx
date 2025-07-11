@@ -1,4 +1,3 @@
-// import { useAuth0 } from '@auth0/auth0-react';
 import { useGetUserProfileQuery } from '../features/auth/authApi';
 import { jwtDecode } from 'jwt-decode';
 import { Navigate } from 'react-router-dom';
@@ -32,16 +31,17 @@ const Profile: React.FC = () => {
 
   // const token = localStorage.getItem('token');
   const token = getCookie('auth_token')
-  if (!token) {
-    return <Navigate to="/login" />;
-  }
 
   const decodedToken = jwtDecode<JwtPayload>(token);
   const userId = decodedToken.sub; // userId из access_token
-  console.log(decodedToken.sub); // 
   const { data: userProfile, isLoading, error } = useGetUserProfileQuery(userId, // 
+    { skip: !token || !userId, }
   // { skip: !mswReady, }
 );
+
+  if (!token) {
+    return <Navigate to="/login" />;
+  }
 
   if (isLoading) {
     return <div>Загрузка...</div>;

@@ -95,6 +95,7 @@ export const authApi = createApi({
           email: data.email,
           connection: 'Username-Password-Authentication',
         }),
+        responseHandler:'text'
       }),
     }),
   }),

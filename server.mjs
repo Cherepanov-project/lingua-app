@@ -1,6 +1,4 @@
-// const jsonServer = require('json-server');
-// import jsonServer from 'json-server';
-import jsonServer from 'json-server/lib/server/index.js';
+import jsonServer from 'json-server';
 const server = jsonServer.create();
 const router = jsonServer.router('mock/db.json');
 const middlewares = jsonServer.defaults();
@@ -26,12 +24,6 @@ server.get('/api/v2/users/:userId', (req, res) => {
     });
   }
 
-  // res.json(user || {
-  //   id: userId,
-  //   email: "test@json-server.com",
-  //   name: "JSON Server User",
-  //   picture: "https://example.com/avatar.jpg"
-  // });
 });
 
 server.use((req, res, next) => {

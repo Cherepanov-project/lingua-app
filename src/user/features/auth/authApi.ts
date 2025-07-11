@@ -41,8 +41,6 @@ export const authApi = createApi({
         // url: `http://localhost:3001/api/v2/users/${userId}`, // mock
         headers: {
           
-          // Authorization: `Bearer ${localStorage.getItem('management_token')}`,
-          // Authorization: `Bearer ${localStorage.getItem('token')}`, //  access_token
           Authorization: `Bearer ${getCookie('auth_token')}`,
         },
       }),

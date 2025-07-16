@@ -4,13 +4,14 @@ import { styled } from '@mui/material/styles';
 import { Link, useNavigate } from 'react-router-dom';
 import { useRegisterUserMutation, useAuthUserMutation } from '../../features/auth/authApi';
 import { setCookie } from '../../utils/cookies';
-import stylesObj from '../../stylesObj';
-import styles from './Register.module.scss';
+import { stylesObj } from '../../stylesObj';
 
-const RoundedTextField = styled(TextField)({
-  "& .MuiOutlinedInput-root": {
-    ...stylesObj.RoundedTextField,
-  },
+const LoginLinks = styled('div')({
+  ...stylesObj.loginLinks
+});
+
+const LoginLink = styled(Link)({
+  ...stylesObj.loginLink
 });
 
 const Register: React.FC = () => {
@@ -25,19 +26,18 @@ const Register: React.FC = () => {
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    
+
     if (password !== confirmPassword) {
       console.error('Пароли не совпадают');
       return;
     }
     try {
-      await registerUser({ email, name, password }).unwrap(); 
-      const authResponse = await authUser({ username: email, password }).unwrap(); 
+      await registerUser({ email, name, password }).unwrap();
+      const authResponse = await authUser({ username: email, password }).unwrap();
 
-      // localStorage.setItem('token', authResponse.access_token);
       sessionStorage.setItem('token', authResponse.access_token);
       setCookie('auth_token', authResponse.access_token);
-      
+
       navigate('/profile');
     } catch (error) {
       console.error('Ошибка регистрации:', error);
@@ -50,18 +50,20 @@ const Register: React.FC = () => {
         component="form"
         onSubmit={handleRegister}
         sx={{
-          ...stylesObj.styleBox,
+          ...stylesObj.authBox,
         }}
       >
         <Container>
-          <Typography className={styles.title} variant="h4" color="#1976d2" gutterBottom>
+          <Typography sx={{ ...stylesObj.title }} variant="h4" color="#1976d2" gutterBottom>
             LinguaStep
           </Typography>
-          <Typography className={styles.subtitle} variant="h6" color="text.secondary" gutterBottom>
+          <Typography sx={{ ...stylesObj.subtitle }} variant="h6" color="text.secondary" gutterBottom>
             Регистрация
           </Typography>
         </Container>
-        <RoundedTextField
+
+        <TextField
+          sx={{ ...stylesObj.authTextField }}
           placeholder="Имя"
           value={name}
           onChange={(e) => setName(e.target.value)}
@@ -70,7 +72,9 @@ const Register: React.FC = () => {
           variant="outlined"
           autoComplete="username"
         />
-        <RoundedTextField
+
+        <TextField
+          sx={{ ...stylesObj.authTextField }}
           placeholder="Email"
           type="email"
           value={email}
@@ -80,7 +84,9 @@ const Register: React.FC = () => {
           variant="outlined"
           autoComplete='email'
         />
-        <RoundedTextField
+
+        <TextField
+          sx={{ ...stylesObj.authTextField }}
           placeholder="Ваш пароль"
           type="password"
           value={password}
@@ -90,7 +96,9 @@ const Register: React.FC = () => {
           variant="outlined"
           autoComplete="new-password"
         />
-        <RoundedTextField
+
+        <TextField
+          sx={{ ...stylesObj.authTextField }}
           placeholder="Повторите пароль"
           type="password"
           value={confirmPassword}
@@ -100,26 +108,29 @@ const Register: React.FC = () => {
           variant="outlined"
           autoComplete="new-password"
         />
+
         <Button
-          className={styles.button}
+          sx={{...stylesObj.loginButton, mt: 2 }}
           variant="contained"
           color="primary"
           type="submit"
           disabled={isLoading}
-          sx={{ mt: 2 }}
         >
           Зарегистрироваться
         </Button>
-        <div className={styles.links}>
-          <Link to="/login" className={styles.link}>
+
+        <LoginLinks >
+          <LoginLink to="/login">
             У вас уже есть аккаунт?<p>Войти</p>
-          </Link>
-        </div>
+          </LoginLink>
+        </LoginLinks>
+        
         {isError && (
           <Typography color="error" sx={{ mt: 2 }}>
             Ошибка регистрации. Проверьте данные.
           </Typography>
         )}
+
         {data && (
           <Typography color="success" sx={{ mt: 2 }}>
             Успешная регистрация!
@@ -127,7 +138,7 @@ const Register: React.FC = () => {
         )}
       </Box>
     </Container>
-    );
+  );
 };
 
 export default Register;

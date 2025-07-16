@@ -1,102 +1,96 @@
 import React, { useState } from 'react';
-import { Link , useNavigate } from 'react-router-dom';
-import { Container, Box, Button, TextField, Typography } from '@mui/material';
-import { styled } from '@mui/material/styles';
-import stylesObj from '../../stylesObj';
+import { Link, useNavigate } from 'react-router-dom';
+import { 
+  Container, 
+  Box, 
+  Button, 
+  TextField, 
+  Typography,
+  styled 
+} from '@mui/material';
 import { useAuthUserMutation } from '../../features/auth/authApi';
 import { setCookie } from '../../utils/cookies';
-import styles from './Login.module.scss';
+import { stylesObj} from '../../stylesObj';
 
-const RoundedTextField = styled(TextField)({
-  "& .MuiOutlinedInput-root": {
-    ...stylesObj.RoundedTextField,
-  },
+const LoginLinks = styled('div')({
+  ...stylesObj.loginLinks
+});
+
+const LoginLink = styled(Link)({
+  ...stylesObj.loginLink
 });
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [authUser, { isLoading, isError, data }] = useAuthUserMutation();
-  const navigate = useNavigate()
+  const [authUser, { isLoading, isError }] = useAuthUserMutation();
+  const navigate = useNavigate();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
       const response = await authUser({ username: email, password }).unwrap();
-      // console.log('Токен получен:', response.access_token);
-      // localStorage.setItem('token', response.access_token);
       setCookie('auth_token', response.access_token);
-      navigate('/profile')
+      navigate('/profile');
     } catch (error) {
       console.error('Ошибка входа:', error);
     }
   };
 
   return (
-    <Container sx={{ display: 'flex', alignItems: 'center', height: '100vh' }}>
-      <Box
-        component="form"
-        onSubmit={handleLogin}
-        sx={{
-          ...stylesObj.styleBox,
-        }}
-      >
+    <Container sx={{ display: 'flex', alignItems: 'center', height: '100vh',  }}>
+      <Box sx={{...stylesObj.authBox}} component="form" onSubmit={handleLogin}>
         <Container>
-          <Typography className={styles.title} variant="h4" color="#1976d2" gutterBottom>
+          <Typography 
+            variant="h4" 
+            sx={{ 
+              ...stylesObj.title
+            }}
+          >
             LinguaStep
           </Typography>
-          <Typography className={styles.subtitle} variant="h6" color="text.secondary" gutterBottom>
+          <Typography 
+            variant="h6" 
+            sx={{ 
+            ...stylesObj.subtitle
+            }}
+          >
             Вход
           </Typography>
         </Container>
-        <RoundedTextField
+
+        <TextField
+          sx={{ ...stylesObj.authTextField }}
           placeholder="Email"
           type="email"
-          name="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           fullWidth
           margin="normal"
-          variant="outlined"
-          autoComplete="username"
         />
-        <RoundedTextField
+
+        <TextField
+          sx={{ ...stylesObj.authTextField }}
           placeholder="Ваш пароль"
           type="password"
-          name="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           fullWidth
           margin="normal"
-          variant="outlined"
-          autoComplete="current-password"
         />
-        <Button
-          className={styles.button}
-          variant="contained"
-          color="primary"
-          type="submit"
-          disabled={isLoading}
-          sx={{ mt: 2 }}
-        >
+
+        <Button sx={{ ...stylesObj.loginButton }} type="submit" disabled={isLoading}>
           Войти
         </Button>
-        <div className={styles.links}>
-          <Link to="/reset-password" className={styles.link}>
-            Забыли пароль?
-          </Link>
-          <Link to="/register" className={styles.link}>
-            Нет аккаунта?
-          </Link>
-        </div>
+
+        <LoginLinks>
+          <LoginLink to="/reset-password">Забыли пароль?</LoginLink>
+          <LoginLink to="/register">Нет аккаунта?</LoginLink>
+        </LoginLinks>
+
         {isError && (
           <Typography color="error" sx={{ mt: 2 }}>
             Ошибка входа. Проверьте данные.
-          </Typography>
-        )}
-        {data && (
-          <Typography color="success" sx={{ mt: 2 }}>
-            Успешный вход!
           </Typography>
         )}
       </Box>

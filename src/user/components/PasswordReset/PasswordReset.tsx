@@ -3,13 +3,14 @@ import { Container, Box, Button, TextField, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { Link } from 'react-router-dom';
 import { useResetPasswordMutation } from '../../features/auth/authApi';
-import styles from './PasswordReset.module.scss';
-import stylesObj from '../../stylesObj';
+import { stylesObj } from '../../stylesObj';
 
-const RoundedTextField = styled(TextField)({
-  "& .MuiOutlinedInput-root": {
-    ...stylesObj.RoundedTextField,
-  },
+const LoginLinks = styled('div')({
+  ...stylesObj.loginLinks
+});
+
+const LoginLink = styled(Link)({
+  ...stylesObj.loginLink
 });
 
 const PasswordReset: React.FC = () => {
@@ -32,16 +33,17 @@ const PasswordReset: React.FC = () => {
       onSubmit={handleReset}
       sx={{ display: 'flex', alignItems: 'center', height: '100vh' }}
     >
-      <Box sx={{ ...stylesObj.styleBox }}>
+      <Box sx={{ ...stylesObj.authBox }}>
         <Container>
-          <Typography className={styles.title} variant="h4" color="#1976d2" gutterBottom>
+          <Typography sx={{ ...stylesObj.title }} variant="h4" color="#1976d2" gutterBottom>
             LinguaStep
           </Typography>
-          <Typography className={styles.subtitle} variant="h6" color="text.secondary" gutterBottom>
+          <Typography sx={{ ...stylesObj.subtitle, fontSize: '1.5rem', marginBottom: 0 }} variant="h6" color="text.secondary" gutterBottom>
             Восстановление пароля
           </Typography>
         </Container>
-        <RoundedTextField
+        <TextField
+          sx={{ ...stylesObj.authTextField }}
           placeholder="Email"
           type="email"
           value={email}
@@ -51,18 +53,21 @@ const PasswordReset: React.FC = () => {
           variant="outlined"
         />
         <Button
-          className={styles.button}
+          sx={{ ...stylesObj.loginButton,  mt: 2  }}
           variant="contained"
           color="primary"
           type="submit"
           disabled={isLoading}
-          sx={{ mt: 2 }}
         >
           Отправить
         </Button>
-        <Link to="/login" className={styles.link}>
-          Вернуться к входу
-        </Link>
+
+        <LoginLinks>
+          <LoginLink to="/login">
+            Вернуться к входу
+          </LoginLink>
+        </LoginLinks>
+
         {isError && (
           <Typography color="error" sx={{ mt: 2 }}>
             Ошибка при отправке запроса. Проверьте email.

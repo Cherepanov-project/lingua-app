@@ -6,24 +6,32 @@ import Profile from './user/components/Profile';
 import ProtectedRoute from './user/components/ProtectedRoute';
 import PasswordReset from './user/components/PasswordReset/PasswordReset';
 import HomePage from "./pages/HomePage";
+// import { ThemeProvider } from '@mui/material/styles';
+import { ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import { authTheme } from './user/stylesObj';
 
 const App: React.FC = () => {
   return (
     <Auth0ProviderWithNavigate>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route
-          path="/profile"
-          element={
-            <ProtectedRoute>
-              <Profile />
-            </ProtectedRoute>
-          }
-        />
-        <Route path="/reset-password" element={<PasswordReset />} />
-      </Routes>
+      <ThemeProvider theme={authTheme}>
+        <CssBaseline>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route
+              path="/profile"
+              element={
+                <ProtectedRoute>
+                  <Profile />
+                </ProtectedRoute>
+              }
+            />
+            <Route path="/reset-password" element={<PasswordReset />} />
+          </Routes>
+        </CssBaseline>
+      </ThemeProvider>
     </Auth0ProviderWithNavigate>
   );
 };

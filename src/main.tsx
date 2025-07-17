@@ -31,7 +31,7 @@ const fetchManagementToken = async () => {
 
     const data = await response.json();
     
-    // ! for registration
+    // registration
     // localStorage.setItem('management_token', data.access_token);
     sessionStorage.setItem('management_token', data.access_token);
 
@@ -43,8 +43,10 @@ const fetchManagementToken = async () => {
   }
 };
 
-fetchManagementToken().then((success) => {
-  if (success) {
+// fetchManagementToken().then((success) => {
+fetchManagementToken()
+// .then((success) => {
+//   if (success) {
     ReactDOM.createRoot(document.getElementById('root')!).render(
       <StrictMode>
         <StyledEngineProvider injectFirst>
@@ -56,7 +58,7 @@ fetchManagementToken().then((success) => {
         </StyledEngineProvider>
       </StrictMode>
     );
-  } else {
-    console.error('Не удалось загрузить приложение: management_token не получен');
-  }
-});
+  // } else {
+    // console.error('Не удалось загрузить приложение: management_token не получен');
+  // }
+// });

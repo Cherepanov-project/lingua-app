@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useAuth0 } from '@auth0/auth0-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { 
   Container, 
@@ -6,8 +7,11 @@ import {
   Button, 
   TextField, 
   Typography,
-  styled 
+  styled,
+  Divider
 } from '@mui/material';
+import GoogleIcon from '@mui/icons-material/Google';
+// import GitHubIcon from '@mui/icons-material/GitHub';
 import { useAuthUserMutation } from '../../features/auth/authApi';
 import { setCookie } from '../../utils/cookies';
 import { stylesObj} from '../../stylesObj';
@@ -20,10 +24,17 @@ const LoginLink = styled(Link)({
   ...stylesObj.loginLink
 });
 
+const SocialButton = styled(Button)({
+  margin: '8px 0',
+  textTransform: 'none',
+  fontSize: '1rem',
+});
+
 const Login: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [authUser, { isLoading, isError }] = useAuthUserMutation();
+  const { loginWithRedirect } = useAuth0();
   const navigate = useNavigate();
 
   const handleLogin = async (e: React.FormEvent) => {
@@ -34,6 +45,22 @@ const Login: React.FC = () => {
       navigate('/profile');
     } catch (error) {
       console.error('Ошибка входа:', error);
+    }
+  };
+
+
+    const handleSocialLogin = async (connection: 'google-oauth2' | 'github') => {
+    try {
+      await loginWithRedirect({
+        authorizationParams: {
+          connection,
+          redirect_uri: `${window.location.origin}/auth-callback`,
+          scope: 'openid profile email',
+          audience: import.meta.env.VITE_AUTH0_AUDIENCE,
+        },
+      });
+    } catch (error) {
+      console.error('Ошибка социального входа:', error);
     }
   };
 
@@ -82,6 +109,26 @@ const Login: React.FC = () => {
         <Button sx={{ ...stylesObj.loginButton }} type="submit" disabled={isLoading}>
           Войти
         </Button>
+
+        <Divider sx={{ my: 2 }}>или</Divider>
+
+        <SocialButton
+          variant="outlined"
+          startIcon={<GoogleIcon />}
+          onClick={() => handleSocialLogin('google-oauth2')}
+          fullWidth
+        >
+          Войти через Google
+        </SocialButton>
+
+        {/* <SocialButton
+          variant="outlined"
+          startIcon={<GitHubIcon />}
+          onClick={() => handleSocialLogin('github')}
+          fullWidth
+        >
+          Войти через GitHub
+        </SocialButton> */}
 
         <LoginLinks>
           <LoginLink to="/reset-password">Забыли пароль?</LoginLink>

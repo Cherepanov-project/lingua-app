@@ -1,8 +1,8 @@
-import { useGetUserProfileQuery } from '../features/auth/authApi';
+import { useGetUserProfileQuery } from '../../features/auth/authApi';
 import { jwtDecode } from 'jwt-decode';
 import { Navigate } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import { getCookie, removeCookie } from '../utils/cookies';
+import { getCookie, removeCookie } from '../../utils/cookies';
 
 interface JwtPayload {
   sub: string; // userId в JWT

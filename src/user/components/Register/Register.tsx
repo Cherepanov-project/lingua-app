@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
-import { Container, Box, Button, TextField, Typography } from '@mui/material';
+import { useAuth0 } from '@auth0/auth0-react';
+import { Container, Box, Button, TextField, Typography, Divider } from '@mui/material';
+import GoogleIcon from '@mui/icons-material/Google';
+// import GitHubIcon from '@mui/icons-material/GitHub';
 import { styled } from '@mui/material/styles';
 import { Link, useNavigate } from 'react-router-dom';
 import { useRegisterUserMutation, useAuthUserMutation } from '../../features/auth/authApi';
@@ -14,12 +17,19 @@ const LoginLink = styled(Link)({
   ...stylesObj.loginLink
 });
 
+const SocialButton = styled(Button)({
+  margin: '8px 0',
+  textTransform: 'none',
+  fontSize: '1rem',
+});
+
 const Register: React.FC = () => {
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [registerUser, { isLoading, isError, data }] = useRegisterUserMutation();
+   const { loginWithRedirect } = useAuth0();
   const [authUser] = useAuthUserMutation();
   const navigate = useNavigate();
 
@@ -44,6 +54,24 @@ const Register: React.FC = () => {
     }
   };
 
+
+    const handleSocialLogin = async (connection: 'google-oauth2' | 'github') => {
+    try {
+      await loginWithRedirect({
+        authorizationParams: {
+          connection,
+          redirect_uri: `${window.location.origin}/auth-callback`,
+          scope: 'openid profile email',
+          audience: import.meta.env.VITE_AUTH0_AUDIENCE,
+          // prompt: 'select-account',
+        },
+      });
+    } catch (error) {
+      console.error('Ошибка социального входа:', error);
+    }
+  };
+
+  
   return (
     <Container sx={{ display: 'flex', alignItems: 'center', height: '100vh' }}>
       <Box
@@ -118,6 +146,26 @@ const Register: React.FC = () => {
         >
           Зарегистрироваться
         </Button>
+
+        <Divider sx={{ my: 2 }}>или</Divider>
+
+        <SocialButton
+          variant="outlined"
+          startIcon={<GoogleIcon />}
+          onClick={() => handleSocialLogin('google-oauth2')}
+          fullWidth
+        >
+          Регистрация через Google
+        </SocialButton>
+
+        {/* <SocialButton
+          variant="outlined"
+          startIcon={<GitHubIcon />}
+          onClick={() => handleSocialLogin('github')}
+          fullWidth
+        >
+          Регистрация через GitHub
+        </SocialButton> */}
 
         <LoginLinks >
           <LoginLink to="/login">

@@ -8,6 +8,7 @@ const AdminHeader = () => {
         justifyContent: "space-between",
         backgroundColor: "#FCFDFD",
         p: "30px 50px",
+        borderRadius: "0 30px 0 0"
       }}
     >
       <Box>

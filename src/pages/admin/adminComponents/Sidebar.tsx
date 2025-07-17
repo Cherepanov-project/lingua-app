@@ -22,10 +22,11 @@ const Sidebar = () => {
     <Box
       sx={{
         width: 275,
-        height: 920,
+        height: "calc(100vh - 104px)",
         borderRadius: "30px 0 0 30px",
         bgcolor: "#FDFDFD",
         boxShadow: 3,
+        overflow: "hidden"
       }}
     >
       <Typography

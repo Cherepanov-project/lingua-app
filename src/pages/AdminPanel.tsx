@@ -7,10 +7,10 @@ const AdminPanel = () => {
     <Box
       sx={{
         display: "flex",
-        height: "auto",
+        height: "100vh",
         p: "52px 45px",
-        maxWidth: 1440,
-        margin: "0 auto",
+        // maxWidth: "100vh",
+        // margin: "0 auto",
         boxSizing: "border-box",
         bgcolor: "#F8F8F8",
         gap: "4px",

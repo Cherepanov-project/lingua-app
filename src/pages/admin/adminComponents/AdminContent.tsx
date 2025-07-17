@@ -8,11 +8,12 @@ const AdminContent = () => {
   return (
     <Box
       sx={{
-        width: 1070,
-        height: 920,
+        width: '100vh',
         borderRadius: "0 30px 30px 0",
         bgcolor: "#FCFDFD",
         boxShadow: 3,
+        height: "calc(100vh - 104px)",
+        flex: 1, 
       }}
     >
       <Routes>

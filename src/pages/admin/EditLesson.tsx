@@ -4,7 +4,7 @@ import AddIcon from "@mui/icons-material/Add";
 import "../../shared/styles/Courses.css";
 
 export default function EditLesson() {
-  const { courseId, moduleId, lessonId } = useParams();
+  const { courseId, moduleId } = useParams();
   return (
     <div className="coursesPage">
       <Link to={`/course/${courseId}/module/${moduleId}`}>

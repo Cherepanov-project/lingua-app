@@ -1,0 +1,90 @@
+.coursesPage {
+  padding: 37px 58px;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.coursesList {
+  list-style: none;
+  cursor: pointer;
+}
+
+.titles {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 32px;
+  padding: 38px 0;
+}
+
+.title,
+.courseItem {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+}
+
+.courseSelect {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.languages {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 38px 0;
+}
+
+.courseModules {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.courseOptions {
+  display: flex;
+  flex-direction: column;
+}
+
+.modulesList,
+.lessonsList {
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+.moduleIcons {
+  display: flex;
+  align-items: center;
+}
+.moduleItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.addButton {
+  display: flex;
+  align-items: center;
+}
+
+.fullWidthAccordion {
+  width: 100%;
+}
+
+.moduleLessons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

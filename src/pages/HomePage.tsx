@@ -26,7 +26,7 @@ const HomePage = () => {
       setShowDialog(true);
       return;
     }
-    navigate("/auth");
+    navigate("/login");
   };
 
   const handleAboutClick = () => {

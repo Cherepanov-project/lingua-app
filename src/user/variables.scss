@@ -1,0 +1,19 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap");
+
+$primary-color: #7e94f9;
+
+@mixin manrope-font(
+  $weight: 400,
+  $fontSize: 1rem,
+  $color: $primary-color,
+  $line-height: 50px
+) {
+  font-family: "Manrope", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: $weight;
+  font-style: normal;
+  font-size: $fontSize;
+  color: $color;
+  line-height: $line-height;
+  text-align: center;
+}

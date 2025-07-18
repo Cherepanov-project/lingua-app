@@ -1,0 +1,7 @@
+{
+  "AUTH0_DOMAIN": "dev-yourtenant.eu.auth0.com",
+  "AUTH0_CLIENT_ID": "ваш-client-id",
+  "AUTH0_CLIENT_SECRET": "ваш-client-secret",
+  "AUTH0_KEYWORD_REPLACE_MAPPINGS": {},
+  "AUTH0_ALLOW_DELETE": true
+}

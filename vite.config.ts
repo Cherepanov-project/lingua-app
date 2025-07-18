@@ -10,9 +10,9 @@ export default defineConfig({
   optimizeDeps: {
     include: ['react-router-dom'],
   },
-  fs: {
-      allow: ['.'],
-    },
+  // fs: {
+  //     allow: ['.'],
+  //   },
   server: {
     open: true,
     proxy: {

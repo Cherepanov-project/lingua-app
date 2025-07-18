@@ -132,7 +132,7 @@ const Login: React.FC = () => {
 
         <LoginLinks>
           <LoginLink to="/reset-password">Забыли пароль?</LoginLink>
-          <LoginLink to="/register">Нет аккаунта?</LoginLink>
+          <LoginLink to="/signup">Нет аккаунта?</LoginLink>
         </LoginLinks>
 
         {isError && (

@@ -61,7 +61,7 @@ const Header = () => {
               sx={baseButtonStyles}>
               Зарегистрироваться
             </Button>
-            <NavigationButton to="/auth">Войти</NavigationButton>
+            <NavigationButton to="/login">Войти</NavigationButton>
           </Box>
         </Toolbar>
       </Container>

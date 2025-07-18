@@ -56,12 +56,14 @@ const Header = () => {
 
           <Box display="flex" gap={2}>
             <Button
-              onClick={() => navigate("/signup")}
+              onClick={() => navigate("/register")}
               color="inherit"
               sx={baseButtonStyles}>
               Зарегистрироваться
             </Button>
-            <NavigationButton to="/login">Войти</NavigationButton>
+            <NavigationButton to="/login" variant="contained" color="primary">
+              Войти
+            </NavigationButton>
           </Box>
         </Toolbar>
       </Container>

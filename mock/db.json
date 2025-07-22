@@ -106,9 +106,7 @@
       "id": "c26a",
       "language": "Английский",
       "level": "A1",
-      "modules": [
-        "39da"
-      ],
+      "modules": ["39da"],
       "published": false
     },
     {
@@ -117,32 +115,61 @@
       "level": "A2",
       "modules": [],
       "published": false
-    },
-    {
-      "id": "fb3a",
-      "language": "Немецкий",
-      "level": "A1",
-      "modules": [],
-      "published": false
     }
   ],
   "modules": [
     {
       "id": "39da",
       "name": "Starter Guide",
-      "lessons": [
-        "1abd"
-      ]
+      "lessons": ["1abd"]
     }
   ],
   "lessons": [
     {
       "id": "1abd",
       "name": "sdfsdfsd",
-      "exercises": []
+      "exercises": ["blahblah"]
     }
   ],
-  "listening": [],
-  "reading": [],
-  "tasks": []
+  "exercises": [
+    {
+      "id": "blahblah",
+      "type": "reading",
+      "name": "Reading comprehension 1",
+      "text": "bdsfbkjfgjbjfg",
+      "questions": ["dfkjghdfkjgh"]
+    },
+    {
+      "id": "blahblah2",
+      "type": "listening",
+      "name": "Listening comprehension 1",
+      "text": "bdsfbkjfgjbjfg",
+      "questions": ["dfkjghdfkjgh"]
+    },
+    {
+      "id": "blahblah3",
+      "type": "grammar",
+      "name": "Grammar 101",
+      "questions": ["dfkjghdfkjgh"]
+    }
+  ],
+  "questions": [
+    {
+      "id": "dfkjghdfkjgh",
+      "type": "multiple-choice",
+      "question": "How old is Anna?",
+      "options": [
+        { "value": "21", "correct": false },
+        { "value": "23", "correct": false },
+        { "value": "25", "correct": false },
+        { "value": "27", "correct": true }
+      ]
+    },
+    {
+      "id": "dfkjghdfkjg",
+      "type": "input",
+      "question": "How old is Anna?",
+      "answer": 27
+    }
+  ]
 }

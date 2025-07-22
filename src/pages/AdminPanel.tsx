@@ -8,9 +8,8 @@ const AdminPanel = () => {
       sx={{
         display: "flex",
         height: "100vh",
+        width: "100vw",
         p: "52px 45px",
-        // maxWidth: "100vh",
-        // margin: "0 auto",
         boxSizing: "border-box",
         bgcolor: "#F8F8F8",
         gap: "4px",

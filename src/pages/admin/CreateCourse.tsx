@@ -5,6 +5,7 @@ import {
   MenuItem,
   Button,
 } from "@mui/material";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { Link, useNavigate } from "react-router-dom";
 import {
   useGetLanguagesQuery,
@@ -39,9 +40,10 @@ export default function CreateCourse() {
 
   return (
     <div className="coursesPage">
-      <Link to="/courses">
-        <h2>{`< Все курсы`}</h2>
-      </Link>
+      <Button component={Link} to="/courses">
+        <ArrowBackIcon />
+        <h2>{`Все курсы`}</h2>
+      </Button>
       <h1>Новый курс</h1>
       <div className="courseSelect">
         <FormControl fullWidth>

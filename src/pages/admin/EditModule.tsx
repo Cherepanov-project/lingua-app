@@ -1,11 +1,11 @@
 import { Link, useParams, useNavigate } from "react-router-dom";
 import type { CourseModule } from "../../shared/types/module";
 import type { Lesson } from "../../shared/types/lesson";
-import { TextField } from "@mui/material";
-import Button from "@mui/material/Button";
+import { TextField, Button, Box, Stack, Paper } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import {
   useGetModulesQuery,
   useUpdateLessonsInModuleMutation,
@@ -14,7 +14,6 @@ import {
   useDeleteLessonMutation,
 } from "../../shared/api/languagesApi";
 import { useState } from "react";
-import "../../shared/styles/Courses.css";
 
 export default function EditModule() {
   const { courseId, moduleId } = useParams();
@@ -66,28 +65,52 @@ export default function EditModule() {
     await deleteLesson(lessonId);
   };
 
+  const handleBlur = () => {
+    if (!newLesson.trim()) {
+      setAdding(false);
+    } else {
+      handleSaveLesson();
+    }
+  };
+
   return (
-    <div className="coursesPage">
-      <Link to={`/course/${courseId}`}>
-        <h2>{`< Вернуться к курсу`}</h2>
-      </Link>
+    <Box
+      sx={{
+        padding: "37px 58px",
+      }}
+    >
+      <Button component={Link} to={`/course/${courseId}`}>
+        <ArrowBackIcon /> <h2>{`Вернуться к курсу`}</h2>
+      </Button>
       <h1>{currentCourseModule?.name}</h1>
 
-      <div className="moduleLessons">
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
         <h2>Уроки</h2>
         <Button className="addButton" onClick={handleAddLesson}>
           <AddIcon /> Добавить урок
         </Button>
-      </div>
+      </Box>
       {isLoading ? (
         <div>Загрузка...</div>
       ) : (
-        <ul className="lessonsList">
+        <Stack spacing={2}>
           {currentLessons.map((lesson: Lesson) => (
-            <li key={lesson.id}>
-              <div className="moduleItem">
+            <Paper sx={{ padding: "10px 5px" }} key={lesson.id}>
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                }}
+              >
                 <h3>{lesson.name}</h3>
-                <div className="moduleIcons">
+                <Box sx={{ display: "flex", alignItems: "center" }}>
                   <Button
                     onClick={() =>
                       navigate(
@@ -100,24 +123,25 @@ export default function EditModule() {
                   <Button onClick={() => handleDeleteLesson(lesson.id)}>
                     <DeleteIcon fontSize="small" />
                   </Button>
-                </div>{" "}
-              </div>
-            </li>
+                </Box>{" "}
+              </Box>
+            </Paper>
           ))}
           {adding && (
-            <li style={{ display: "flex", alignItems: "center", gap: 8 }}>
+            <Paper sx={{ display: "flex", alignItems: "center", gap: 8 }}>
               <TextField
                 value={newLesson}
                 onChange={(e) => setNewLesson(e.target.value)}
-                onBlur={handleSaveLesson}
+                onBlur={handleBlur}
+                onKeyDown={(e) => e.key === "Enter" && handleSaveLesson()}
                 autoFocus
-                placeholder="Название модуля"
+                placeholder="Название урока"
                 fullWidth
               />
-            </li>
+            </Paper>
           )}
-        </ul>
+        </Stack>
       )}
-    </div>
+    </Box>
   );
 }

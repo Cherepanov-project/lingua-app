@@ -55,7 +55,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <StyledEngineProvider injectFirst>
       <Provider store={store}>
-        <BrowserRouter>
+        <BrowserRouter basename="/">
           <App />
         </BrowserRouter>
       </Provider>

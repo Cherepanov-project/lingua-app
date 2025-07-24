@@ -17,3 +17,12 @@ yarn global add auth0-deploy-cli
 }
 
 4. Импортировать в свой тенант. Должны будут создаться новые приложения, в том числе M2M; из него взять AUTH0_CLIENT_ID, AUTH0_CLIENT_SECRET, AUTH0_DOMAIN и подставить в .env своего проекта.
+
+(команда для импорта)
+a0deploy import -c .\auth0export\config-target.json -i .\auth0export\auth0exportData\
+
+(заодно команда для экспорта
+
+a0deploy export -c .\auth0export\config-source.json -f directory -o .\auth0export\auth0exportData\
+
+)

@@ -3,12 +3,14 @@ import { Button, Box } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
-import "../../shared/styles/Courses.css";
-
 export default function EditLesson() {
   const { courseId, moduleId } = useParams();
   return (
-    <Box className="coursesPage">
+    <Box
+      sx={{
+        padding: "37px 58px",
+      }}
+    >
       <Button component={Link} to={`/course/${courseId}/module/${moduleId}`}>
         {" "}
         <ArrowBackIcon />

@@ -4,6 +4,7 @@ import {
   Select,
   MenuItem,
   Button,
+  Box,
 } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { Link, useNavigate } from "react-router-dom";
@@ -13,7 +14,6 @@ import {
   useAddCourseMutation,
 } from "../../shared/api/languagesApi";
 import { useState } from "react";
-import "../../shared/styles/Courses.css";
 
 export default function CreateCourse() {
   const { data: languages = [], isLoading: isLanguagesLoading } =
@@ -39,13 +39,17 @@ export default function CreateCourse() {
   };
 
   return (
-    <div className="coursesPage">
+    <Box
+      sx={{
+        padding: "37px 58px",
+      }}
+    >
       <Button component={Link} to="/courses">
         <ArrowBackIcon />
         <h2>{`Все курсы`}</h2>
       </Button>
       <h1>Новый курс</h1>
-      <div className="courseSelect">
+      <Box sx={{ display: "flex", gap: "2rem", flexDirection: "column" }}>
         <FormControl fullWidth>
           <InputLabel id="demo-simple-select-label">Выбрать язык</InputLabel>
           <Select
@@ -87,8 +91,12 @@ export default function CreateCourse() {
             )}
           </Select>
         </FormControl>
-        <Button onClick={() => handleAddCourse()}>Далее</Button>{" "}
-      </div>
-    </div>
+        <Box sx={{ display: "flex", justifyContent: "center" }}>
+          <Button variant="outlined" onClick={handleAddCourse}>
+            Далее
+          </Button>
+        </Box>
+      </Box>
+    </Box>
   );
 }

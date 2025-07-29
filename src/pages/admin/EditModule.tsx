@@ -92,7 +92,7 @@ export default function EditModule() {
         }}
       >
         <h2>Уроки</h2>
-        <Button className="addButton" onClick={handleAddLesson}>
+        <Button onClick={handleAddLesson}>
           <AddIcon /> Добавить урок
         </Button>
       </Box>

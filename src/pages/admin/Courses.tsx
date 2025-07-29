@@ -155,16 +155,24 @@ export default function Courses() {
           marginBottom: "16px",
           display: "flex",
           alignItems: "center",
-          gap: "16px",
+          gap: "50rem",
           width: "100%",
         }}
       >
-        <Search sx={{ display: "flex", alignItems: "center", flex: 1 }}>
+        <Search
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            flex: 1,
+            border: "#878787 solid 1px",
+            borderRadius: "10px",
+          }}
+        >
           <SearchIconWrapper>
-            <SearchIcon />
+            <SearchIcon sx={{ color: "#878787" }} />
           </SearchIconWrapper>
           <StyledInputBase
-            placeholder="Поиск…"
+            placeholder="Поиск курсов…"
             inputProps={{ "aria-label": "search" }}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}

@@ -1,7 +1,6 @@
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import type { ReactNode } from "react";
-import { baseButtonStyles } from "../../shared/styles/buttonStyles";
 
 interface NavigationButtonProps {
   to: string;
@@ -31,7 +30,7 @@ const NavigationButton = ({
       color={color}
       onClick={handleClick}
       sx={{
-        ...baseButtonStyles,
+        textTransform: "none",
         fontSize: 16,
         padding: "6px 24px",
         borderRadius: 999,

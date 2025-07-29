@@ -10,7 +10,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import Header from "../shared/components/Header";
-import Footer from "../shared/components/Footer/Footer";
+import Footer from "../shared/components/Footer";
 import LanguagesBlock from "../shared/components/LanguagesBlock/LanguagesBlock";
 import StatsSection from "../shared/components/StatsSection/StatsSection";
 import AboutSection from "../shared/components/AboutSection/AboutSection";

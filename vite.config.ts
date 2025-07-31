@@ -17,7 +17,7 @@ export default defineConfig({
     open: true,
     proxy: {
       '/auth0': {
-        target: 'https://dev-vsjevx5h8rqzm6di.us.auth0.com',
+        target: 'https://dev-algp1r6iwu3eliy2.eu.auth0.com',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/auth0/, ''),
         secure: false,

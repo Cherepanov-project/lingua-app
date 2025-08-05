@@ -1,12 +1,22 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { authApi } from '../user/features/auth/authApi';
+import { languagesApi } from '../shared/api/languagesApi';
+import { usersApi } from '../shared/api/usersApi';
+import { picturesApi } from '../shared/api/picturesApi';
 
 export const store = configureStore({
   reducer: {
     [authApi.reducerPath]: authApi.reducer,
+    [languagesApi.reducerPath]: languagesApi.reducer,
+    [usersApi.reducerPath]: usersApi.reducer,
+    [picturesApi.reducerPath]: picturesApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(authApi.middleware),
+    getDefaultMiddleware()
+      .concat(authApi.middleware)
+      .concat(languagesApi.middleware)
+      .concat(usersApi.middleware)
+      .concat(picturesApi.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

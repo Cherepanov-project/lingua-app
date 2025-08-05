@@ -31,7 +31,7 @@ const App: React.FC = () => {
             />
             <Route path="/reset-password" element={<PasswordReset />} />
             <Route path='/auth-callback' element={<AuthCallback />} />
-            <Route path='/admin' element={<AdminPanel />} />
+            <Route path='/admin/*' element={<AdminPanel />} />
           </Routes>
         </CssBaseline>
       </ThemeProvider>

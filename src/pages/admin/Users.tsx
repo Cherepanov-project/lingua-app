@@ -10,7 +10,7 @@ import { useState } from "react";
 
 const Users = () => {
   const { data: users = [] } = useGetUsersQuery();
-  console.log(users);
+  // console.log(users);
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [selectedRow, setSelectedRow] = useState<null | number>(null);

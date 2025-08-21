@@ -19,7 +19,6 @@ interface JwtPayload {
 }
 
 const Profile: React.FC = () => {
-  // const navigate = useNavigate()
   const token = getCookie('auth_token')
 
   let userId: string | undefined
@@ -62,16 +61,10 @@ const Profile: React.FC = () => {
     return <div>Ошибка загрузки профиля</div>
   }
 
-  // const handleLogout = () => {
-  //   removeCookie('auth_token')
-  //   navigate('/login')
-  // }
-
   return (
     <Container maxWidth={'xl'} disableGutters>
       <Stack direction={'row'} useFlexGap sx={{ height: '100vh', backgroundColor: 'white' }}>
         <ProfileSidebarLeft />
-
         <Stack
           component={'main'}
           sx={{
@@ -83,7 +76,6 @@ const Profile: React.FC = () => {
           }}
         >
           <ProfileHeader userProfile={userProfile} />
-
           <Grid component={'section'} rowSpacing={5} columnSpacing={10} container>
             <Grid size={7}>
               <ProfileWidgetPlanToday />

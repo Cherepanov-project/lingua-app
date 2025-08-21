@@ -2,14 +2,12 @@ import { Stack } from '@mui/material'
 import { Typography } from '@mui/material'
 import { ProfileNavigationList } from './ProfileNavigationList'
 
-// ProfileSidebarLeft
-
 const ProfileSidebarLeft = () => {
   return (
     <Stack
       component={'aside'}
       sx={{
-        width: '35%',
+        minWidth: '377px',
         padding: '33px 0',
         borderTopRightRadius: '40px',
         borderBottomRightRadius: '40px',

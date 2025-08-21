@@ -1,12 +1,14 @@
 import { StrictMode } from "react";
-import ReactDOM from 'react-dom/client';
-import { Provider } from 'react-redux';
-import { BrowserRouter } from 'react-router-dom';
-import { store } from './store/store';
-import { StyledEngineProvider } from '@mui/material';
-import { getCookie } from './user/utils/cookies';
-import App from './App';
-import './user/variables.scss';
+import ReactDOM from "react-dom/client";
+import { Provider } from "react-redux";
+import { BrowserRouter } from "react-router-dom";
+import { store } from "./store/store";
+import { StyledEngineProvider } from "@mui/material";
+// import { getCookie, setCookie } from './user/utils/cookies';
+import { getCookie } from "./user/utils/cookies";
+import App from "./App";
+
+import "./user/variables.scss";
 
 const fetchManagementToken = async () => {
   try {

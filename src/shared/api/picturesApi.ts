@@ -1,32 +1,18 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-
-const JSONBIN_BASE_URL = "https://api.jsonbin.io/v3";
-const JSONBIN_API_KEY = "$2a$10$ltfhYjgQ4XrIqAKXBw.QZuzJP4bMWkHhHKeT9ZVUwgUBaEk1.vGfm";
-const JSONBIN_BIN_ID = "688a53a37b4b8670d8a9f543";
-
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 type Picture = {
-  id: number | string;
-  img: string;
-  title: string;
-  tag: string;
+  id: number
+  img: string
+  title: string
+  tag: string
 }
 
 export const picturesApi = createApi({
-  reducerPath: 'picturesApi',
-  baseQuery: fetchBaseQuery({
-    baseUrl: JSONBIN_BASE_URL,
-    prepareHeaders: (headers) => {
-      headers.set("X-Master-Key", JSONBIN_API_KEY);
-      headers.set("Content-Type", "application/json");
-      return headers;
-    },
-  }),
+  reducerPath: 'userPictures',
+  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:3001/' }),
   tagTypes: ['Pictures'],
   endpoints: (builder) => ({
     getPictures: builder.query<Picture[], void>({
-      query: () => `/b/${JSONBIN_BIN_ID}`,
-      transformResponse: (response: { record: { pictures: Picture[] } }) => 
-        response.record.pictures || [],
+      query: () => 'pictures',
       providesTags: (result) =>
         result
           ? [
@@ -36,33 +22,22 @@ export const picturesApi = createApi({
           : [{ type: 'Pictures', id: 'LIST' }],
     }),
     
-    getPicture: builder.query<Picture, number | string>({
-      query: (id) => ({
-        url: `/b/${JSONBIN_BIN_ID}`,
-        params: { id },
-      }),
-      transformResponse: (response: { record: { pictures: Picture[] } }, _meta, arg) => {
-        const picture = response.record.pictures.find(p => p.id === arg);
-        if (!picture) {
-          throw new Error(`Picture with id ${arg} not found`);
-        }
-        return picture;
-      },
-      providesTags: (_result, _error, arg) => [{ type: 'Pictures', id: arg }],
+    getPicture: builder.query<Picture, number>({
+      query: (id) => `pictures/${id}`,
+      providesTags: (_result, _error, id) => [{ type: 'Pictures', id }],
     }),
     
-    addPicture: builder.mutation<Picture, Omit<Picture, 'id'> & { id?: number | string }>({
+    addPicture: builder.mutation<Picture, Omit<Picture, 'id'>>({
       query: (newPicture) => ({
-        url: `/b/${JSONBIN_BIN_ID}`,
-        method: 'PUT',
-        body: {
-          pictures: [newPicture]
-        },
+        url: 'pictures',
+        method: 'POST',
+        body: newPicture,
       }),
-      invalidatesTags: [{ type: 'Pictures', id: 'LIST' }],
+      invalidatesTags: [{ type: 'Pictures', id: 'LIST' }], 
     }),
   }),
 });
+
 
 export const { 
   useGetPicturesQuery, 

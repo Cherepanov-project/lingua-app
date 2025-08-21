@@ -25,3 +25,4 @@ auth0export/config-source.json
 *.njsproj
 *.sln
 *.sw?
+.vercel

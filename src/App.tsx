@@ -8,6 +8,7 @@ import AuthCallback from './user/components/AuthCallback';
 import ProtectedRoute from './user/components/ProtectedRoute';
 import PasswordReset from './user/components/PasswordReset/PasswordReset';
 import HomePage from "./pages/HomePage";
+import MatchGame from "./pages/MatchGame"
 
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -34,6 +35,7 @@ const App: React.FC = () => {
             <Route path="/reset-password" element={<PasswordReset />} />
             <Route path='/auth-callback' element={<AuthCallback />} />
             <Route path='/admin/*' element={<AdminPanel />} />
+            <Route path='/matchGame' element = {<MatchGame/>}/>
           </Routes>
         </CssBaseline>
       </ThemeProvider>

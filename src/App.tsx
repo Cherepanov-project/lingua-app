@@ -16,6 +16,7 @@ import ListeningExercise from "./pages/admin/ListeningExercise.tsx";
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { authTheme } from "./user/stylesObj";
+import AdminPanel from './pages/AdminPanel';
 
 const App: React.FC = () => {
   return (
@@ -51,6 +52,7 @@ const App: React.FC = () => {
               path="/course/:courseId/module/:moduleId/lesson/:lessonId/listening"
               element={<ListeningExercise />}
             />
+            <Route path='/admin/*' element={<AdminPanel />} />
           </Routes>
         </CssBaseline>
       </ThemeProvider>

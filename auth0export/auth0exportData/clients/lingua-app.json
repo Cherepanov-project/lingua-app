@@ -19,14 +19,16 @@
   "allowed_logout_urls": [
     "http://localhost:5173",
     "http://localhost:5174",
-    "http://localhost:3000"
+    "http://localhost:3000",
+    "https://lingua-app-psi.vercel.app"
   ],
   "callbacks": [
     "http://localhost:5173",
     "http://localhost:5174",
     "http://localhost:3000",
     "http://localhost:5173/auth-callback",
-    "http://localhost:3000/auth-callback"
+    "http://localhost:3000/auth-callback",
+    "https://lingua-app-psi.vercel.app/auth-callback"
   ],
   "native_social_login": {
     "apple": {
@@ -39,7 +41,8 @@
   "allowed_origins": [
     "http://localhost:5173",
     "http://localhost:5174",
-    "http://localhost:3000"
+    "http://localhost:3000",
+    "https://lingua-app-psi.vercel.app"
   ],
   "jwt_configuration": {
     "alg": "RS256",
@@ -60,7 +63,8 @@
   "web_origins": [
     "http://localhost:5173",
     "http://localhost:5174",
-    "http://localhost:3000"
+    "http://localhost:3000",
+    "https://lingua-app-psi.vercel.app"
   ],
   "custom_login_page_on": true
 }

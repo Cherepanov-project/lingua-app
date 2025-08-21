@@ -104,6 +104,15 @@
       "level": "A2",
       "modules": [],
       "published": false
+    },
+    {
+      "language": "Французский",
+      "level": "A2",
+      "modules": [
+        "EkwC6lJ"
+      ],
+      "published": false,
+      "id": "ity60Hr"
     }
   ],
   "modules": [
@@ -113,6 +122,11 @@
       "lessons": [
         "1abd"
       ]
+    },
+    {
+      "name": "fjhfhgkj",
+      "lessons": [],
+      "id": "EkwC6lJ"
     }
   ],
   "lessons": [
@@ -299,6 +313,12 @@
       "title": "велосипед",
       "tag": "l2",
       "img": "https://images.unsplash.com/photo-1589118949245-7d38baf380d6"
+    },
+    {
+      "title": "star wars",
+      "tag": "starwars",
+      "img": "https://avatars.mds.yandex.net/i?id=8f88a66d14b81337889819c4d9bc3e13_l-3027871-images-thumbs&n=13",
+      "id": 4
     }
   ]
 }

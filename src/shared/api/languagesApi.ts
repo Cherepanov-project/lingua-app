@@ -37,7 +37,6 @@ const mockBaseQuery: BaseQueryFn<
       return { data: mockModules };
     case "/lessons":
       return { data: mockLessons };
-
     default:
       return {
         error: {

@@ -32,7 +32,7 @@ interface PasswordResetRequest {
 export const authApi = createApi({
   reducerPath: 'authApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://dev-vsjevx5h8rqzm6di.us.auth0.com',
+    baseUrl: '/auth0',
   }),
   endpoints: (builder) => ({
     getUserProfile: builder.query<UserProfile, string>({

@@ -1,33 +1,7 @@
 import { Typography } from '@mui/material'
 import { Stack } from '@mui/material'
 import { ProfileWidgetSlider } from './ProfileWidgetSlider'
-
-const sliderData = [
-  {
-    title: 'Present Simple',
-    imageUrl: './grammar-image-document.png',
-  },
-  {
-    title: 'Present Perfect',
-    imageUrl: './grammar-image-document.png',
-  },
-  {
-    title: 'Past Simple',
-    imageUrl: './grammar-image-document.png',
-  },
-  {
-    title: 'Present Simple',
-    imageUrl: './grammar-image-document.png',
-  },
-  {
-    title: 'Present Perfect',
-    imageUrl: './grammar-image-document.png',
-  },
-  {
-    title: 'Past Simple',
-    imageUrl: './grammar-image-document.png',
-  },
-]
+import { mockDataGrammarSlider } from './constants'
 
 const ProfileWidgetGrammar = () => {
   return (
@@ -35,7 +9,7 @@ const ProfileWidgetGrammar = () => {
       <Stack sx={{ minHeight: '100px' }}>
         <Typography variant="h4">Грамматика</Typography>
       </Stack>
-      <ProfileWidgetSlider itemList={sliderData} />
+      <ProfileWidgetSlider itemList={mockDataGrammarSlider} />
     </Stack>
   )
 }

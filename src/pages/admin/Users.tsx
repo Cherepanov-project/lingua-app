@@ -1,24 +1,17 @@
-import { Typography, Box, IconButton } from "@mui/material";
-import { DataGrid } from "@mui/x-data-grid";
-import type { GridColDef } from "@mui/x-data-grid";
-import { useGetUsersQuery } from "../../shared/api/usersApi";
+import { Typography, Box, IconButton, Menu, MenuItem } from "@mui/material";
+import { DataGrid, type GridColDef } from "@mui/x-data-grid";
+import { useGetUsersQuery, type Auth0User } from "../../shared/api/usersApi";
 import UserIcon from "../../assets/VectorIcon.svg";
-
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz';import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import { useState } from "react";
 
 const Users = () => {
-  const { data: users = [] } = useGetUsersQuery();
-  console.log(users);
+  const { data: users = [], isLoading } = useGetUsersQuery();
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const [selectedRow, setSelectedRow] = useState<null | number>(null);
+  const [selectedRow, setSelectedRow] = useState<null | string>(null);
 
-  const handleMenuClick = (
-    event: React.MouseEvent<HTMLButtonElement>,
-    id: number
-  ) => {
+  const handleMenuClick = (event: React.MouseEvent<HTMLButtonElement>, id: string) => {
     event.stopPropagation();
     setAnchorEl(event.currentTarget);
     setSelectedRow(id);
@@ -29,69 +22,45 @@ const Users = () => {
     setSelectedRow(null);
   };
 
-  interface User {
-    id: number;
-    name: string;
-    email: string;
-    activeCourses: number;
-    language: string;
-    registrationDate: string;
-  }
-
-  const columns: GridColDef<User>[] = [
+  const columns: GridColDef<Auth0User>[] = [
     {
       field: "name",
       headerName: "Имя",
-      flex: 1,
-      headerClassName: "header-font", // Применяем класс к заголовку
-      cellClassName: "name-cell", // Применяем класс к ячейкам
-      sortable: false,
-      headerAlign: "left", // Заголовок слева
-      align: "left", // Содержимое слева
+      flex: 1.5,
       renderCell: (params) => (
-        <Box
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            gap: "19px",
-            width: "100%",
-            paddingLeft: "5px",
-          }}
-        >
-          <img src={UserIcon} alt="User" />
-          {params.value}
+        <Box sx={{ display: "flex", alignItems: "center", gap: "12px" }}>
+          <img
+            src={params.row.picture || UserIcon}
+            alt="User"
+            height="40"
+            width="40"
+            style={{ borderRadius: '50%', display: 'block' }}
+          />
+          <Typography variant="body2" sx={{ fontWeight: 700, color: '#2D3748' }}>
+            {params.value}
+          </Typography>
         </Box>
       ),
     },
     {
       field: "email",
       headerName: "Email",
-      flex: 1,
-      headerClassName: "header-font",
-      cellClassName: "regular-cell",
-      sortable: false,
-      headerAlign: "center",
-      align: "center",
+      flex: 1.5,
     },
     {
-      field: "activeCourses",
-      headerName: "Активные Курсы",
+      field: "logins_count",
+      headerName: "Кол-во входов",
       flex: 1,
-      headerClassName: "header-font",
-      cellClassName: "regular-cell",
-      sortable: false,
-      headerAlign: "center",
-      align: "center",
+      align: 'center',
+      headerAlign: 'center',
     },
     {
-      field: "registrationDate",
+      field: "created_at",
       headerName: "Дата регистрации",
       flex: 1,
-      headerClassName: "header-font",
-      cellClassName: "regular-cell",
-      sortable: false,
-      headerAlign: "center",
-      align: "center",
+      align: 'center',
+      headerAlign: 'center',
+      renderCell: (params) => new Date(params.value).toLocaleDateString(),
     },
     {
       field: "actions",
@@ -101,28 +70,14 @@ const Users = () => {
       filterable: false,
       disableColumnMenu: true,
       align: "center",
-      headerAlign: "center",
       renderCell: (params) => (
         <>
-          <IconButton
-            aria-label="menu"
-            onClick={(e) => handleMenuClick(e, params.row.id)}
-            sx={{
-              padding: "8px",
-              "&:hover": {
-                backgroundColor: "rgba(0, 0, 0, 0.04)",
-              },
-            }}
-          >
+          <IconButton aria-label="menu" onClick={(e) => handleMenuClick(e, params.row.user_id)}>
             <MoreHorizIcon fontSize="small" />
           </IconButton>
-          <Menu
-            anchorEl={anchorEl}
-            open={selectedRow === params.row.id && Boolean(anchorEl)}
-            onClose={handleMenuClose}
-          >
+          <Menu anchorEl={anchorEl} open={selectedRow === params.row.user_id && Boolean(anchorEl)} onClose={handleMenuClose}>
             <MenuItem onClick={handleMenuClose}>Изменить</MenuItem>
-            <MenuItem onClick={handleMenuClose}>Деактивировать</MenuItem>
+            <MenuItem onClick={handleMenuClose} sx={{ color: 'red' }}>Деактивировать</MenuItem>
           </Menu>
         </>
       ),
@@ -131,68 +86,56 @@ const Users = () => {
 
   return (
     <Box>
-      <Typography
-        sx={{
-          fontSize: "40px",
-          fontWeight: 600,
-          lineHeight: "70px",
-          p: "37px 58px",
-        }}
-      >
+      <Typography sx={{ fontSize: "24px", fontWeight: 700, p: "32px 58px" }}>
         Пользователи
       </Typography>
 
-      <Box sx={{ p: "32px 58px" }}>
+      <Box sx={{ p: "0 58px 32px 58px" }}>
         <DataGrid
           rows={users}
           columns={columns}
+          getRowId={(row) => row.user_id}
+          loading={isLoading}
           disableColumnMenu
-          disableColumnFilter
-          disableColumnResize
-          disableColumnSelector
           disableRowSelectionOnClick
           hideFooter
-          rowHeight={100}
+          rowHeight={70}
           sx={{
-            border: "none",
-            fontFamily: "'Roboto', sans-serif",
-            // padding: '30px 30',
-
-            // Стили для заголовков колонок
-            "& .header-font": {
-              fontSize: "24px",
-              fontWeight: 600,
-              color: "rgb(135, 135, 135);",
+            backgroundColor: '#FFFFFF',
+            border: 'none',
+            '& .MuiDataGrid-columnSeparator': {
+              display: 'none',
             },
-
-            // Стили для ячеек с именем
-            "& .name-cell": {
-              fontSize: "24px",
+            // границы
+            '& .MuiDataGrid-cell, & .MuiDataGrid-columnHeader': {
+              borderBottom: '1px solid #F0F0F0',
+            },
+            // заголовки
+            '& .MuiDataGrid-columnHeader': {
+              backgroundColor: '#FFFFFF !important',
+              display: 'flex',
+              alignItems: 'center',
+              '& .MuiDataGrid-columnHeaderTitle': {
+                fontWeight: 600,
+                fontSize: '12px',
+                color: '#000000 !important',
+                textTransform: 'uppercase',
+              }
+            },
+            '& .MuiDataGrid-cell': {
+              display: 'flex',
+              alignItems: 'center',
+              color: '#2D3748',
               fontWeight: 500,
+              fontSize: '14px',
+              '&:focus, &:focus-within': {
+                outline: 'none !important',
+              },
             },
-
-            // Стили для остальных ячеек
-            "& .regular-cell": {
-              fontSize: "24px",
-              fontWeight: 400,
-              color: "rgb(117, 117, 117);",
-            },
-
-            // Границы
-            "& .MuiDataGrid-cell": {
-              borderBottom: "1px solid rgba(224, 224, 224, 0.5)",
-              borderRight: "none",
-            },
-            "& .MuiDataGrid-columnHeaders": {
-              borderBottom: "1px solid rgba(224, 224, 224, 0.8)",
-              borderRight: "none",
-            },
-            "& .MuiDataGrid-row:last-child .MuiDataGrid-cell": {
-              borderBottom: "none",
-            },
-            "& .MuiDataGrid-columnSeparator": {
-              // Убираем разделители колонок
-              display: "none",
+            '& .MuiDataGrid-virtualScrollerRenderZone > .MuiDataGrid-row:last-of-type': {
+              '& .MuiDataGrid-cell': {
+                borderBottom: 'none',
+              },
             },
           }}
         />

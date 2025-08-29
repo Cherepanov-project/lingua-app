@@ -18,9 +18,9 @@
   "dependencies": {
     "@auth0/auth0-react": "^2.3.0",
     "@emotion/react": "^11.14.0",
-    "@emotion/styled": "^11.14.0",
-    "@mui/icons-material": "^7.1.2",
-    "@mui/material": "^7.1.2",
+    "@emotion/styled": "^11.14.1",
+    "@mui/icons-material": "^7.3.1",
+    "@mui/material": "^7.3.1",
     "@mui/x-data-grid": "^8.7.0",
     "@reduxjs/toolkit": "^2.8.2",
     "json-server": "0.17.4",
@@ -29,7 +29,8 @@
     "react-dom": "^19.1.0",
     "react-redux": "^9.2.0",
     "react-router-dom": "^7.6.2",
-    "sass-embedded": "^1.89.2"
+    "sass-embedded": "^1.89.2",
+    "swiper": "^11.2.10"
   },
   "devDependencies": {
     "@eslint/js": "^9.25.0",

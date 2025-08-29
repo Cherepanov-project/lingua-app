@@ -3,35 +3,22 @@ import { DataGrid } from "@mui/x-data-grid";
 import type { GridColDef } from "@mui/x-data-grid";
 import { useGetUsersQuery } from "../../shared/api/usersApi";
 import UserIcon from "../../assets/VectorIcon.svg";
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-import Menu from "@mui/material/Menu";
+
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { useState } from "react";
 
-interface User {
-  id: number;
-  name: string;
-  email: string;
-  activeCourses: number;
-  language: string;
-  registrationDate: string;
-}
-
 const Users = () => {
-  const { data: apiUsers = [] } = useGetUsersQuery();
-  
-  // Преобразование данных из API
-  const users: User[] = apiUsers.map(user => ({
-    ...user,
-    id: Number(user.id),
-    activeCourses: Number(user.activeCourses) || 0,
-    registrationDate: formatDate(user.registrationDate)
-  }));
+  const { data: users = [] } = useGetUsersQuery();
+  console.log(users);
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [selectedRow, setSelectedRow] = useState<null | number>(null);
 
-  const handleMenuClick = (event: React.MouseEvent<HTMLButtonElement>, id: number) => {
+  const handleMenuClick = (
+    event: React.MouseEvent<HTMLButtonElement>,
+    id: number
+  ) => {
     event.stopPropagation();
     setAnchorEl(event.currentTarget);
     setSelectedRow(id);
@@ -42,14 +29,13 @@ const Users = () => {
     setSelectedRow(null);
   };
 
-  // Форматирование даты
-  function formatDate(dateString: string): string {
-    const options: Intl.DateTimeFormatOptions = { 
-      year: 'numeric', 
-      month: 'long', 
-      day: 'numeric' 
-    };
-    return new Date(dateString).toLocaleDateString('ru-RU', options);
+  interface User {
+    id: number;
+    name: string;
+    email: string;
+    activeCourses: number;
+    language: string;
+    registrationDate: string;
   }
 
   const columns: GridColDef<User>[] = [
@@ -57,21 +43,23 @@ const Users = () => {
       field: "name",
       headerName: "Имя",
       flex: 1,
-      headerClassName: "header-font",
-      cellClassName: "name-cell",
+      headerClassName: "header-font", // Применяем класс к заголовку
+      cellClassName: "name-cell", // Применяем класс к ячейкам
       sortable: false,
-      headerAlign: "left",
-      align: "left",
+      headerAlign: "left", // Заголовок слева
+      align: "left", // Содержимое слева
       renderCell: (params) => (
-        <Box sx={{ 
-          display: "flex", 
-          alignItems: "center", 
-          gap: "19px", 
-          width: "100%", 
-          paddingLeft: "5px" 
-        }}>
-          <img src={UserIcon} alt="User" width={24} height={24} />
-          <Typography variant="body1">{params.value}</Typography>
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            gap: "19px",
+            width: "100%",
+            paddingLeft: "5px",
+          }}
+        >
+          <img src={UserIcon} alt="User" />
+          {params.value}
         </Box>
       ),
     },
@@ -84,35 +72,16 @@ const Users = () => {
       sortable: false,
       headerAlign: "center",
       align: "center",
-      renderCell: (params) => (
-        <Typography variant="body1">{params.value}</Typography>
-      ),
     },
     {
       field: "activeCourses",
-      headerName: "Активные курсы",
+      headerName: "Активные Курсы",
       flex: 1,
       headerClassName: "header-font",
       cellClassName: "regular-cell",
       sortable: false,
       headerAlign: "center",
       align: "center",
-      renderCell: (params) => (
-        <Typography variant="body1">{params.value}</Typography>
-      ),
-    },
-    {
-      field: "language",
-      headerName: "Язык",
-      flex: 1,
-      headerClassName: "header-font",
-      cellClassName: "regular-cell",
-      sortable: false,
-      headerAlign: "center",
-      align: "center",
-      renderCell: (params) => (
-        <Typography variant="body1">{params.value}</Typography>
-      ),
     },
     {
       field: "registrationDate",
@@ -123,9 +92,6 @@ const Users = () => {
       sortable: false,
       headerAlign: "center",
       align: "center",
-      renderCell: (params) => (
-        <Typography variant="body1">{params.value}</Typography>
-      ),
     },
     {
       field: "actions",
@@ -141,11 +107,11 @@ const Users = () => {
           <IconButton
             aria-label="menu"
             onClick={(e) => handleMenuClick(e, params.row.id)}
-            sx={{ 
-              padding: "8px", 
-              "&:hover": { 
-                backgroundColor: "rgba(0, 0, 0, 0.04)" 
-              } 
+            sx={{
+              padding: "8px",
+              "&:hover": {
+                backgroundColor: "rgba(0, 0, 0, 0.04)",
+              },
             }}
           >
             <MoreHorizIcon fontSize="small" />
@@ -154,18 +120,9 @@ const Users = () => {
             anchorEl={anchorEl}
             open={selectedRow === params.row.id && Boolean(anchorEl)}
             onClose={handleMenuClose}
-            anchorOrigin={{
-              vertical: 'bottom',
-              horizontal: 'right',
-            }}
-            transformOrigin={{
-              vertical: 'top',
-              horizontal: 'right',
-            }}
           >
             <MenuItem onClick={handleMenuClose}>Изменить</MenuItem>
             <MenuItem onClick={handleMenuClose}>Деактивировать</MenuItem>
-            <MenuItem onClick={handleMenuClose}>Удалить</MenuItem>
           </Menu>
         </>
       ),
@@ -173,20 +130,19 @@ const Users = () => {
   ];
 
   return (
-    <Box sx={{ backgroundColor: '#FCFDFD', minHeight: '100vh' }}>
-      <Typography 
-        sx={{ 
-          fontSize: "40px", 
-          fontWeight: 600, 
-          lineHeight: "70px", 
+    <Box>
+      <Typography
+        sx={{
+          fontSize: "40px",
+          fontWeight: 600,
+          lineHeight: "70px",
           p: "37px 58px",
-          color: '#333333'
         }}
       >
         Пользователи
       </Typography>
 
-      <Box sx={{ p: "32px 58px", backgroundColor: 'white', borderRadius: '8px', boxShadow: 3 }}>
+      <Box sx={{ p: "32px 58px" }}>
         <DataGrid
           rows={users}
           columns={columns}
@@ -196,49 +152,49 @@ const Users = () => {
           disableColumnSelector
           disableRowSelectionOnClick
           hideFooter
-          rowHeight={80}
+          rowHeight={100}
           sx={{
             border: "none",
             fontFamily: "'Roboto', sans-serif",
-            '& .MuiDataGrid-virtualScroller': {
-              overflowX: 'hidden',
-            },
+            // padding: '30px 30',
+
+            // Стили для заголовков колонок
             "& .header-font": {
-              fontSize: "20px",
+              fontSize: "24px",
               fontWeight: 600,
-              color: "rgb(135, 135, 135)",
+              color: "rgb(135, 135, 135);",
             },
+
+            // Стили для ячеек с именем
             "& .name-cell": {
-              fontSize: "18px",
+              fontSize: "24px",
               fontWeight: 500,
-              color: '#333333',
             },
+
+            // Стили для остальных ячеек
             "& .regular-cell": {
-              fontSize: "16px",
+              fontSize: "24px",
               fontWeight: 400,
-              color: "rgb(117, 117, 117)",
+              color: "rgb(117, 117, 117);",
             },
+
+            // Границы
             "& .MuiDataGrid-cell": {
               borderBottom: "1px solid rgba(224, 224, 224, 0.5)",
               borderRight: "none",
-              py: 2,
             },
             "& .MuiDataGrid-columnHeaders": {
               borderBottom: "1px solid rgba(224, 224, 224, 0.8)",
               borderRight: "none",
-              backgroundColor: '#f9f9f9',
-            },
-            "& .MuiDataGrid-row:hover": {
-              backgroundColor: 'rgba(0, 0, 0, 0.02)',
             },
             "& .MuiDataGrid-row:last-child .MuiDataGrid-cell": {
               borderBottom: "none",
             },
             "& .MuiDataGrid-columnSeparator": {
+              // Убираем разделители колонок
               display: "none",
             },
           }}
-          getRowId={(row) => row.id}
         />
       </Box>
     </Box>

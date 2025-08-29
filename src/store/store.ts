@@ -1,6 +1,6 @@
-import { configureStore } from '@reduxjs/toolkit';
-import { authApi } from '../user/features/auth/authApi';
-import { languagesApi } from '../shared/api/languagesApi';
+import { configureStore } from "@reduxjs/toolkit";
+import { authApi } from "../user/features/auth/authApi";
+import { languagesApi } from "../shared/api/languagesApi";
 import { usersApi } from '../shared/api/usersApi';
 import { picturesApi } from '../shared/api/picturesApi';
 

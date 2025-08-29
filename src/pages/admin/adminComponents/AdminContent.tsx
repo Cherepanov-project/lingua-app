@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import AdminHome from "../AdminHome";
 import Users from "../../admin/Users";
 import Pictures from "../../admin/Pictures";
+import Courses from "../Courses";
 
 const AdminContent = () => {
   return (
@@ -19,7 +20,7 @@ const AdminContent = () => {
       <Routes>
         <Route index element={<AdminHome />} />
         <Route path="users" element={<Users />} />
-        <Route path="courses" element={<div>Курсы</div>} />
+        <Route path="courses" element={<Courses />} />
         <Route path="games" element={<div>Игры</div>} />
         <Route path="reviews" element={<div>Отзывы</div>} />
         <Route path="stats" element={<div>Статистика</div>} />

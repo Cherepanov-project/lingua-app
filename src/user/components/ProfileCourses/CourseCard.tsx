@@ -10,7 +10,7 @@ interface CourseCardProps {
   level: string
   description: string
   amountTime: number
-  progress: number | null
+  progress: number
 }
 
 const CourseCard: React.FC<CourseCardProps> = ({
@@ -45,7 +45,7 @@ const CourseCard: React.FC<CourseCardProps> = ({
             marginTop: 'auto',
           }}
         >
-          {progress !== null ? (
+          {progress > 0 ? (
             <>
               <LinearProgress sx={linearProgress} variant="determinate" value={progress} />
               <Typography variant="h6" color="#878787">
@@ -57,16 +57,15 @@ const CourseCard: React.FC<CourseCardProps> = ({
               ~ {amountTime} часов
             </Typography>
           )}
-          <Button
-            sx={{
-              borderRadius: '3rem',
-              color: 'white',
-              width: '100%',
-            }}
-            variant="contained"
-          >
-            Начать
-          </Button>
+          {progress > 0 ? (
+            <Button sx={activationButton} variant="contained">
+              Продолжить
+            </Button>
+          ) : (
+            <Button sx={activationButton} variant="contained">
+              Начать
+            </Button>
+          )}
         </Stack>
       </Stack>
     </Box>
@@ -85,4 +84,10 @@ const linearProgress: SxProps = {
   '& .MuiLinearProgress-bar': {
     borderRadius: '3rem',
   },
+}
+
+const activationButton: SxProps = {
+  borderRadius: '3rem',
+  color: 'white',
+  width: '100%',
 }

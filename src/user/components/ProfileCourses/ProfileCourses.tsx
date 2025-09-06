@@ -5,16 +5,22 @@ import { Stack } from '@mui/material'
 import { Typography } from '@mui/material'
 import { ProfileSidebarLeft } from '../Profile/ProfileSidebarLeft'
 import { FilterSelect } from './FilterSelect'
-import { mockDataLanguageCourses } from './constants'
 
 import { CourseCard } from './CourseCard'
-import { useGetLanguagesQuery, useGetLevelsQuery } from '../../../shared/api/languagesApi'
+import {
+  useGetCoursesQuery,
+  useGetLanguagesQuery,
+  useGetLevelsQuery,
+} from '../../../shared/api/languagesApi'
 import type { LanguageOption } from '../../../shared/types/language'
 import type { LevelOptions } from '../../../shared/types/levels'
+
+import type { Course } from '../../../shared/types/course'
 
 const ProfileCourses = () => {
   const { data: languages = [] } = useGetLanguagesQuery()
   const { data: levels = [] } = useGetLevelsQuery()
+  const { data: courses = [] } = useGetCoursesQuery({})
 
   return (
     <Container maxWidth={'xl'} disableGutters>
@@ -59,7 +65,7 @@ const ProfileCourses = () => {
           </Stack>
 
           <Grid container rowSpacing={'35px'} columnSpacing={'45px'}>
-            {mockDataLanguageCourses.map((course) => {
+            {courses.map((course: Course) => {
               return (
                 <Grid key={course.id} size={4}>
                   <CourseCard
@@ -67,7 +73,7 @@ const ProfileCourses = () => {
                     level={course.level}
                     description={course.description}
                     amountTime={course.amountTime}
-                    progress={course.progress}
+                    progress={Math.floor(Math.random() * 100)}
                   />
                 </Grid>
               )

@@ -93,6 +93,8 @@
       "id": "c26a",
       "language": "Английский",
       "level": "A1",
+      "description": "Идеально для начинающих",
+      "amountTime": 30,
       "modules": [
         "39da"
       ],
@@ -102,12 +104,16 @@
       "id": "5e2f",
       "language": "Английский",
       "level": "A2",
+      "description": "Расширьте знания",
+      "amountTime": 15,
       "modules": [],
       "published": false
     },
     {
       "language": "Французский",
       "level": "A2",
+      "description": "Расширьте знания",
+      "amountTime": 20,
       "modules": [
         "EkwC6lJ"
       ],

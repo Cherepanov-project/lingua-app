@@ -1,7 +1,7 @@
 import { Stack } from '@mui/material'
 import { Typography } from '@mui/material'
 import { ProfileWidgetSlider } from './ProfileWidgetSlider'
-import { mockDataGamesSlider } from './constants'
+import { mockDataGamesSlider } from './mockDataSlider'
 
 const ProfileWidgetGames = () => {
   return (

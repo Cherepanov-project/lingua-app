@@ -1,28 +1,43 @@
-import { useState } from 'react'
-import { List, ListItem, ListItemButton, ListItemText, type SxProps } from '@mui/material'
+import { List } from '@mui/material'
+import { ListItem } from '@mui/material'
+import { ListItemButton } from '@mui/material'
+import { ListItemText } from '@mui/material'
+import { type SxProps } from '@mui/material'
+import { Link as RouterLink, useLocation } from 'react-router-dom'
 
-const items = ['Главная', 'Выбрать курс', 'Упражнения', 'Грамматика', 'Игры', 'Настройки']
+const navigationItems = [
+  { text: 'Главная', path: '/profile' },
+  { text: 'Выбрать курс', path: '/profile/courses' },
+  { text: 'Упражнения', path: '/profile/exercises' },
+  { text: 'Грамматика', path: '/profile/grammar' },
+  { text: 'Игры', path: '/profile/games' },
+  { text: 'Настройки', path: '/profile/settings' },
+]
 
 const ProfileNavigationList = () => {
-  const [selectedIndex, setSelectedIndex] = useState(0)
-
-  const handleListItemClick = (index: number) => {
-    setSelectedIndex(index)
-  }
+  const location = useLocation()
 
   return (
-    <List sx={list}>
-      {items.map((item, index) => (
-        <ListItem key={index} disablePadding>
-          <ListItemButton
-            selected={selectedIndex === index}
-            onClick={() => handleListItemClick(index)}
-            sx={itemButton}
-          >
-            <ListItemText primary={item} />
-          </ListItemButton>
-        </ListItem>
-      ))}
+    <List sx={list} component="nav">
+      {navigationItems.map((item) => {
+        const isActive =
+          item.path === '/profile'
+            ? location.pathname === item.path
+            : location.pathname.startsWith(item.path)
+
+        return (
+          <ListItem key={item.path} disablePadding>
+            <ListItemButton
+              sx={itemButton}
+              component={RouterLink}
+              to={item.path}
+              selected={isActive}
+            >
+              <ListItemText primary={item.text} />
+            </ListItemButton>
+          </ListItem>
+        )
+      })}
     </List>
   )
 }

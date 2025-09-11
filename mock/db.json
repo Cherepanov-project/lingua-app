@@ -93,6 +93,8 @@
       "id": "c26a",
       "language": "Английский",
       "level": "A1",
+      "description": "Идеально для начинающих",
+      "amountTime": 30,
       "modules": [
         "39da"
       ],
@@ -102,17 +104,309 @@
       "id": "5e2f",
       "language": "Английский",
       "level": "A2",
+      "description": "Расширьте знания",
+      "amountTime": 15,
       "modules": [],
       "published": false
     },
     {
+      "id": "hvy39bm",
+      "language": "Английский",
+      "level": "B1",
+      "description": "Продвинутый уровень",
+      "amountTime": 30,
+      "modules": [],
+      "published": false
+    },
+    {
+      "id": "hf8n91e",
+      "language": "Английский",
+      "level": "B2",
+      "description": "Экспертный уровень",
+      "amountTime": 35,
+      "modules": [],
+      "published": false
+    },
+    {
+      "id": "f8vb2e0",
+      "language": "Английский",
+      "level": "C1",
+      "description": "Уровень Бог",
+      "amountTime": 45,
+      "modules": [],
+      "published": false
+    },
+    {
+      "id": "h57fkc6",
+      "language": "Русский",
+      "level": "A1",
+      "description": "Идеально для начинающих",
+      "amountTime": 35,
+      "modules": [],
+      "published": false
+    },
+    {
+      "id": "8j4ke37",
+      "language": "Русский",
+      "level": "A2",
+      "description": "Расширьте знания",
+      "amountTime": 20,
+      "modules": [],
+      "published": false
+    },
+    {
+      "id": "uy8bm20",
+      "language": "Французский",
+      "level": "A1",
+      "description": "Идеально для начинающих",
+      "amountTime": 30,
+      "modules": [],
+      "published": false
+    },
+    {
+      "id": "ity60Hr",
       "language": "Французский",
       "level": "A2",
+      "description": "Расширьте знания",
+      "amountTime": 20,
       "modules": [
         "EkwC6lJ"
       ],
-      "published": false,
-      "id": "ity60Hr"
+      "published": false
+    },
+    {
+      "id": "4d0jf72",
+      "language": "Немецкий",
+      "level": "A1",
+      "description": "Идеально для начинающих",
+      "amountTime": 32,
+      "modules": [],
+      "published": false
+    },
+    {
+      "id": "s6cb39h",
+      "language": "Немецкий",
+      "level": "A2",
+      "description": "Расширьте знания",
+      "amountTime": 17,
+      "modules": [],
+      "published": false
+    },
+    {
+      "id": "hb2q83g",
+      "language": "Немецкий",
+      "level": "B1",
+      "description": "Продвинутый уровень",
+      "amountTime": 35,
+      "modules": [],
+      "published": false
+    },
+    {
+      "id": "8n7gh19",
+      "language": "Немецкий",
+      "level": "B2",
+      "description": "Экспертный уровень",
+      "amountTime": 45,
+      "modules": [],
+      "published": false
+    },
+    {
+      "id": "vgd9m01",
+      "language": "Немецкий",
+      "level": "C1",
+      "description": "Уровень Бог",
+      "amountTime": 45,
+      "modules": [],
+      "published": false
+    },
+    {
+      "id": "8r3vka2",
+      "language": "Турецкий",
+      "level": "A1",
+      "description": "Идеально для начинающих",
+      "amountTime": 28,
+      "modules": [],
+      "published": false
+    },
+    {
+      "id": "7ghb1ns",
+      "language": "Турецкий",
+      "level": "A2",
+      "description": "Расширьте знания",
+      "amountTime": 15,
+      "modules": [],
+      "published": false
+    },
+    {
+      "id": "jh0kn14",
+      "language": "Испанский",
+      "level": "A1",
+      "description": "Идеально для начинающих",
+      "amountTime": 32,
+      "modules": [],
+      "published": false
+    },
+    {
+      "id": "fc8q375",
+      "language": "Испанский",
+      "level": "A2",
+      "description": "Расширьте знания",
+      "amountTime": 14,
+      "modules": [],
+      "published": false
+    },
+    {
+      "id": "vba9bjr",
+      "language": "Испанский",
+      "level": "B1",
+      "description": "Продвинутый уровень",
+      "amountTime": 30,
+      "modules": [],
+      "published": false
+    },
+    {
+      "id": "87j2et1",
+      "language": "Испанский",
+      "level": "B2",
+      "description": "Экспертный уровень",
+      "amountTime": 35,
+      "modules": [],
+      "published": false
+    },
+    {
+      "id": "sq0njw2",
+      "language": "Испанский",
+      "level": "C1",
+      "description": "Уровень Бог",
+      "amountTime": 45,
+      "modules": [],
+      "published": false
+    },
+    {
+      "id": "6rtq9vb",
+      "language": "Итальянский",
+      "level": "A1",
+      "description": "Идеально для начинающих",
+      "amountTime": 30,
+      "modules": [],
+      "published": false
+    },
+    {
+      "id": "er5db86",
+      "language": "Итальянский",
+      "level": "A2",
+      "description": "Расширьте знания",
+      "amountTime": 18,
+      "modules": [],
+      "published": false
+    },
+    {
+      "id": "cg29hme",
+      "language": "Португальский",
+      "level": "A1",
+      "description": "Идеально для начинающих",
+      "amountTime": 26,
+      "modules": [],
+      "published": false
+    },
+    {
+      "id": "we4xbn8",
+      "language": "Португальский",
+      "level": "A2",
+      "description": "Расширьте знания",
+      "amountTime": 15,
+      "modules": [],
+      "published": false
+    },
+    {
+      "id": "tq0nj2d",
+      "language": "Китайский",
+      "level": "A1",
+      "description": "Идеально для начинающих",
+      "amountTime": 40,
+      "modules": [],
+      "published": false
+    },
+    {
+      "id": "639vb10",
+      "language": "Китайский",
+      "level": "A2",
+      "description": "Расширьте знания",
+      "amountTime": 20,
+      "modules": [],
+      "published": false
+    },
+    {
+      "id": "7b6gd32",
+      "language": "Японский",
+      "level": "A1",
+      "description": "Идеально для начинающих",
+      "amountTime": 40,
+      "modules": [],
+      "published": false
+    },
+    {
+      "id": "dfc8ty1",
+      "language": "Японский",
+      "level": "A2",
+      "description": "Расширьте знания",
+      "amountTime": 20,
+      "modules": [],
+      "published": false
+    },
+    {
+      "id": "fgv7y38",
+      "language": "Корейский",
+      "level": "A1",
+      "description": "Идеально для начинающих",
+      "amountTime": 40,
+      "modules": [],
+      "published": false
+    },
+    {
+      "id": "24d6eq9",
+      "language": "Корейский",
+      "level": "A2",
+      "description": "Расширьте знания",
+      "amountTime": 18,
+      "modules": [],
+      "published": false
+    },
+    {
+      "id": "erd9nm1",
+      "language": "Иврит",
+      "level": "A1",
+      "description": "Идеально для начинающих",
+      "amountTime": 37,
+      "modules": [],
+      "published": false
+    },
+    {
+      "id": "dfr9n01",
+      "language": "Иврит",
+      "level": "A2",
+      "description": "Расширьте знания",
+      "amountTime": 22,
+      "modules": [],
+      "published": false
+    },
+    {
+      "id": "wen9qfm",
+      "language": "Арабский",
+      "level": "A1",
+      "description": "Идеально для начинающих",
+      "amountTime": 30,
+      "modules": [],
+      "published": false
+    },
+    {
+      "id": "db3yz05",
+      "language": "Арабский",
+      "level": "A2",
+      "description": "Расширьте знания",
+      "amountTime": 16,
+      "modules": [],
+      "published": false
     }
   ],
   "modules": [

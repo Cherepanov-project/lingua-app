@@ -52,6 +52,9 @@ const fetchManagementToken = async () => {
 //           </Provider>
 //         </StyledEngineProvider>
 //       </StrictMode>
+//     )
+//   } else {
+//     console.error('Не удалось загрузить приложение: management_token не получен')
 //     );
 //   } else {
 //     console.error('Не удалось загрузить приложение: management_token не получен');

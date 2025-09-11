@@ -16,9 +16,13 @@ import { ThemeProvider } from '@mui/material/styles'
 import CssBaseline from '@mui/material/CssBaseline'
 import { authTheme } from './user/stylesObj'
 import AdminPanel from './pages/AdminPanel'
-import { ProfileExercisesPage } from './user/components/ProfilePages/ProfileExercisesPage.tsx'
 import { ProfileLayout } from './user/components/ProfileLayout/ProfileLayout.tsx'
+import { ProfileCoursesPage } from './user/components/ProfilePages/ProfileCoursesPage.tsx'
 import { ProfilePage } from './user/components/ProfilePages/ProfilePage.tsx'
+import { ProfileExercisesPage } from './user/components/ProfilePages/ProfileExercisesPage.tsx'
+import { ProfileGrammarPage } from './user/components/ProfilePages/ProfileGrammarPage.tsx'
+import { ProfileGamesPage } from './user/components/ProfilePages/ProfileGamesPage.tsx'
+import { ProfileSettingsPage } from './user/components/ProfilePages/ProfileSettingsPage.tsx'
 
 const App: React.FC = () => {
   return (
@@ -38,6 +42,11 @@ const App: React.FC = () => {
               }
             >
               <Route index element={<ProfilePage />} />
+              <Route path="courses" element={<ProfileCoursesPage />} />
+              <Route path="exercises" element={<ProfileExercisesPage />} />
+              <Route path="grammar" element={<ProfileGrammarPage />} />
+              <Route path="games" element={<ProfileGamesPage />} />
+              <Route path="settings" element={<ProfileSettingsPage />} />
               <Route path="exercises" element={<ProfileExercisesPage />} />
             </Route>
             <Route path="/reset-password" element={<PasswordReset />} />

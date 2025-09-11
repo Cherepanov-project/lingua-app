@@ -5,7 +5,7 @@ import { Typography } from '@mui/material'
 import { LinearProgress } from '@mui/material'
 import { ExercisesCard } from '../Profile/ExercisesCard'
 import { percentage } from '../../utils/percentage'
-import { mockDataExercisesCard } from '../Profile/constants'
+import { mockDataExercisesCard } from '../Profile/mockDataSlider'
 
 const ProfileExercisesPage = () => {
   return (

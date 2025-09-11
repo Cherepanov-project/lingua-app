@@ -47,6 +47,7 @@ const App: React.FC = () => {
               <Route path="grammar" element={<ProfileGrammarPage />} />
               <Route path="games" element={<ProfileGamesPage />} />
               <Route path="settings" element={<ProfileSettingsPage />} />
+              <Route path="exercises" element={<ProfileExercisesPage />} />
             </Route>
             <Route path="/reset-password" element={<PasswordReset />} />
             <Route path="/auth-callback" element={<AuthCallback />} />

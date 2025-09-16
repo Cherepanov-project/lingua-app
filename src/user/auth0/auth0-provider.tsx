@@ -9,6 +9,8 @@ const Auth0ProviderWithNavigate: React.FC<Auth0ProviderWithNavigateProps> = ({ c
 
   return (
     <Auth0Provider
+      useRefreshTokens={true}
+      cacheLocation="localstorage"
       domain={import.meta.env.VITE_AUTH0_DOMAIN}
       // clientId={import.meta.env.VITE_AUTH0_CLIENT_ID}
       clientId={import.meta.env.VITE_AUTH0_CLIENT_ID_SPA} // SPA

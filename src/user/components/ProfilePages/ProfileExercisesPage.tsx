@@ -9,7 +9,14 @@ import { mockDataExercisesCard } from '../Profile/mockDataSlider'
 
 const ProfileExercisesPage = () => {
   return (
-    <Stack sx={{ padding: '70px', flexGrow: '1' }}>
+    <Stack
+      sx={{
+        padding: '70px',
+        flexGrow: '1',
+        overflowY: 'scroll',
+        scrollbarColor: '#d9e0ff transparent',
+      }}
+    >
       <Typography variant="h4">Упражнения</Typography>
       <Typography sx={{ fontSize: '24px' }}>
         Тренируйтесь каждый день, чтобы закрепить знания

@@ -63,7 +63,10 @@ const App: React.FC = () => {
               path="/course/:courseId/module/:moduleId/lesson/:lessonId/listening"
               element={<ListeningExercise />}
             />
-            <Route path="/admin/*" element={<AdminPanel />} />
+            <Route path="/admin/*" element={
+              <ProtectedRoute>
+                <AdminPanel />
+              </ProtectedRoute>} />
           </Routes>
         </CssBaseline>
       </ThemeProvider>

@@ -15,7 +15,6 @@ import ListeningExercise from "./pages/admin/ListeningExercise.tsx";
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { authTheme } from "./user/stylesObj";
-import AdminPanel from "./pages/AdminPanel";
 import { ProfileLayout } from "./user/components/ProfileLayout/ProfileLayout.tsx";
 import { ProfileCoursesPage } from "./user/components/ProfilePages/ProfileCoursesPage.tsx";
 import { ProfilePage } from "./user/components/ProfilePages/ProfilePage.tsx";
@@ -24,6 +23,10 @@ import { ProfileGrammarPage } from "./user/components/ProfilePages/ProfileGramma
 import { ProfileGamesPage } from "./user/components/ProfilePages/ProfileGamesPage.tsx";
 import { ProfileSettingsPage } from "./user/components/ProfilePages/ProfileSettingsPage.tsx";
 import AdminProtectedRoute from "./pages/admin/AdminProtectedRoute.tsx";
+import AdminContent from "./pages/admin/adminComponents/AdminContent.tsx";
+import AdminHome from "./pages/admin/AdminHome.tsx";
+import Users from "./pages/admin/Users.tsx";
+import Pictures from "./pages/admin/Pictures.tsx";
 
 const App: React.FC = () => {
   return (
@@ -68,15 +71,24 @@ const App: React.FC = () => {
               element={<ListeningExercise />}
             />
             <Route
-              path="/admin/*"
+              path="/admin"
               element={
                 <ProtectedRoute>
                   <AdminProtectedRoute>
-                    <AdminPanel />
+                    <AdminContent />
                   </AdminProtectedRoute>
                 </ProtectedRoute>
               }
-            />
+            >
+              <Route index element={<AdminHome />} />
+              <Route path="users" element={<Users />} />
+              <Route path="courses" element={<Courses />} />
+              <Route path="games" element={<div>Игры</div>} />
+              <Route path="reviews" element={<div>Отзывы</div>} />
+              <Route path="stats" element={<div>Статистика</div>} />
+              <Route path="settings" element={<div>Настройки</div>} />
+              <Route path="pictures" element={<Pictures />} />
+            </Route>
           </Routes>
         </CssBaseline>
       </ThemeProvider>

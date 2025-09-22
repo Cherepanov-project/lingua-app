@@ -4,7 +4,7 @@ import StarBorderOutlinedIcon from "@mui/icons-material/StarBorderOutlined";
 import StarIcon from "@mui/icons-material/Star";
 import { reviews } from "../../shared/constants/reviews";
 
-const Feedback = () => {
+const Reviews = () => {
   let count = 0;
   return (
     <Box sx={{ p: "32px 40px" }}>
@@ -122,4 +122,4 @@ const Feedback = () => {
   );
 };
 
-export default Feedback;
+export default Reviews;

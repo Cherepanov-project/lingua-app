@@ -27,6 +27,7 @@ import AdminContent from "./pages/admin/adminComponents/AdminContent.tsx";
 import AdminHome from "./pages/admin/AdminHome.tsx";
 import Users from "./pages/admin/Users.tsx";
 import Pictures from "./pages/admin/Pictures.tsx";
+import Feedback from "./pages/admin/Feedback.tsx";
 
 const App: React.FC = () => {
   return (
@@ -84,7 +85,7 @@ const App: React.FC = () => {
               <Route path="users" element={<Users />} />
               <Route path="courses" element={<Courses />} />
               <Route path="games" element={<div>Игры</div>} />
-              <Route path="reviews" element={<div>Отзывы</div>} />
+              <Route path="reviews" element={<Feedback />} />
               <Route path="stats" element={<div>Статистика</div>} />
               <Route path="settings" element={<div>Настройки</div>} />
               <Route path="pictures" element={<Pictures />} />

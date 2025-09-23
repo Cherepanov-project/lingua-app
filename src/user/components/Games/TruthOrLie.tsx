@@ -9,8 +9,44 @@ import {
 import GameHeader from "./GameHeader";
 import FavoriteBorderRoundedIcon from "@mui/icons-material/FavoriteBorderRounded";
 import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
+import { mockDataTruthOrLie } from "./mockDataTruthOrLie";
+import { useState } from "react";
 
 const TruthOrLie = () => {
+  const [lvl, setLvl] = useState(1);
+  const [currentQuestion, setCurrentQuestion] = useState(
+    mockDataTruthOrLie[1][0]
+  );
+  const [count, setCount] = useState(0);
+
+  const nextQuestion = () => {
+    if (count < 9) {
+      setCount((prev) => {
+        const newCount = prev + 1;
+        setCurrentQuestion(mockDataTruthOrLie[lvl][newCount]);
+        return newCount;
+      });
+    }
+    return;
+  };
+  const nextLevel = () => {
+    if (lvl <= 10) {
+      setLvl((prev) => {
+        const newLvl = prev + 1;
+        setCurrentQuestion(mockDataTruthOrLie[newLvl][0]);
+        setCount(0);
+        return newLvl;
+      });
+    }
+    return;
+  };
+
+  const restart = () => {
+    setLvl(1);
+    setCurrentQuestion(mockDataTruthOrLie[1][0]);
+    setCount(0);
+  };
+
   return (
     <Container
       maxWidth={false}
@@ -20,7 +56,7 @@ const TruthOrLie = () => {
         maxWidth="lg"
         sx={{ backgroundColor: "white", height: "100vh" }}
       >
-        <GameHeader />
+        <GameHeader level={lvl} />
         <Container
           maxWidth="lg"
           sx={{
@@ -60,6 +96,7 @@ const TruthOrLie = () => {
                 justifyContent: "center",
                 alignItems: "center",
                 marginTop: "110px",
+                padding: "20px",
               }}
             >
               <Typography
@@ -67,13 +104,15 @@ const TruthOrLie = () => {
                 sx={{
                   fontSize: "48px",
                   lineHeight: "1.2",
+                  textAlign: "center",
                 }}
               >
-                Cat are black
+                {currentQuestion.text}
               </Typography>
             </Box>
             <Stack direction="row" spacing={8} sx={{ marginTop: "90px" }}>
               <Button
+                onClick={nextQuestion}
                 variant="contained"
                 sx={{ width: "350px", height: "70px", borderRadius: "40px" }}
               >
@@ -85,6 +124,7 @@ const TruthOrLie = () => {
                 </Typography>
               </Button>
               <Button
+                onClick={nextQuestion}
                 variant="contained"
                 sx={{
                   width: "350px",
@@ -120,6 +160,7 @@ const TruthOrLie = () => {
                   </Typography>
                 </Button>
                 <Button
+                  onClick={restart}
                   variant="contained"
                   sx={{
                     width: "250px",
@@ -137,6 +178,8 @@ const TruthOrLie = () => {
                   </Typography>
                 </Button>
                 <Button
+                  onClick={nextLevel}
+                  disabled={lvl === 10}
                   variant="contained"
                   sx={{
                     width: "250px",
@@ -157,7 +200,7 @@ const TruthOrLie = () => {
               <Typography
                 sx={{ display: "block", fontSize: "18px", color: "#0000007d" }}
               >
-                <b>3/10</b> пройдено
+                <b>{currentQuestion.number}/10</b> пройдено
               </Typography>
             </Stack>
           </Stack>

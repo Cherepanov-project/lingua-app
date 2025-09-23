@@ -10,7 +10,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import StarRateRoundedIcon from "@mui/icons-material/StarRateRounded";
 
-const GameHeader = () => {
+const GameHeader = ({ level }) => {
   const navigate = useNavigate();
 
   return (
@@ -52,7 +52,7 @@ const GameHeader = () => {
             </Button>
           </Box>
           <Box display="flex" gap={3}>
-            <Typography color="inherit">Уровень 3 из 10</Typography>
+            <Typography color="inherit">Уровень {level} из 10</Typography>
             <Typography color="inherit">00:30</Typography>
 
             <Stack direction={"row"} sx={{ alignItems: "center" }}>

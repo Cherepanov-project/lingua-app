@@ -61,7 +61,9 @@ export const usersApi = createApi({
             })
           );
         } catch (err) {
-          console.error("Ошибка при добавлении пользователя:", err);
+          if (err instanceof Error) {
+            throw new Error(`Ошибка при добавлении пользователя: ${err}`);
+          }
         }
       },
     }),

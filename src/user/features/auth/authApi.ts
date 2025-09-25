@@ -63,11 +63,11 @@ const baseQuery: BaseQueryFn<
       token = (tokenResponse.data as { access_token: string }).access_token;
       sessionStorage.setItem("management_token", token);
     } else {
-      console.error(
-        "Не удалось получить management_token",
-        tokenResponse.error
-      );
-      return tokenResponse;
+      if (tokenResponse.error instanceof Error) {
+        throw new Error(
+          `Не удалось получить management_token: ${tokenResponse.error}`
+        );
+      }
     }
   }
 

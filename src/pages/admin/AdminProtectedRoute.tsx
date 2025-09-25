@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useGetUserRolesQuery } from "../../shared/api/usersApi";
 import { getCookie } from "../../user/utils/cookies";
 import { jwtDecode } from "jwt-decode";
+import { AccessFail } from "../../shared/constants/textConsts";
 
 interface AdminProtectedProps {
   children: React.ReactNode;
@@ -22,7 +23,9 @@ const AdminProtectedRoute = ({ children }: AdminProtectedProps) => {
       decodedToken = jwtDecode<JwtPayload>(token);
       userId = decodedToken.sub;
     } catch (e) {
-      console.error("Ошибка декодирования токена:", e);
+      if (e instanceof Error) {
+        throw new Error(e.message);
+      }
     }
   }
   const { data: userRoles, isLoading } = useGetUserRolesQuery(
@@ -31,7 +34,7 @@ const AdminProtectedRoute = ({ children }: AdminProtectedProps) => {
   );
   if (!isLoading) {
     if (userRoles?.map((role) => role.name).includes("admin")) {
-      return <>{children}</>;
+      return { children };
     } else {
       setTimeout(() => {
         navigate("/profile");
@@ -40,7 +43,7 @@ const AdminProtectedRoute = ({ children }: AdminProtectedProps) => {
         <h2
           style={{ color: "red", margin: "24px auto", maxWidth: "fit-content" }}
         >
-          Нет доступа.
+          {AccessFail};
         </h2>
       );
     }

@@ -14,7 +14,9 @@ const AuthCallback: React.FC = () => {
         setCookie("auth_token", token);
         navigate("/profile");
       } catch (error) {
-        console.error("Ошибка обработки callback:", error);
+        if (error instanceof Error) {
+          throw new Error(`Ошибка обработки callback: ${error}`);
+        }
         navigate("/login");
       }
     };

@@ -43,7 +43,9 @@ const Login: React.FC = () => {
       setCookie("auth_token", response.access_token);
       navigate("/profile");
     } catch (error) {
-      console.error("Ошибка входа:", error);
+      if (error instanceof Error) {
+        throw new Error(`Ошибка входа: ${error}`);
+      }
     }
   };
 
@@ -58,7 +60,9 @@ const Login: React.FC = () => {
         },
       });
     } catch (error) {
-      console.error("Ошибка социального входа:", error);
+      if (error instanceof Error) {
+        throw new Error(`Ошибка социального входа: ${error}`);
+      }
     }
   };
 

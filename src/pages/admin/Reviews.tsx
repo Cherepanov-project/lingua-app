@@ -3,6 +3,8 @@ import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import StarBorderOutlinedIcon from "@mui/icons-material/StarBorderOutlined";
 import StarIcon from "@mui/icons-material/Star";
 import { reviews } from "../../shared/constants/reviews";
+import { ReviewsTitle } from "../../shared/constants/textConsts";
+import { stylesObj } from "../../user/stylesObj";
 
 const Reviews = () => {
   let count = 0;
@@ -17,7 +19,7 @@ const Reviews = () => {
             color: "#000",
           }}
         >
-          Отзывы
+          {ReviewsTitle}
         </Typography>
         <Typography
           sx={{
@@ -83,15 +85,11 @@ const Reviews = () => {
                       .map((star) => {
                         count = 0;
                         if (star === "filled") {
-                          return (
-                            <StarIcon
-                              sx={{ fontSize: "20px", color: "#7e94f9" }}
-                            />
-                          );
+                          return <StarIcon sx={{ ...stylesObj.starsIcons }} />;
                         } else {
                           return (
                             <StarBorderOutlinedIcon
-                              sx={{ fontSize: "20px", color: "#7e94f9" }}
+                              sx={{ ...stylesObj.starsIcons }}
                             />
                           );
                         }

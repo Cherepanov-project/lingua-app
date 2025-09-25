@@ -34,7 +34,7 @@ const AdminProtectedRoute = ({ children }: AdminProtectedProps) => {
   );
   if (!isLoading) {
     if (userRoles?.map((role) => role.name).includes("admin")) {
-      return { children };
+      return children;
     } else {
       setTimeout(() => {
         navigate("/profile");
@@ -43,7 +43,7 @@ const AdminProtectedRoute = ({ children }: AdminProtectedProps) => {
         <h2
           style={{ color: "red", margin: "24px auto", maxWidth: "fit-content" }}
         >
-          {AccessFail};
+          {AccessFail}
         </h2>
       );
     }

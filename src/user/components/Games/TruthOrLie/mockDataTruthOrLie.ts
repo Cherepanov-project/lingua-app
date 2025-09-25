@@ -1,5 +1,9 @@
-export const mockDataTruthOrLie = {
-  "1": [
+export type Question = { number: number; text: string; answer: boolean };
+
+export type MockDataTruthOrLie = Record<number, Question[]>;
+
+export const mockDataTruthOrLie: MockDataTruthOrLie = {
+  1: [
     { number: 1, text: "The sky is blue.", answer: true },
     { number: 2, text: "Cats can fly.", answer: false },
     { number: 3, text: "Fish live in water.", answer: true },
@@ -11,7 +15,7 @@ export const mockDataTruthOrLie = {
     { number: 9, text: "You wear shoes on your feet.", answer: true },
     { number: 10, text: "Fire is hot.", answer: true },
   ],
-  "2": [
+  2: [
     { number: 1, text: "Birds can sing.", answer: true },
     { number: 2, text: "Sugar tastes sweet.", answer: true },
     { number: 3, text: "Books are for eating.", answer: false },
@@ -23,7 +27,7 @@ export const mockDataTruthOrLie = {
     { number: 9, text: "Bananas are blue.", answer: false },
     { number: 10, text: "Winter is usually cold.", answer: true },
   ],
-  "3": [
+  3: [
     { number: 1, text: "Milk comes from cows.", answer: true },
     { number: 2, text: "People eat rocks for lunch.", answer: false },
     { number: 3, text: "Ice is frozen water.", answer: true },
@@ -35,7 +39,7 @@ export const mockDataTruthOrLie = {
     { number: 9, text: "Water is needed to live.", answer: true },
     { number: 10, text: "Pencils are for writing.", answer: true },
   ],
-  "4": [
+  4: [
     { number: 1, text: "The phone is used for calling.", answer: true },
     { number: 2, text: "Shoes are worn on hands.", answer: false },
     { number: 3, text: "Bread is usually eaten.", answer: true },
@@ -47,7 +51,7 @@ export const mockDataTruthOrLie = {
     { number: 9, text: "The fridge keeps food cold.", answer: true },
     { number: 10, text: "Fish can walk on land.", answer: false },
   ],
-  "5": [
+  5: [
     { number: 1, text: "Most people have two eyes.", answer: true },
     { number: 2, text: "A chair is for sitting.", answer: true },
     { number: 3, text: "Cats usually like water.", answer: false },
@@ -59,7 +63,7 @@ export const mockDataTruthOrLie = {
     { number: 9, text: "Pizza is a kind of food.", answer: true },
     { number: 10, text: "The moon shines in the daytime only.", answer: false },
   ],
-  "6": [
+  6: [
     { number: 1, text: "The Earth has one moon.", answer: true },
     { number: 2, text: "The internet is older than books.", answer: false },
     { number: 3, text: "Rain falls from clouds.", answer: true },
@@ -71,7 +75,7 @@ export const mockDataTruthOrLie = {
     { number: 9, text: "Honey comes from bees.", answer: true },
     { number: 10, text: "Lions are wild animals.", answer: true },
   ],
-  "7": [
+  7: [
     { number: 1, text: "The capital of France is Paris.", answer: true },
     { number: 2, text: "Water boils at 0 degrees Celsius.", answer: false },
     { number: 3, text: "The Amazon is a big river.", answer: true },
@@ -87,7 +91,7 @@ export const mockDataTruthOrLie = {
     { number: 9, text: "Chocolate is made from cocoa beans.", answer: true },
     { number: 10, text: "A year has 100 days.", answer: false },
   ],
-  "8": [
+  8: [
     { number: 1, text: "The human heart has four chambers.", answer: true },
     { number: 2, text: "Saturn is a planet with rings.", answer: true },
     {
@@ -103,7 +107,7 @@ export const mockDataTruthOrLie = {
     { number: 9, text: "Blood is red.", answer: true },
     { number: 10, text: "Deserts are usually hot.", answer: true },
   ],
-  "9": [
+  9: [
     { number: 1, text: "A leap year has 366 days.", answer: true },
     { number: 2, text: "Oxygen is needed to breathe.", answer: true },
     { number: 3, text: "The capital of Japan is Tokyo.", answer: true },
@@ -115,7 +119,7 @@ export const mockDataTruthOrLie = {
     { number: 9, text: "The North Pole is very cold.", answer: true },
     { number: 10, text: "All snakes are poisonous.", answer: false },
   ],
-  "10": [
+  10: [
     { number: 1, text: "The Earth orbits the Sun.", answer: true },
     {
       number: 2,

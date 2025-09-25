@@ -23,7 +23,7 @@ import { ProfileExercisesPage } from "./user/components/ProfilePages/ProfileExer
 import { ProfileGrammarPage } from "./user/components/ProfilePages/ProfileGrammarPage.tsx";
 import { ProfileGamesPage } from "./user/components/ProfilePages/ProfileGamesPage.tsx";
 import { ProfileSettingsPage } from "./user/components/ProfilePages/ProfileSettingsPage.tsx";
-import TruthOrLie from "./user/components/Games/TruthOrLie.tsx";
+import { TruthOrLiePage } from "./user/components/Games/TruthOrLie/TruthOrLiePage.tsx";
 
 const App: React.FC = () => {
   return (
@@ -53,7 +53,7 @@ const App: React.FC = () => {
             </Route>
             <Route path="/reset-password" element={<PasswordReset />} />
             <Route path="/auth-callback" element={<AuthCallback />} />
-            <Route path="/truth-or-lie" element={<TruthOrLie />} />
+            <Route path="/truth-or-lie" element={<TruthOrLiePage />} />
             <Route path="/courses" element={<Courses />} />
             <Route path="/course/create" element={<CreateCourse />} />
             <Route path="/course/:id" element={<Course />} />

@@ -10,7 +10,11 @@ import {
 import { useNavigate } from "react-router-dom";
 import StarRateRoundedIcon from "@mui/icons-material/StarRateRounded";
 
-const GameHeader = ({ level }) => {
+type GameHeaderProps = {
+  level: number;
+};
+
+const GameHeader = ({ level }: GameHeaderProps) => {
   const navigate = useNavigate();
 
   return (

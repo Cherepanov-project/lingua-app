@@ -11,41 +11,49 @@ import FavoriteBorderRoundedIcon from "@mui/icons-material/FavoriteBorderRounded
 import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
 import { mockDataTruthOrLie } from "./mockDataTruthOrLie";
 import { useState } from "react";
+import TruthOrLieModal from "./TruthOrLieModal";
 
-const TruthOrLie = () => {
+export const TruthOrLiePage = () => {
+  const [questions] = useState(mockDataTruthOrLie);
   const [lvl, setLvl] = useState(1);
-  const [currentQuestion, setCurrentQuestion] = useState(
-    mockDataTruthOrLie[1][0]
-  );
+  const [open, setOpen] = useState(false);
+  const [userAnswer, setUserAnswer] = useState<string[]>([]);
+  const [currentQuestion, setCurrentQuestion] = useState(questions[1][0]);
   const [count, setCount] = useState(0);
+  const [disabled, setDisabled] = useState(false);
 
-  const nextQuestion = () => {
+  const nextQuestion = (variant: string) => {
+    setUserAnswer((prev) => [...prev, variant]);
+
     if (count < 9) {
-      setCount((prev) => {
-        const newCount = prev + 1;
-        setCurrentQuestion(mockDataTruthOrLie[lvl][newCount]);
-        return newCount;
-      });
+      setCount((prev) => prev + 1);
+      setCurrentQuestion(questions[lvl][count + 1]);
+    } else {
+      setDisabled(true);
     }
-    return;
   };
+
   const nextLevel = () => {
-    if (lvl <= 10) {
-      setLvl((prev) => {
-        const newLvl = prev + 1;
-        setCurrentQuestion(mockDataTruthOrLie[newLvl][0]);
-        setCount(0);
-        return newLvl;
-      });
+    if (lvl < 10) {
+      const newLvl = lvl + 1;
+      setLvl(newLvl);
+      setCurrentQuestion(questions[newLvl][0]);
+      setCount(0);
+      setUserAnswer([]);
+      setDisabled(false);
     }
-    return;
   };
 
   const restart = () => {
     setLvl(1);
-    setCurrentQuestion(mockDataTruthOrLie[1][0]);
+    setCurrentQuestion(questions[1][0]);
     setCount(0);
+    setUserAnswer([]);
+    setDisabled(false);
   };
+
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   return (
     <Container
@@ -73,7 +81,8 @@ const TruthOrLie = () => {
               }
               name="user-rating"
               max={3}
-              defaultValue={2}
+              defaultValue={3}
+              readOnly
               size="large"
               sx={{
                 padding: "5px 15px",
@@ -90,7 +99,7 @@ const TruthOrLie = () => {
               sx={{
                 display: "flex",
                 width: "550px",
-                minHeight: "120px",
+                height: "120px",
                 backgroundColor: "white",
                 borderRadius: "15px",
                 justifyContent: "center",
@@ -102,17 +111,20 @@ const TruthOrLie = () => {
               <Typography
                 variant="subtitle1"
                 sx={{
-                  fontSize: "48px",
-                  lineHeight: "1.2",
+                  fontSize: "40px",
+                  lineHeight: "1",
                   textAlign: "center",
                 }}
               >
-                {currentQuestion.text}
+                {disabled
+                  ? "Перейдите на следующий уровень"
+                  : currentQuestion.text}
               </Typography>
             </Box>
             <Stack direction="row" spacing={8} sx={{ marginTop: "90px" }}>
               <Button
-                onClick={nextQuestion}
+                disabled={disabled}
+                onClick={() => nextQuestion("Правда")}
                 variant="contained"
                 sx={{ width: "350px", height: "70px", borderRadius: "40px" }}
               >
@@ -124,7 +136,8 @@ const TruthOrLie = () => {
                 </Typography>
               </Button>
               <Button
-                onClick={nextQuestion}
+                disabled={disabled}
+                onClick={() => nextQuestion("Ложь")}
                 variant="contained"
                 sx={{
                   width: "350px",
@@ -144,6 +157,8 @@ const TruthOrLie = () => {
             <Stack spacing={4} alignItems="center" sx={{ marginTop: "130px" }}>
               <Stack direction="row" spacing={10}>
                 <Button
+                  disabled={!disabled}
+                  onClick={handleOpen}
                   variant="contained"
                   sx={{
                     width: "250px",
@@ -164,7 +179,6 @@ const TruthOrLie = () => {
                   variant="contained"
                   sx={{
                     width: "250px",
-
                     height: "70px",
                     borderRadius: "40px",
                     background: "#ffffff",
@@ -183,7 +197,6 @@ const TruthOrLie = () => {
                   variant="contained"
                   sx={{
                     width: "250px",
-
                     height: "70px",
                     borderRadius: "40px",
                     background: "#7E94F9",
@@ -205,9 +218,14 @@ const TruthOrLie = () => {
             </Stack>
           </Stack>
         </Container>
+        <TruthOrLieModal
+          open={open}
+          handleClose={handleClose}
+          lvl={lvl}
+          userAnswer={userAnswer}
+          questions={questions}
+        />
       </Container>
     </Container>
   );
 };
-
-export default TruthOrLie;

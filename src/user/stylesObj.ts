@@ -11,6 +11,7 @@ interface StyleObject {
   loginLinks: CSSProperties;
   loginLink: CSSProperties;
   loginButton: CSSProperties;
+  starsIcons: CSSProperties;
 }
 
 export const vars = {
@@ -102,6 +103,10 @@ export const stylesObj: StyleObject = {
     "&:hover": {
       backgroundColor: "#8b9dfc",
     },
+  },
+  starsIcons: {
+    fontSize: "20px",
+    color: "#7e94f9",
   },
 };
 

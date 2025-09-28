@@ -67,6 +67,7 @@ const ProfilePage = () => {
         flexGrow: "1",
         padding: "0 80px",
         paddingBottom: "80px",
+        overflowY: "hidden",
       }}
     >
       <ProfileHeader userProfile={userProfile} />

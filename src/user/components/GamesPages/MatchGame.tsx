@@ -1,6 +1,14 @@
 import { Box, Button, Typography, Tooltip } from "@mui/material";
 import { useState, useEffect, useRef } from "react";
 
+const boxWordsStyles = {
+  display: "flex",
+  flexDirection: "column",
+  gap: 2.5,
+  width: "auto",
+  height: "100%",
+};
+
 const gameLevels = [
   {
     level: 1,
@@ -271,15 +279,7 @@ export const MatchGame = () => {
           gap: "265px",
         }}
       >
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            gap: 2.5,
-            width: "auto",
-            height: "100%",
-          }}
-        >
+        <Box sx={boxWordsStyles}>
           {shuffledRussian.map((word, index) => {
             const status = getWordStatus(word, "russian");
             const backgroundColor =
@@ -314,15 +314,7 @@ export const MatchGame = () => {
           })}
         </Box>
 
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            gap: 2.5,
-            width: "auto",
-            height: "100%",
-          }}
-        >
+        <Box sx={boxWordsStyles}>
           {shuffledEnglish.map((word, index) => {
             const status = getWordStatus(word, "english");
             const backgroundColor =

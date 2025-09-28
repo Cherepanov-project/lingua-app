@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
 import GamesHeader from "../Profile/GamesHeader";
-import { Container, Box, Typography } from "@mui/material";
+import { Container, Box } from "@mui/material";
 import { GamesMain } from "../Profile/GamesMain";
 
 export const GamesLayout = () => {

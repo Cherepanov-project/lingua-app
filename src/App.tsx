@@ -49,7 +49,6 @@ const App: React.FC = () => {
               <Route path="grammar" element={<ProfileGrammarPage />} />
               <Route path="games" element={<ProfileGamesPage />} />
               <Route path="settings" element={<ProfileSettingsPage />} />
-              <Route path="exercises" element={<ProfileExercisesPage />} />
             </Route>
             <Route path="/reset-password" element={<PasswordReset />} />
             <Route path="/auth-callback" element={<AuthCallback />} />
@@ -72,9 +71,6 @@ const App: React.FC = () => {
               path="/course/:courseId/module/:moduleId/lesson/:lessonId/listening"
               element={<ListeningExercise />}
             />
-            <Route path="/game" element={<GamesLayout />}>
-              <Route path="matchgame" element={<MatchGame />} />
-            </Route>
             <Route
               path="/admin/*"
               element={

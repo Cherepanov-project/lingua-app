@@ -1,8 +1,7 @@
 import { Outlet } from "react-router-dom";
 import GamesHeader from "../Profile/GamesHeader";
 import { Container, Box, Typography } from "@mui/material";
-import heartIcon from "../../../assets/Heart.svg";
-import MenuIcon from "@mui/icons-material/Menu";
+import { GamesMain } from "../Profile/GamesMain";
 
 export const GamesLayout = () => {
   return (
@@ -44,43 +43,7 @@ export const GamesLayout = () => {
             position: "relative",
           }}
         >
-          <MenuIcon sx={{ position: "absolute", left: 15, top: 15 }} />
-
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
-          >
-            <Box sx={{ display: "flex", gap: 1, mb: 2, color: "error.main" }}>
-              <Box
-                component="img"
-                src={heartIcon}
-                sx={{ width: "40px", height: "40px" }}
-              />
-              <Box
-                component="img"
-                src={heartIcon}
-                sx={{ width: "40px", height: "40px" }}
-              />
-              <Box
-                component="img"
-                src={heartIcon}
-                sx={{ width: "40px", height: "40px" }}
-              />
-            </Box>
-            <Typography
-              variant="h3"
-              sx={{
-                fontSize: "36px",
-                fontWeight: "500",
-                color: "text.primary",
-              }}
-            >
-              Соедени пары
-            </Typography>
-          </Box>
+          <GamesMain />
           <Outlet />
         </Box>
       </Box>

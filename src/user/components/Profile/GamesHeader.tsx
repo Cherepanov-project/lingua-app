@@ -13,6 +13,8 @@ const linkHeader = {
   marginTop: "10px",
 };
 
+const informItems = { fontSize: 24, color: "#000000" };
+
 const GamesHeader: React.FC = () => {
   const navigate = useNavigate();
 
@@ -59,18 +61,14 @@ const GamesHeader: React.FC = () => {
           marginTop="10px"
           sx={{ color: "#000000" }}
         >
-          <Typography sx={{ fontSize: 24, color: "#000000" }}>
-            Уровень 3 из 10
-          </Typography>
+          <Typography sx={informItems}>Уровень 3 из 10</Typography>
           <Stack direction="row" spacing={1} alignItems="center">
-            <AccessTimeIcon sx={{ fontSize: 24, color: "#000000" }} />
-            <Typography sx={{ fontSize: 20, color: "#000000" }}>
-              00:30
-            </Typography>
+            <AccessTimeIcon sx={informItems} />
+            <Typography sx={informItems}>00:30</Typography>
           </Stack>
           <Stack direction="row" spacing={1} alignItems="center">
             <StarIcon sx={{ fontSize: 40, color: "#FFC83D" }} />
-            <Typography sx={{ fontSize: 20, color: "#000000" }}>70</Typography>
+            <Typography sx={informItems}>70</Typography>
           </Stack>
         </Stack>
       </Toolbar>

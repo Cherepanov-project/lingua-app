@@ -1,5 +1,6 @@
 import { Box, Button, Typography, Tooltip } from "@mui/material";
 import { useState, useEffect, useRef } from "react";
+import { ConnectionLine } from "../Profile/ConnectionLine";
 
 const boxWordsStyles = {
   display: "flex",
@@ -135,6 +136,72 @@ export const MatchGame = () => {
   const [shuffledRussian, setShuffledRussian] = useState<string[]>([]);
   const [shuffledEnglish, setShuffledEnglish] = useState<string[]>([]);
 
+  const [buttonPositions, setButtonPositions] = useState<{
+    russian: {
+      [key: string]: { x: number; y: number; width: number; height: number };
+    };
+    english: {
+      [key: string]: { x: number; y: number; width: number; height: number };
+    };
+  }>({ russian: {}, english: {} });
+
+  const russianRefs = useRef<{ [key: string]: HTMLButtonElement | null }>({});
+  const englishRefs = useRef<{ [key: string]: HTMLButtonElement | null }>({});
+  const gameContainerRef = useRef<HTMLDivElement>(null);
+
+  const setRussianRef = (word: string) => (el: HTMLButtonElement | null) => {
+    russianRefs.current[word] = el;
+  };
+
+  const setEnglishRef = (word: string) => (el: HTMLButtonElement | null) => {
+    englishRefs.current[word] = el;
+  };
+
+  const updateButtonPositions = () => {
+    const gameContainer = gameContainerRef.current;
+    if (!gameContainer) return;
+
+    const containerRect = gameContainer.getBoundingClientRect();
+
+    const russianPositions: {
+      [key: string]: { x: number; y: number; width: number; height: number };
+    } = {};
+    const englishPositions: {
+      [key: string]: { x: number; y: number; width: number; height: number };
+    } = {};
+
+    shuffledRussian.forEach((word) => {
+      const element = russianRefs.current[word];
+      if (element) {
+        const rect = element.getBoundingClientRect();
+        russianPositions[word] = {
+          x: rect.right - containerRect.left,
+          y: rect.top - containerRect.top + rect.height / 2,
+          width: rect.width,
+          height: rect.height,
+        };
+      }
+    });
+
+    shuffledEnglish.forEach((word) => {
+      const element = englishRefs.current[word];
+      if (element) {
+        const rect = element.getBoundingClientRect();
+        englishPositions[word] = {
+          x: rect.left - containerRect.left,
+          y: rect.top - containerRect.top + rect.height / 2,
+          width: rect.width,
+          height: rect.height,
+        };
+      }
+    });
+
+    setButtonPositions({
+      russian: russianPositions,
+      english: englishPositions,
+    });
+  };
+
   useEffect(() => {
     setShuffledRussian([...russianWords].sort(() => Math.random() - 0.5));
     setShuffledEnglish([...englishWords].sort(() => Math.random() - 0.5));
@@ -147,6 +214,17 @@ export const MatchGame = () => {
       }
     };
   }, []);
+
+  useEffect(() => {
+    updateButtonPositions();
+    window.addEventListener("resize", updateButtonPositions);
+    return () => window.removeEventListener("resize", updateButtonPositions);
+  }, [currentLevel, shuffledRussian, shuffledEnglish]);
+
+  useEffect(() => {
+    const timer = setTimeout(updateButtonPositions, 100);
+    return () => clearTimeout(timer);
+  });
 
   const toggleRussian = (word: string) => {
     if (selectedRussian === word) {
@@ -269,6 +347,7 @@ export const MatchGame = () => {
   return (
     <>
       <Box
+        ref={gameContainerRef}
         sx={{
           display: "flex",
           justifyContent: "center",
@@ -277,6 +356,8 @@ export const MatchGame = () => {
           flexGrow: 1,
           my: 2,
           gap: "265px",
+          position: "relative",
+          minHeight: "400px",
         }}
       >
         <Box sx={boxWordsStyles}>
@@ -293,9 +374,11 @@ export const MatchGame = () => {
 
             return (
               <Button
+                ref={setRussianRef(word)}
                 key={`${word}-${index}`}
                 onClick={() => toggleRussian(word)}
                 variant="contained"
+                component="button"
                 sx={{
                   backgroundColor,
                   "&:hover": {
@@ -306,6 +389,8 @@ export const MatchGame = () => {
                   borderRadius: 40,
                   fontSize: 30,
                   transition: "all 0.3s ease",
+                  position: "relative",
+                  zIndex: 2,
                 }}
               >
                 {word}
@@ -328,9 +413,11 @@ export const MatchGame = () => {
 
             return (
               <Button
+                ref={setEnglishRef(word)}
                 key={`${word}-${index}`}
                 onClick={() => toggleEnglish(word)}
                 variant="contained"
+                component="button"
                 sx={{
                   backgroundColor,
                   "&:hover": {
@@ -341,6 +428,8 @@ export const MatchGame = () => {
                   borderRadius: 40,
                   fontSize: 30,
                   transition: "all 0.3s ease",
+                  position: "relative",
+                  zIndex: 2,
                 }}
               >
                 {word}
@@ -348,6 +437,63 @@ export const MatchGame = () => {
             );
           })}
         </Box>
+        {connections.map((connection, index) => {
+          const russianPos = buttonPositions.russian[connection.russian];
+          const englishPos = buttonPositions.english[connection.english];
+
+          if (!russianPos || !englishPos) return null;
+
+          return (
+            <ConnectionLine
+              key={`connection-${index}`}
+              startX={russianPos.x}
+              startY={russianPos.y}
+              endX={englishPos.x}
+              endY={englishPos.y}
+              isCorrect={connection.isCorrect}
+            />
+          );
+        })}
+
+        {selectedRussian &&
+          selectedEnglish &&
+          !isWrongSelection &&
+          (() => {
+            const russianPos = buttonPositions.russian[selectedRussian];
+            const englishPos = buttonPositions.english[selectedEnglish];
+
+            if (!russianPos || !englishPos) return null;
+
+            return (
+              <ConnectionLine
+                startX={russianPos.x}
+                startY={russianPos.y}
+                endX={englishPos.x}
+                endY={englishPos.y}
+                isCorrect={true}
+              />
+            );
+          })()}
+
+        {isWrongSelection &&
+          selectedRussian &&
+          selectedEnglish &&
+          (() => {
+            const russianPos = buttonPositions.russian[selectedRussian];
+            const englishPos = buttonPositions.english[selectedEnglish];
+
+            if (!russianPos || !englishPos) return null;
+
+            return (
+              <ConnectionLine
+                startX={russianPos.x}
+                startY={russianPos.y}
+                endX={englishPos.x}
+                endY={englishPos.y}
+                isCorrect={false}
+              />
+            );
+          })()}
       </Box>
 
       <Box

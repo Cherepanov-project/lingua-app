@@ -24,7 +24,7 @@ import { ProfileGrammarPage } from "./user/components/ProfilePages/ProfileGramma
 import { ProfileGamesPage } from "./user/components/ProfilePages/ProfileGamesPage.tsx";
 import { ProfileSettingsPage } from "./user/components/ProfilePages/ProfileSettingsPage.tsx";
 import { GamesLayout } from "./user/components/GamesLayout/GamesLayout.tsx";
-import { MatchGame } from "./user/components/GamesPages/MatchGame.tsx";
+import { MatchGame } from "./user/components/Profile/MatchGame.tsx";
 
 const App: React.FC = () => {
   return (

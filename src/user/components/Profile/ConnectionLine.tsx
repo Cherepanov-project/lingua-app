@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import React from "react";
 
 interface ConnectionLineProps {
   startX: number;
@@ -15,39 +15,30 @@ export const ConnectionLine: React.FC<ConnectionLineProps> = ({
   endY,
   isCorrect,
 }) => {
-  const color = isCorrect ? "#4CAF50" : "#ff6b6b";
-
-  const dx = endX - startX;
-  const dy = endY - startY;
-  const length = Math.sqrt(dx * dx + dy * dy);
-  const angle = (Math.atan2(dy, dx) * 180) / Math.PI;
+  const strokeColor = isCorrect ? "#4CAF50" : "#ff6b6b";
+  const strokeWidth = 3;
 
   return (
-    <Box
-      sx={{
+    <svg
+      style={{
         position: "absolute",
-        top: startY,
-        left: startX,
-        width: length,
-        height: "3px",
-        backgroundColor: color,
-        transform: `rotate(${angle}deg)`,
-        transformOrigin: "0 0",
-        zIndex: 1,
+        top: 0,
+        left: 0,
+        width: "100%",
+        height: "100%",
         pointerEvents: "none",
-        "&::after": {
-          content: '""',
-          position: "absolute",
-          right: "-8px",
-          top: "-5px",
-          width: 0,
-          height: 0,
-          borderLeft: "6px solid transparent",
-          borderRight: "6px solid transparent",
-          borderTop: `10px solid ${color}`,
-          transform: "rotate(90deg)",
-        },
+        zIndex: 1,
       }}
-    />
+    >
+      <line
+        x1={startX}
+        y1={startY}
+        x2={endX}
+        y2={endY}
+        stroke={strokeColor}
+        strokeWidth={strokeWidth}
+        opacity={0.8}
+      />
+    </svg>
   );
 };

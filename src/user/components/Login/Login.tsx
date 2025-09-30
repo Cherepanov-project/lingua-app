@@ -1,91 +1,85 @@
-import React, { useState } from "react";
-import { useAuth0 } from "@auth0/auth0-react";
-import { Link, useNavigate } from "react-router-dom";
-import {
-  Container,
-  Box,
-  Button,
-  TextField,
+import React, { useState } from 'react';
+import { useAuth0 } from '@auth0/auth0-react';
+import { Link, useNavigate } from 'react-router-dom';
+import { 
+  Container, 
+  Box, 
+  Button, 
+  TextField, 
   Typography,
   styled,
-  Divider,
-} from "@mui/material";
-import GoogleIcon from "@mui/icons-material/Google";
+  Divider
+} from '@mui/material';
+import GoogleIcon from '@mui/icons-material/Google';
 // import GitHubIcon from '@mui/icons-material/GitHub';
-import { useAuthUserMutation } from "../../features/auth/authApi";
-import { setCookie } from "../../utils/cookies";
-import { stylesObj } from "../../stylesObj";
+import { useAuthUserMutation } from '../../features/auth/authApi';
+import { setCookie } from '../../utils/cookies';
+import { stylesObj} from '../../stylesObj';
 
-const LoginLinks = styled("div")({
-  ...stylesObj.loginLinks,
+const LoginLinks = styled('div')({
+  ...stylesObj.loginLinks
 });
 
 const LoginLink = styled(Link)({
-  ...stylesObj.loginLink,
+  ...stylesObj.loginLink
 });
 
 const SocialButton = styled(Button)({
-  margin: "8px 0",
-  textTransform: "none",
-  fontSize: "1rem",
+  margin: '8px 0',
+  textTransform: 'none',
+  fontSize: '1rem',
 });
 
 const Login: React.FC = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [authUser, { isLoading, isError }] = useAuthUserMutation();
   const { loginWithRedirect } = useAuth0();
   const navigate = useNavigate();
+
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
       const response = await authUser({ username: email, password }).unwrap();
-      setCookie("auth_token", response.access_token);
-      navigate("/profile");
+      setCookie('auth_token', response.access_token);
+      navigate('/profile');
     } catch (error) {
-      if (error instanceof Error) {
-        throw new Error(`Ошибка входа: ${error}`);
-      }
+      console.error('Ошибка входа:', error);
     }
   };
 
-  const handleSocialLogin = async (connection: "google-oauth2" | "github") => {
+
+    const handleSocialLogin = async (connection: 'google-oauth2' | 'github') => {
     try {
       await loginWithRedirect({
         authorizationParams: {
           connection,
           redirect_uri: `${window.location.origin}/auth-callback`,
-          scope: "openid profile email",
+          scope: 'openid profile email',
           audience: import.meta.env.VITE_AUTH0_AUDIENCE,
         },
       });
     } catch (error) {
-      if (error instanceof Error) {
-        throw new Error(`Ошибка социального входа: ${error}`);
-      }
+      console.error('Ошибка социального входа:', error);
     }
   };
 
   return (
-    <Container sx={{ display: "flex", alignItems: "center", height: "100vh" }}>
-      <Box
-        sx={{ ...stylesObj.authBox }}
-        component="form"
-        onSubmit={handleLogin}
-      >
+    <Container sx={{ display: 'flex', alignItems: 'center', height: '100vh',  }}>
+      <Box sx={{...stylesObj.authBox}} component="form" onSubmit={handleLogin}>
         <Container>
-          <Typography
-            variant="h4"
-            sx={{
-              ...stylesObj.title,
+          <Typography 
+            variant="h4" 
+            sx={{ 
+              ...stylesObj.title
             }}
           >
             LinguaStep
           </Typography>
-          <Typography
-            variant="h6"
-            sx={{
-              ...stylesObj.subtitle,
+          <Typography 
+            variant="h6" 
+            sx={{ 
+            ...stylesObj.subtitle
             }}
           >
             Вход
@@ -112,11 +106,7 @@ const Login: React.FC = () => {
           margin="normal"
         />
 
-        <Button
-          sx={{ ...stylesObj.loginButton }}
-          type="submit"
-          disabled={isLoading}
-        >
+        <Button sx={{ ...stylesObj.loginButton }} type="submit" disabled={isLoading}>
           Войти
         </Button>
 
@@ -125,7 +115,7 @@ const Login: React.FC = () => {
         <SocialButton
           variant="outlined"
           startIcon={<GoogleIcon />}
-          onClick={() => handleSocialLogin("google-oauth2")}
+          onClick={() => handleSocialLogin('google-oauth2')}
           fullWidth
         >
           Войти через Google

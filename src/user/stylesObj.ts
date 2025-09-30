@@ -12,6 +12,7 @@ interface StyleObject {
   loginLink: CSSProperties;
   loginButton: CSSProperties;
   starsIcons: CSSProperties;
+  adminPageTitle: CSSProperties;
 }
 
 export const vars = {
@@ -107,6 +108,12 @@ export const stylesObj: StyleObject = {
   starsIcons: {
     fontSize: "20px",
     color: "#7e94f9",
+  },
+  adminPageTitle: {
+    fontWeight: "600",
+    fontSize: "34px",
+    lineHeight: "175%",
+    color: "#000",
   },
 };
 

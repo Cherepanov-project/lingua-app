@@ -1,7 +1,7 @@
 import React, { useCallback, useRef, useEffect } from "react";
 import { useGameState } from "../../features/hooks/useGameState";
 import { useButtonPositions } from "../../features/hooks/useButtonPositions";
-import { WordButton } from "./gameWordButton";
+import { WordButton } from "./GameWordButton";
 import { ConnectionLines } from "./ConnectionLines";
 import { GameControls } from "./GameControls";
 import type { WordStatus, WordType } from "../../../types/matchGame";

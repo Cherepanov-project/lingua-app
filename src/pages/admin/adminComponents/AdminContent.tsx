@@ -1,34 +1,32 @@
 import { Box } from "@mui/material";
-import { Outlet } from "react-router-dom";
-import Sidebar from "./Sidebar";
+import { Routes, Route } from "react-router-dom";
+import AdminHome from "../AdminHome";
+import Users from "../../admin/Users";
+import Pictures from "../../admin/Pictures";
+import Courses from "../Courses";
 
 const AdminContent = () => {
   return (
     <Box
       sx={{
-        display: "flex",
-        height: "100vh",
-        width: "100vw",
-        p: "52px 45px",
-        boxSizing: "border-box",
-        bgcolor: "#F8F8F8",
-        gap: "4px",
-        alignItems: "flex-start",
+        width: '100vh',
+        borderRadius: "0 30px 30px 0",
+        bgcolor: "#FCFDFD",
+        boxShadow: 3,
+        height: "calc(100vh - 104px)",
+        flex: 1, 
       }}
     >
-      <Sidebar />
-      <Box
-        sx={{
-          width: "100vh",
-          borderRadius: "0 30px 30px 0",
-          bgcolor: "#FCFDFD",
-          boxShadow: 3,
-          height: "calc(100vh - 104px)",
-          flex: 1,
-        }}
-      >
-        <Outlet />
-      </Box>
+      <Routes>
+        <Route index element={<AdminHome />} />
+        <Route path="users" element={<Users />} />
+        <Route path="courses" element={<Courses />} />
+        <Route path="games" element={<div>Игры</div>} />
+        <Route path="reviews" element={<div>Отзывы</div>} />
+        <Route path="stats" element={<div>Статистика</div>} />
+        <Route path="settings" element={<div>Настройки</div>} />
+        <Route path="pictures" element={<Pictures />} />
+      </Routes>
     </Box>
   );
 };

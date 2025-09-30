@@ -1,88 +1,101 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export type Auth0User = {
-  user_id: string
-  name: string
-  email: string
-  created_at: string
-  logins_count: number
-  picture: string
-  roles?: string[]
-}
+  user_id: string;
+  name: string;
+  email: string;
+  created_at: string;
+  logins_count: number;
+  picture: string;
+};
+
+export type Auth0Role = {
+  id: string;
+  name: string;
+};
 
 type NewUserRequest = {
-  email: string
-  name: string
-  password: string
-}
+  email: string;
+  name: string;
+  password: string;
+};
 
 export const usersApi = createApi({
-  reducerPath: 'usersApi',
-  tagTypes: ['Users'],
+  reducerPath: "usersApi",
+  tagTypes: ["Users"],
   baseQuery: fetchBaseQuery({
     baseUrl: `https://${import.meta.env.VITE_AUTH0_DOMAIN}/api/v2/`,
-    prepareHeaders: headers => {
-      const token = sessionStorage.getItem('management_token')
+    prepareHeaders: (headers) => {
+      const token = sessionStorage.getItem("management_token");
       if (token) {
-        headers.set('authorization', `Bearer ${token}`)
+        headers.set("authorization", `Bearer ${token}`);
       }
-      return headers
-    }
+      return headers;
+    },
   }),
-  endpoints: builder => ({
+  endpoints: (builder) => ({
     getUsers: builder.query<Auth0User[], void>({
-      query: () => 'users',
-      providesTags: ['Users']
+      query: () => "users",
+      providesTags: ["Users"],
+    }),
+    getUserRoles: builder.query<Auth0Role[], string>({
+      query: (userId) => `users/${userId}/roles`,
     }),
     addUser: builder.mutation<Auth0User, NewUserRequest>({
-      query: newUser => ({
-        url: 'users',
-        method: 'POST',
+      query: (newUser) => ({
+        url: "users",
+        method: "POST",
         body: {
           ...newUser,
-          connection: 'Username-Password-Authentication'
-        }
+          connection: "Username-Password-Authentication",
+        },
       }),
       // invalidatesTags: ['Users']
 
-      async onQueryStarted (_newUser, { dispatch, queryFulfilled }) {
+      async onQueryStarted(_newUser, { dispatch, queryFulfilled }) {
         try {
-          const { data: createdUser } = await queryFulfilled
+          const { data: createdUser } = await queryFulfilled;
           dispatch(
-            usersApi.util.updateQueryData('getUsers', undefined, draft => {
-              draft.push(createdUser)
+            usersApi.util.updateQueryData("getUsers", undefined, (draft) => {
+              draft.push(createdUser);
             })
-          )
+          );
         } catch (err) {
-          console.error('Ошибка при добавлении пользователя:', err)
+          if (err instanceof Error) {
+            throw new Error(`Ошибка при добавлении пользователя: ${err}`);
+          }
         }
-      }
+      },
     }),
     deleteUser: builder.mutation<void, string>({
-      query: userId => ({
+      query: (userId) => ({
         url: `users/${userId}`,
-        method: 'DELETE'
+        method: "DELETE",
       }),
       // invalidatesTags: ['Users']
 
-      async onQueryStarted (userId, { dispatch, queryFulfilled }) {
+      async onQueryStarted(userId, { dispatch, queryFulfilled }) {
         const patchResult = dispatch(
-          usersApi.util.updateQueryData('getUsers', undefined, draft => {
-            const index = draft.findIndex(user => user.user_id === userId)
+          usersApi.util.updateQueryData("getUsers", undefined, (draft) => {
+            const index = draft.findIndex((user) => user.user_id === userId);
             if (index !== -1) {
-              draft.splice(index, 1)
+              draft.splice(index, 1);
             }
           })
-        )
+        );
         try {
-          await queryFulfilled
+          await queryFulfilled;
         } catch {
-          patchResult.undo()
+          patchResult.undo();
         }
-      }
-    })
-  })
-})
+      },
+    }),
+  }),
+});
 
-export const { useGetUsersQuery, useAddUserMutation, useDeleteUserMutation } =
-  usersApi
+export const {
+  useGetUsersQuery,
+  useAddUserMutation,
+  useDeleteUserMutation,
+  useGetUserRolesQuery,
+} = usersApi;

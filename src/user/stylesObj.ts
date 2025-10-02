@@ -13,6 +13,7 @@ interface StyleObject {
   loginButton: CSSProperties;
   starsIcons: CSSProperties;
   adminPageTitle: CSSProperties;
+  adminButton: CSSProperties;
 }
 
 export const vars = {
@@ -114,6 +115,19 @@ export const stylesObj: StyleObject = {
     fontSize: "34px",
     lineHeight: "175%",
     color: "#000",
+  },
+  adminButton: {
+    fontWeight: "600",
+    textTransform: "none",
+    fontSize: "16px",
+    color: "#fff",
+    boxShadow: "none",
+    "&:hover": {
+      boxShadow: "none",
+      backgroundColor: "rgb(126, 148, 210)",
+    },
+    borderRadius: "20px",
+    height: "55px",
   },
 };
 

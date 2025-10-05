@@ -29,7 +29,7 @@ export const GamesMain = () => {
             color: "text.primary",
           }}
         >
-          Соедени пары
+          Соедини пары
         </Typography>
       </Box>
     </>

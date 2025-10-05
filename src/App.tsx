@@ -80,7 +80,7 @@ const App: React.FC = () => {
               path="/admin/*"
               element={
                 <ProtectedRoute>
-                  <HomePage />
+                  <AdminContent />
                 </ProtectedRoute>
               }
             />

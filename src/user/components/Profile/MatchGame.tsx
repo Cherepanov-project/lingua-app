@@ -10,16 +10,16 @@ import { LAYOUT_STYLES } from "../../../shared/constants/matchGame";
 export const MatchGame: React.FC = () => {
   const {
     currentLevel,
-    selectedRussian,
-    selectedEnglish,
+    selectedLeft,
+    selectedRight,
     connections,
     showAnswers,
     gameCompleted,
     isWrongSelection,
     currentLevelData,
     shuffledWords,
-    selectRussian,
-    selectEnglish,
+    selectLeft,
+    selectRight,
     addConnection,
     setWrongSelection,
     resetSelection,
@@ -31,8 +31,8 @@ export const MatchGame: React.FC = () => {
   const {
     buttonPositions,
     gameContainerRef,
-    setRussianRef,
-    setEnglishRef,
+    setLeftRef,
+    setRightRef,
     updateButtonPositions,
   } = useButtonPositions();
 
@@ -41,32 +41,30 @@ export const MatchGame: React.FC = () => {
   const getWordStatus = useCallback(
     (word: string, type: WordType): WordStatus => {
       const isSelected =
-        type === "russian"
-          ? selectedRussian === word
-          : selectedEnglish === word;
+        type === "left" ? selectedLeft === word : selectedRight === word;
 
       if (isSelected) return "selected";
 
       const isConnected = connections.some((conn) =>
-        type === "russian" ? conn.russian === word : conn.english === word
+        type === "left" ? conn.left === word : conn.right === word
       );
 
       return isConnected ? "connected" : "normal";
     },
-    [selectedRussian, selectedEnglish, connections]
+    [selectedLeft, selectedRight, connections]
   );
 
   const checkConnection = useCallback(
-    (russianWord: string, englishWord: string) => {
+    (leftWord: string, rightWord: string) => {
       const correctPair = currentLevelData.pairs.find(
-        (pair: { russian: string; english: string }) =>
-          pair.russian === russianWord && pair.english === englishWord
+        (pair: { left: string; right: string }) =>
+          pair.left === leftWord && pair.right === rightWord
       );
 
       if (correctPair) {
         addConnection({
-          russian: russianWord,
-          english: englishWord,
+          left: leftWord,
+          right: rightWord,
           isCorrect: true,
         });
       } else {
@@ -79,24 +77,24 @@ export const MatchGame: React.FC = () => {
     [currentLevelData.pairs, addConnection, setWrongSelection, resetSelection]
   );
 
-  const handleRussianClick = useCallback(
+  const handleLeftClick = useCallback(
     (word: string) => {
-      const selectedWord = selectRussian(word);
-      if (selectedWord && selectedEnglish) {
-        checkConnection(selectedWord, selectedEnglish);
+      const selectedWord = selectLeft(word);
+      if (selectedWord && selectedRight) {
+        checkConnection(selectedWord, selectedRight);
       }
     },
-    [selectRussian, selectedEnglish, checkConnection]
+    [selectLeft, selectedRight, checkConnection]
   );
 
-  const handleEnglishClick = useCallback(
+  const handleRightClick = useCallback(
     (word: string) => {
-      const selectedWord = selectEnglish(word);
-      if (selectedRussian && selectedWord) {
-        checkConnection(selectedRussian, selectedWord);
+      const selectedWord = selectRight(word);
+      if (selectedLeft && selectedWord) {
+        checkConnection(selectedLeft, selectedWord);
       }
     },
-    [selectEnglish, selectedRussian, checkConnection]
+    [selectRight, selectedLeft, checkConnection]
   );
 
   useEffect(() => {
@@ -111,7 +109,7 @@ export const MatchGame: React.FC = () => {
     };
   }, []);
 
-  if (!shuffledWords.russian.length || !shuffledWords.english.length) {
+  if (!shuffledWords.left.length || !shuffledWords.right.length) {
     return null;
   }
 
@@ -119,29 +117,29 @@ export const MatchGame: React.FC = () => {
     <>
       <div ref={gameContainerRef} style={LAYOUT_STYLES.GAME_CONTAINER}>
         <div style={LAYOUT_STYLES.WORDS_CONTAINER}>
-          {shuffledWords.russian.map((word, index) => (
+          {shuffledWords.left.map((word, index) => (
             <WordButton
-              key={`russian-${word}-${index}`}
+              key={`left-${word}-${index}`}
               word={word}
-              type="russian"
-              status={getWordStatus(word, "russian")}
+              type="left"
+              status={getWordStatus(word, "left")}
               isWrongSelection={isWrongSelection}
-              onClick={handleRussianClick}
-              buttonRef={setRussianRef(word)}
+              onClick={handleLeftClick}
+              buttonRef={setLeftRef(word)}
             />
           ))}
         </div>
 
         <div style={LAYOUT_STYLES.WORDS_CONTAINER}>
-          {shuffledWords.english.map((word, index) => (
+          {shuffledWords.right.map((word, index) => (
             <WordButton
-              key={`english-${word}-${index}`}
+              key={`right-${word}-${index}`}
               word={word}
-              type="english"
-              status={getWordStatus(word, "english")}
+              type="right"
+              status={getWordStatus(word, "right")}
               isWrongSelection={isWrongSelection}
-              onClick={handleEnglishClick}
-              buttonRef={setEnglishRef(word)}
+              onClick={handleRightClick}
+              buttonRef={setRightRef(word)}
             />
           ))}
         </div>
@@ -149,8 +147,8 @@ export const MatchGame: React.FC = () => {
         <ConnectionLines
           connections={connections}
           buttonPositions={buttonPositions}
-          selectedRussian={selectedRussian}
-          selectedEnglish={selectedEnglish}
+          selectedLeft={selectedLeft}
+          selectedRight={selectedRight}
           isWrongSelection={isWrongSelection}
         />
       </div>

@@ -4,8 +4,8 @@ import { gameLevels } from "../../../shared/constants/mockMatchGame";
 
 export function useGameState() {
   const [currentLevel, setCurrentLevel] = useState(1);
-  const [selectedRussian, setSelectedRussian] = useState<string | null>(null);
-  const [selectedEnglish, setSelectedEnglish] = useState<string | null>(null);
+  const [selectedLeft, setSelectedLeft] = useState<string | null>(null);
+  const [selectedRight, setSelectedRight] = useState<string | null>(null);
   const [connections, setConnections] = useState<Connection[]>([]);
   const [showAnswers, setShowAnswers] = useState(false);
   const [gameCompleted, setGameCompleted] = useState(false);
@@ -17,31 +17,31 @@ export function useGameState() {
   );
 
   const shuffledWords = useMemo(() => {
-    const russian = currentLevelData.pairs.map((pair) => pair.russian);
-    const english = currentLevelData.pairs.map((pair) => pair.english);
+    const left = currentLevelData.pairs.map((pair) => pair.left);
+    const right = currentLevelData.pairs.map((pair) => pair.right);
 
     return {
-      russian: [...russian].sort(() => Math.random() - 0.5),
-      english: [...english].sort(() => Math.random() - 0.5),
+      left: [...left].sort(() => Math.random() - 0.5),
+      right: [...right].sort(() => Math.random() - 0.5),
     };
   }, [currentLevelData]);
 
-  const selectRussian = useCallback(
+  const selectLeft = useCallback(
     (word: string) => {
-      const newWord = selectedRussian === word ? null : word;
-      setSelectedRussian(newWord);
+      const newWord = selectedLeft === word ? null : word;
+      setSelectedLeft(newWord);
       return newWord;
     },
-    [selectedRussian]
+    [selectedLeft]
   );
 
-  const selectEnglish = useCallback(
+  const selectRight = useCallback(
     (word: string) => {
-      const newWord = selectedEnglish === word ? null : word;
-      setSelectedEnglish(newWord);
+      const newWord = selectedRight === word ? null : word;
+      setSelectedRight(newWord);
       return newWord;
     },
-    [selectedEnglish]
+    [selectedRight]
   );
 
   const addConnection = useCallback(
@@ -54,8 +54,8 @@ export function useGameState() {
         return newConnections;
       });
 
-      setSelectedRussian(null);
-      setSelectedEnglish(null);
+      setSelectedLeft(null);
+      setSelectedRight(null);
       setIsWrongSelection(false);
     },
     [currentLevelData.pairs.length]
@@ -66,8 +66,8 @@ export function useGameState() {
   }, []);
 
   const resetSelection = useCallback(() => {
-    setSelectedRussian(null);
-    setSelectedEnglish(null);
+    setSelectedLeft(null);
+    setSelectedRight(null);
     setIsWrongSelection(false);
   }, []);
 
@@ -76,8 +76,8 @@ export function useGameState() {
       setCurrentLevel((prev) => prev + 1);
       setConnections([]);
       setGameCompleted(false);
-      setSelectedRussian(null);
-      setSelectedEnglish(null);
+      setSelectedLeft(null);
+      setSelectedRight(null);
       setShowAnswers(false);
       setIsWrongSelection(false);
     }
@@ -87,8 +87,8 @@ export function useGameState() {
     setCurrentLevel(1);
     setConnections([]);
     setGameCompleted(false);
-    setSelectedRussian(null);
-    setSelectedEnglish(null);
+    setSelectedLeft(null);
+    setSelectedRight(null);
     setShowAnswers(false);
     setIsWrongSelection(false);
   }, []);
@@ -99,16 +99,16 @@ export function useGameState() {
 
   return {
     currentLevel,
-    selectedRussian,
-    selectedEnglish,
+    selectedLeft,
+    selectedRight,
     connections,
     showAnswers,
     gameCompleted,
     isWrongSelection,
     currentLevelData,
     shuffledWords,
-    selectRussian,
-    selectEnglish,
+    selectLeft,
+    selectRight,
     addConnection,
     setWrongSelection,
     resetSelection,

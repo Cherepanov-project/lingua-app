@@ -17,15 +17,15 @@ export const WordButton = memo<WordButtonProps>(
       if (status === "selected") {
         return isWrongSelection
           ? COLORS.ERROR
-          : type === "russian"
-            ? COLORS.RUSSIAN_SELECTED
-            : COLORS.ENGLISH_SELECTED;
+          : type === "left"
+            ? COLORS.LEFT_SELECTED
+            : COLORS.RIGHT_SELECTED;
       }
 
       if (status === "connected") {
-        return type === "russian"
-          ? COLORS.RUSSIAN_SELECTED
-          : COLORS.ENGLISH_SELECTED;
+        return type === "left"
+          ? COLORS.LEFT_SELECTED
+          : COLORS.RIGHT_SELECTED;
       }
 
       return "white";
@@ -33,9 +33,7 @@ export const WordButton = memo<WordButtonProps>(
 
     const getHoverColor = () => {
       if (isWrongSelection) return COLORS.ERROR;
-      return type === "russian"
-        ? COLORS.RUSSIAN_SELECTED
-        : COLORS.ENGLISH_SELECTED;
+      return type === "left" ? COLORS.LEFT_SELECTED : COLORS.RIGHT_SELECTED;
     };
 
     return (

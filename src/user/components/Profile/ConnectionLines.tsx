@@ -5,8 +5,8 @@ import type { Connection, ButtonPositions } from "../../../types/matchGame";
 interface ConnectionLinesProps {
   connections: Connection[];
   buttonPositions: ButtonPositions;
-  selectedRussian?: string | null;
-  selectedEnglish?: string | null;
+  selectedLeft?: string | null;
+  selectedRight?: string | null;
   isWrongSelection?: boolean;
 }
 
@@ -14,24 +14,24 @@ export const ConnectionLines = memo<ConnectionLinesProps>(
   ({
     connections,
     buttonPositions,
-    selectedRussian,
-    selectedEnglish,
+    selectedLeft,
+    selectedRight,
     isWrongSelection = false,
   }) => {
     const renderConnections = () => {
       return connections.map((connection, index) => {
-        const russianPos = buttonPositions.russian[connection.russian];
-        const englishPos = buttonPositions.english[connection.english];
+        const leftPos = buttonPositions.left[connection.left];
+        const rightPos = buttonPositions.right[connection.right];
 
-        if (!russianPos || !englishPos) return null;
+        if (!leftPos || !rightPos) return null;
 
         return (
           <ConnectionLine
             key={`connection-${index}`}
-            startX={russianPos.x}
-            startY={russianPos.y}
-            endX={englishPos.x}
-            endY={englishPos.y}
+            startX={leftPos.x}
+            startY={leftPos.y}
+            endX={rightPos.x}
+            endY={rightPos.y}
             isCorrect={connection.isCorrect}
           />
         );
@@ -39,19 +39,19 @@ export const ConnectionLines = memo<ConnectionLinesProps>(
     };
 
     const renderTemporaryConnection = () => {
-      if (!selectedRussian || !selectedEnglish) return null;
+      if (!selectedLeft || !selectedRight) return null;
 
-      const russianPos = buttonPositions.russian[selectedRussian];
-      const englishPos = buttonPositions.english[selectedEnglish];
+      const leftPos = buttonPositions.left[selectedLeft];
+      const rightPos = buttonPositions.right[selectedRight];
 
-      if (!russianPos || !englishPos) return null;
+      if (!leftPos || !rightPos) return null;
 
       return (
         <ConnectionLine
-          startX={russianPos.x}
-          startY={russianPos.y}
-          endX={englishPos.x}
-          endY={englishPos.y}
+          startX={leftPos.x}
+          startY={leftPos.y}
+          endX={rightPos.x}
+          endY={rightPos.y}
           isCorrect={!isWrongSelection}
         />
       );

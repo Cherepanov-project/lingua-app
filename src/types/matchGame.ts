@@ -1,6 +1,6 @@
 export interface Connection {
-  russian: string;
-  english: string;
+  left: string;
+  right: string;
   isCorrect: boolean;
 }
 
@@ -12,9 +12,9 @@ export interface Position {
 }
 
 export interface ButtonPositions {
-  russian: Record<string, Position>;
-  english: Record<string, Position>;
+  left: Record<string, Position>;
+  right: Record<string, Position>;
 }
 
 export type WordStatus = "normal" | "selected" | "connected";
-export type WordType = "russian" | "english";
+export type WordType = "left" | "right";

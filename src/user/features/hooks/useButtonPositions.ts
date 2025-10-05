@@ -3,24 +3,24 @@ import type { ButtonPositions, Position } from "../../../types/matchGame";
 
 export function useButtonPositions() {
   const [buttonPositions, setButtonPositions] = useState<ButtonPositions>({
-    russian: {},
-    english: {},
+    left: {},
+    right: {},
   });
 
-  const russianRefs = useRef<Record<string, HTMLButtonElement | null>>({});
-  const englishRefs = useRef<Record<string, HTMLButtonElement | null>>({});
+  const leftRefs = useRef<Record<string, HTMLButtonElement | null>>({});
+  const rightRefs = useRef<Record<string, HTMLButtonElement | null>>({});
   const gameContainerRef = useRef<HTMLDivElement>(null);
 
-  const setRussianRef = useCallback(
+  const setLeftRef = useCallback(
     (word: string) => (el: HTMLButtonElement | null) => {
-      russianRefs.current[word] = el;
+      leftRefs.current[word] = el;
     },
     []
   );
 
-  const setEnglishRef = useCallback(
+  const setRightRef = useCallback(
     (word: string) => (el: HTMLButtonElement | null) => {
-      englishRefs.current[word] = el;
+      rightRefs.current[word] = el;
     },
     []
   );
@@ -31,13 +31,13 @@ export function useButtonPositions() {
 
     const containerRect = gameContainer.getBoundingClientRect();
 
-    const russianPositions: Record<string, Position> = {};
-    const englishPositions: Record<string, Position> = {};
+    const leftPositions: Record<string, Position> = {};
+    const rightPositions: Record<string, Position> = {};
 
-    Object.entries(russianRefs.current).forEach(([word, element]) => {
+    Object.entries(leftRefs.current).forEach(([word, element]) => {
       if (element) {
         const rect = element.getBoundingClientRect();
-        russianPositions[word] = {
+        leftPositions[word] = {
           x: rect.right - containerRect.left,
           y: rect.top - containerRect.top + rect.height / 2,
           width: rect.width,
@@ -46,10 +46,10 @@ export function useButtonPositions() {
       }
     });
 
-    Object.entries(englishRefs.current).forEach(([word, element]) => {
+    Object.entries(rightRefs.current).forEach(([word, element]) => {
       if (element) {
         const rect = element.getBoundingClientRect();
-        englishPositions[word] = {
+        rightPositions[word] = {
           x: rect.left - containerRect.left,
           y: rect.top - containerRect.top + rect.height / 2,
           width: rect.width,
@@ -59,8 +59,8 @@ export function useButtonPositions() {
     });
 
     setButtonPositions({
-      russian: russianPositions,
-      english: englishPositions,
+      left: leftPositions,
+      right: rightPositions,
     });
   }, []);
 
@@ -77,8 +77,8 @@ export function useButtonPositions() {
   return {
     buttonPositions,
     gameContainerRef,
-    setRussianRef,
-    setEnglishRef,
+    setLeftRef,
+    setRightRef,
     updateButtonPositions,
   };
 }

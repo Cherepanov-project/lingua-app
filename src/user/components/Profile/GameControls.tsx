@@ -77,7 +77,7 @@ export const GameControls = memo<GameControlsProps>(
               >
                 {currentLevelPairs.map((pair, index) => (
                   <div key={index}>
-                    {pair.russian} - {pair.english}
+                    {pair.left} - {pair.right}
                   </div>
                 ))}
               </div>

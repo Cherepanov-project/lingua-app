@@ -1,6 +1,6 @@
 import { useState, useCallback, useMemo } from "react";
 import type { Connection } from "../../../types/matchGame";
-import { gameLevels } from "../../../shared/constants/mockMatchGame";
+import { useGetMatchGameLevelQuery } from "../../../shared/api/matchGameApi";
 
 export function useGameState() {
   const [currentLevel, setCurrentLevel] = useState(1);
@@ -11,18 +11,27 @@ export function useGameState() {
   const [gameCompleted, setGameCompleted] = useState(false);
   const [isWrongSelection, setIsWrongSelection] = useState(false);
 
-  const currentLevelData = useMemo(
-    () => gameLevels[currentLevel - 1],
-    [currentLevel]
-  );
+  const { data: currentLevelData } = useGetMatchGameLevelQuery(currentLevel);
 
   const shuffledWords = useMemo(() => {
-    const left = currentLevelData.pairs.map((pair) => pair.left);
-    const right = currentLevelData.pairs.map((pair) => pair.right);
+    const pairs = currentLevelData?.pairs ?? [];
+    const left = pairs.map((pair) => pair.left);
+    const right = pairs.map((pair) => pair.right);
+
+    function shuffleArray<T>(array: T[]): T[] {
+      const copy = [...array];
+      for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        const tmp = copy[i];
+        copy[i] = copy[j];
+        copy[j] = tmp;
+      }
+      return copy;
+    }
 
     return {
-      left: [...left].sort(() => Math.random() - 0.5),
-      right: [...right].sort(() => Math.random() - 0.5),
+      left: shuffleArray(left),
+      right: shuffleArray(right),
     };
   }, [currentLevelData]);
 
@@ -48,7 +57,7 @@ export function useGameState() {
     (connection: Connection) => {
       setConnections((prev) => {
         const newConnections = [...prev, connection];
-        if (newConnections.length === currentLevelData.pairs.length) {
+        if (currentLevelData && newConnections.length === currentLevelData.pairs.length) {
           setGameCompleted(true);
         }
         return newConnections;
@@ -58,7 +67,7 @@ export function useGameState() {
       setSelectedRight(null);
       setIsWrongSelection(false);
     },
-    [currentLevelData.pairs.length]
+    [currentLevelData]
   );
 
   const setWrongSelection = useCallback((isWrong: boolean) => {
@@ -72,7 +81,8 @@ export function useGameState() {
   }, []);
 
   const nextLevel = useCallback(() => {
-    if (currentLevel < gameLevels.length) {
+    const maxLevel = 10;
+    if (currentLevel < maxLevel) {
       setCurrentLevel((prev) => prev + 1);
       setConnections([]);
       setGameCompleted(false);

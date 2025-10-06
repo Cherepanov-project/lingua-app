@@ -26,7 +26,6 @@ const ProfilePage = () => {
       decodedToken = jwtDecode<JwtPayload>(token);
       userId = decodedToken.sub;
     } catch (e) {
-      console.error("Ошибка декодирования токена:", e);
       if (e instanceof Error) {
         throw new Error(`Ошибка декодирования токена: ${e}`);
       }

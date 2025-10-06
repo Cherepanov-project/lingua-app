@@ -56,7 +56,7 @@ export const MatchGame: React.FC = () => {
 
   const checkConnection = useCallback(
     (leftWord: string, rightWord: string) => {
-      const correctPair = currentLevelData.pairs.find(
+      const correctPair = (currentLevelData?.pairs ?? []).find(
         (pair: { left: string; right: string }) =>
           pair.left === leftWord && pair.right === rightWord
       );
@@ -74,7 +74,7 @@ export const MatchGame: React.FC = () => {
         }, 500);
       }
     },
-    [currentLevelData.pairs, addConnection, setWrongSelection, resetSelection]
+    [currentLevelData?.pairs, addConnection, setWrongSelection, resetSelection]
   );
 
   const handleLeftClick = useCallback(
@@ -157,7 +157,7 @@ export const MatchGame: React.FC = () => {
         currentLevel={currentLevel}
         gameCompleted={gameCompleted}
         showAnswers={showAnswers}
-        currentLevelPairs={currentLevelData.pairs}
+        currentLevelPairs={currentLevelData?.pairs ?? []}
         onShowAnswers={toggleAnswers}
         onRestart={restartGame}
         onNextLevel={nextLevel}

@@ -1,12 +1,11 @@
 import { memo } from "react";
-import type { WordPair } from "../../../shared/constants/mockMatchGame";
 import { COLORS, BUTTON_STYLES } from "../../../shared/constants/matchGame";
 
 interface GameControlsProps {
   currentLevel: number;
   gameCompleted: boolean;
   showAnswers: boolean;
-  currentLevelPairs: WordPair[];
+  currentLevelPairs: { left: string; right: string }[];
   onShowAnswers: () => void;
   onRestart: () => void;
   onNextLevel: () => void;

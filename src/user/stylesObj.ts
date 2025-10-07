@@ -14,6 +14,7 @@ interface StyleObject {
   starsIcons: CSSProperties;
   adminPageTitle: CSSProperties;
   adminButton: CSSProperties;
+  gamesModal: CSSProperties;
 }
 
 export const vars = {
@@ -128,6 +129,19 @@ export const stylesObj: StyleObject = {
     },
     borderRadius: "20px",
     height: "55px",
+  },
+  gamesModal: {
+    backgroundColor: "#fff",
+    position: "absolute",
+    top: "35%",
+    left: "43%",
+    p: "24px",
+    borderRadius: "5px",
+    width: "320px",
+    height: "300px",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
   },
 };
 

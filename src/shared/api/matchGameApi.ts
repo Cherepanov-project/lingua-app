@@ -4,8 +4,8 @@ type MatchGame = {
   id: number;
   level: number;
   pairs: {
-    russian: string;
-    english: string;
+    left: string;
+    right: string;
   }[];
 };
 
@@ -17,7 +17,7 @@ export const matchGamesApi = createApi({
   tagTypes: ["MatchGames"],
   endpoints: (builder) => ({
     getMatchGames: builder.query<MatchGame[], void>({
-      query: () => "match-games",
+      query: () => "matchgame",
       providesTags: (result) =>
         result
           ? [
@@ -28,13 +28,24 @@ export const matchGamesApi = createApi({
     }),
     addMatchGame: builder.mutation<MatchGame, Omit<MatchGame, "id">>({
       query: (newGame) => ({
-        url: "match-games",
+        url: "matchgame",
         method: "POST",
         body: newGame,
+      }),
+      invalidatesTags: [{ type: "MatchGames", id: "LIST" }],
+    }),
+    deleteMatchGame: builder.mutation<MatchGame, number>({
+      query: (id) => ({
+        url: `matchgame/${id}`,
+        method: "DELETE",
       }),
       invalidatesTags: [{ type: "MatchGames", id: "LIST" }],
     }),
   }),
 });
 
-export const { useGetMatchGamesQuery, useAddMatchGameMutation } = matchGamesApi;
+export const {
+  useGetMatchGamesQuery,
+  useAddMatchGameMutation,
+  useDeleteMatchGameMutation,
+} = matchGamesApi;

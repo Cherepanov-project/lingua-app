@@ -12,16 +12,17 @@ interface MatchModalProps {
 
 const MatchGameModal = ({ open, handleClose, length }: MatchModalProps) => {
   const [addGame] = useAddMatchGameMutation();
-  const [newGame, setNewGame] = useState({
+  const initialState = {
     level: length + 1,
     pairs: {
-      0: { russian: "", english: "" },
-      1: { russian: "", english: "" },
-      2: { russian: "", english: "" },
-      3: { russian: "", english: "" },
-      4: { russian: "", english: "" },
+      0: { left: "", right: "" },
+      1: { left: "", right: "" },
+      2: { left: "", right: "" },
+      3: { left: "", right: "" },
+      4: { left: "", right: "" },
     },
-  });
+  };
+  const [newGame, setNewGame] = useState({ ...initialState });
   const handleChange = (
     index: number,
     { target: { value, name } }: React.ChangeEvent<HTMLInputElement>
@@ -38,7 +39,6 @@ const MatchGameModal = ({ open, handleClose, length }: MatchModalProps) => {
         },
       };
     });
-    console.log(newGame);
   };
   const handleSubmit = async () => {
     await addGame({
@@ -51,6 +51,7 @@ const MatchGameModal = ({ open, handleClose, length }: MatchModalProps) => {
         { ...newGame.pairs[4] },
       ],
     }).unwrap();
+    setNewGame({ ...initialState });
     handleClose();
   };
   return (
@@ -65,18 +66,18 @@ const MatchGameModal = ({ open, handleClose, length }: MatchModalProps) => {
               return (
                 <Box sx={{ display: "flex" }} key={index}>
                   <Input
-                    name="russian"
+                    name="left"
                     value={
-                      newGame.pairs[index as keyof typeof newGame.pairs].russian
+                      newGame.pairs[index as keyof typeof newGame.pairs].left
                     }
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                       handleChange(index, e)
                     }
                   />
                   <Input
-                    name="english"
+                    name="right"
                     value={
-                      newGame.pairs[index as keyof typeof newGame.pairs].english
+                      newGame.pairs[index as keyof typeof newGame.pairs].right
                     }
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                       handleChange(index, e)

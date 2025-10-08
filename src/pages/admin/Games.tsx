@@ -7,12 +7,18 @@ import {
 } from "../../shared/constants/textConsts";
 import AddIcon from "@mui/icons-material/Add";
 import { useState } from "react";
-import { useGetMatchGamesQuery } from "../../shared/api/matchGameApi";
+import {
+  useDeleteMatchGameMutation,
+  useGetMatchGamesQuery,
+} from "../../shared/api/matchGameApi";
 import MatchGameModal from "./MatchGameModal";
 
 const Games = () => {
   const { data: gamesList = [], isLoading } = useGetMatchGamesQuery();
   const [open, setOpen] = useState(false);
+  const [deleteId, setDeleteId] = useState(0);
+  const [deleteMatchGame] = useDeleteMatchGameMutation();
+  const [openDelete, setOpenDelete] = useState(false);
   const [openCreate, setOpenCreate] = useState(false);
   const handleOpen = (
     setFunc: React.Dispatch<React.SetStateAction<boolean>>
@@ -23,6 +29,11 @@ const Games = () => {
     setFunc: React.Dispatch<React.SetStateAction<boolean>>
   ) => {
     setFunc(false);
+  };
+  const handleDelete = async () => {
+    await deleteMatchGame(deleteId).unwrap();
+    setDeleteId(0);
+    handleClose(setOpenDelete);
   };
   if (!isLoading) {
     return (
@@ -73,6 +84,19 @@ const Games = () => {
           handleClose={() => handleClose(setOpenCreate)}
           length={gamesList.length}
         />
+        <Modal open={openDelete} onClose={() => handleClose(setOpenDelete)}>
+          <Box sx={{ ...stylesObj.gamesModal, height: "150px" }}>
+            <Typography variant="h6" component="h2">
+              Удалить?
+            </Typography>
+            <Box>
+              <Button sx={{ color: "red" }} onClick={handleDelete}>
+                Удалить
+              </Button>
+              <Button onClick={() => handleClose(setOpenDelete)}>Отмена</Button>
+            </Box>
+          </Box>
+        </Modal>
         <Box>
           {...gamesList.map((game) => {
             return (
@@ -84,20 +108,25 @@ const Games = () => {
                   {...game.pairs.map((pair) => {
                     return (
                       <Box sx={{ display: "flex" }}>
+                        <Input readOnly name="left" defaultValue={pair.left} />
                         <Input
                           readOnly
-                          name="russian"
-                          defaultValue={pair.russian}
-                        />
-                        <Input
-                          readOnly
-                          name="english"
-                          defaultValue={pair.english}
+                          name="right"
+                          defaultValue={pair.right}
                         />
                       </Box>
                     );
                   })}
-                  <Button>Редактировать</Button>
+                  <Button sx={{ mr: "4px" }}>Редактировать</Button>
+                  <Button
+                    sx={{ color: "red" }}
+                    onClick={() => {
+                      handleOpen(setOpenDelete);
+                      setDeleteId(game.id);
+                    }}
+                  >
+                    Удалить
+                  </Button>
                 </Box>
               </Box>
             );

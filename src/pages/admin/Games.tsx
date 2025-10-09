@@ -2,6 +2,9 @@ import { Box, Button, Input, Modal, Typography } from "@mui/material";
 import { stylesObj } from "../../user/stylesObj";
 import {
   AddNewGame,
+  CancelTitle,
+  DeleteTitle,
+  EditTitle,
   GamesTitle,
   MatchGameTitle,
 } from "../../shared/constants/textConsts";
@@ -90,7 +93,7 @@ const Games = () => {
                 sx={{ color: "gray" }}
                 onClick={() => handleClose(setOpen)}
               >
-                Отмена
+                {CancelTitle}
               </Button>
             </Box>
           </Box>
@@ -106,17 +109,17 @@ const Games = () => {
         <Modal open={openDelete} onClose={() => handleClose(setOpenDelete)}>
           <Box sx={{ ...stylesObj.gamesModal, height: "150px" }}>
             <Typography variant="h6" component="h2">
-              Удалить?
+              {DeleteTitle}?
             </Typography>
             <Box>
               <Button sx={{ color: "red" }} onClick={handleDelete}>
-                Удалить
+                {DeleteTitle}
               </Button>
               <Button
                 sx={{ color: "gray" }}
                 onClick={() => handleClose(setOpenDelete)}
               >
-                Отмена
+                {CancelTitle}
               </Button>
             </Box>
           </Box>
@@ -138,7 +141,7 @@ const Games = () => {
                     );
                   })}
                   <Button onClick={() => handleEdit(game)} sx={{ mr: "4px" }}>
-                    Редактировать
+                    {EditTitle}
                   </Button>
                   <Button
                     sx={{ color: "red" }}
@@ -147,7 +150,7 @@ const Games = () => {
                       setDeleteId(game.id);
                     }}
                   >
-                    Удалить
+                    {DeleteTitle}
                   </Button>
                 </Box>
               </Box>

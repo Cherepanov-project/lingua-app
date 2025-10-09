@@ -1,6 +1,6 @@
 import { Box, Button, Input, Modal, Typography } from "@mui/material";
 import { stylesObj } from "../../user/stylesObj";
-import { MatchGameTitle } from "../../shared/constants/textConsts";
+import { AddTitle, CancelTitle, MatchGameTitle, SaveTitle } from "../../shared/constants/textConsts";
 import { useEffect, useMemo, useState } from "react";
 import {
   useAddMatchGameMutation,
@@ -145,12 +145,12 @@ const MatchGameModal = ({
               handleClose();
             }}
           >
-            Отмена
+            {CancelTitle}
           </Button>
           {type === "add" ? (
-            <Button onClick={handleSubmit}>Добавить</Button>
+            <Button onClick={handleSubmit}>{AddTitle}</Button>
           ) : (
-            <Button onClick={handleSave}>Сохранить</Button>
+            <Button onClick={handleSave}>{SaveTitle}</Button>
           )}
         </Box>
       </Box>

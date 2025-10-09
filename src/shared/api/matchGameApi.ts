@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-type MatchGame = {
+export type MatchGame = {
   id: number;
   level: number;
   pairs: {
@@ -9,7 +9,7 @@ type MatchGame = {
   }[];
 };
 
-const API_BASE_URL = "http://localhost:3001";
+const API_BASE_URL = import.meta.env.BASE_URL || "http://localhost:3001";
 
 export const matchGamesApi = createApi({
   reducerPath: "matchGames",
@@ -41,6 +41,14 @@ export const matchGamesApi = createApi({
       }),
       invalidatesTags: [{ type: "MatchGames", id: "LIST" }],
     }),
+    editMatchGame: builder.mutation<MatchGame, MatchGame>({
+      query: (newGame) => ({
+        url: `matchgame/${newGame.id}`,
+        method: "PATCH",
+        body: newGame,
+      }),
+      invalidatesTags: [{ type: "MatchGames", id: "LIST" }],
+    }),
   }),
 });
 
@@ -48,4 +56,5 @@ export const {
   useGetMatchGamesQuery,
   useAddMatchGameMutation,
   useDeleteMatchGameMutation,
+  useEditMatchGameMutation,
 } = matchGamesApi;

@@ -10,12 +10,17 @@ import { useState } from "react";
 import {
   useDeleteMatchGameMutation,
   useGetMatchGamesQuery,
+  type MatchGame,
 } from "../../shared/api/matchGameApi";
 import MatchGameModal from "./MatchGameModal";
 
 const Games = () => {
   const { data: gamesList = [], isLoading } = useGetMatchGamesQuery();
   const [open, setOpen] = useState(false);
+  const [type, setType] = useState<"add" | "edit">("add");
+  const [currentGame, setCurrentGame] = useState<MatchGame | undefined>(
+    undefined
+  );
   const [deleteId, setDeleteId] = useState(0);
   const [deleteMatchGame] = useDeleteMatchGameMutation();
   const [openDelete, setOpenDelete] = useState(false);
@@ -34,6 +39,11 @@ const Games = () => {
     await deleteMatchGame(deleteId).unwrap();
     setDeleteId(0);
     handleClose(setOpenDelete);
+  };
+  const handleEdit = (game: MatchGame) => {
+    setCurrentGame(game);
+    setType("edit");
+    handleOpen(setOpenCreate);
   };
   if (!isLoading) {
     return (
@@ -68,6 +78,7 @@ const Games = () => {
                 variant="contained"
                 onClick={() => {
                   handleClose(setOpen);
+                  setType("add");
                   handleOpen(setOpenCreate);
                 }}
               >
@@ -75,7 +86,12 @@ const Games = () => {
               </Button>
             </Box>
             <Box>
-              <Button onClick={() => handleClose(setOpen)}>Отмена</Button>
+              <Button
+                sx={{ color: "gray" }}
+                onClick={() => handleClose(setOpen)}
+              >
+                Отмена
+              </Button>
             </Box>
           </Box>
         </Modal>
@@ -83,6 +99,9 @@ const Games = () => {
           open={openCreate}
           handleClose={() => handleClose(setOpenCreate)}
           length={gamesList.length}
+          currentGame={currentGame}
+          setCurrentGame={setCurrentGame}
+          type={type}
         />
         <Modal open={openDelete} onClose={() => handleClose(setOpenDelete)}>
           <Box sx={{ ...stylesObj.gamesModal, height: "150px" }}>
@@ -93,7 +112,12 @@ const Games = () => {
               <Button sx={{ color: "red" }} onClick={handleDelete}>
                 Удалить
               </Button>
-              <Button onClick={() => handleClose(setOpenDelete)}>Отмена</Button>
+              <Button
+                sx={{ color: "gray" }}
+                onClick={() => handleClose(setOpenDelete)}
+              >
+                Отмена
+              </Button>
             </Box>
           </Box>
         </Modal>
@@ -108,16 +132,14 @@ const Games = () => {
                   {...game.pairs.map((pair) => {
                     return (
                       <Box sx={{ display: "flex" }}>
-                        <Input readOnly name="left" defaultValue={pair.left} />
-                        <Input
-                          readOnly
-                          name="right"
-                          defaultValue={pair.right}
-                        />
+                        <Input readOnly name="left" value={pair.left} />
+                        <Input readOnly name="right" value={pair.right} />
                       </Box>
                     );
                   })}
-                  <Button sx={{ mr: "4px" }}>Редактировать</Button>
+                  <Button onClick={() => handleEdit(game)} sx={{ mr: "4px" }}>
+                    Редактировать
+                  </Button>
                   <Button
                     sx={{ color: "red" }}
                     onClick={() => {

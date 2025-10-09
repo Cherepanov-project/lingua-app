@@ -12,6 +12,9 @@ interface StyleObject {
   loginLink: CSSProperties;
   loginButton: CSSProperties;
   starsIcons: CSSProperties;
+  adminPageTitle: CSSProperties;
+  adminButton: CSSProperties;
+  gamesModal: CSSProperties;
 }
 
 export const vars = {
@@ -107,6 +110,38 @@ export const stylesObj: StyleObject = {
   starsIcons: {
     fontSize: "20px",
     color: "#7e94f9",
+  },
+  adminPageTitle: {
+    fontWeight: "600",
+    fontSize: "34px",
+    lineHeight: "175%",
+    color: "#000",
+  },
+  adminButton: {
+    fontWeight: "600",
+    textTransform: "none",
+    fontSize: "16px",
+    color: "#fff",
+    boxShadow: "none",
+    "&:hover": {
+      boxShadow: "none",
+      backgroundColor: "rgb(126, 148, 210)",
+    },
+    borderRadius: "20px",
+    height: "55px",
+  },
+  gamesModal: {
+    backgroundColor: "#fff",
+    position: "absolute",
+    top: "35%",
+    left: "43%",
+    p: "24px",
+    borderRadius: "5px",
+    width: "320px",
+    height: "300px",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
   },
 };
 

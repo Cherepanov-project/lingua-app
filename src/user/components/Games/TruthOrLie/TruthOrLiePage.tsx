@@ -6,7 +6,8 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import GameHeader from "./GameHeader";
+import GameHeader from "../GameHeader";
+import GameOver from "../GameOver";
 import FavoriteBorderRoundedIcon from "@mui/icons-material/FavoriteBorderRounded";
 import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
 import { mockDataTruthOrLie } from "./mockDataTruthOrLie";
@@ -83,61 +84,37 @@ export const TruthOrLiePage = () => {
             padding: "50px",
           }}
         >
-          <Stack alignItems="center">
-            <Rating
-              icon={<FavoriteRoundedIcon style={{ color: "crimson" }} />}
-              emptyIcon={
-                <FavoriteBorderRoundedIcon style={{ color: "crimson" }} />
-              }
-              name="user-rating"
-              max={3}
-              readOnly
-              value={health}
-              sx={{
-                padding: "5px 15px",
-              }}
-            />
-            <Typography
-              variant="h3"
-              fontWeight={600}
-              sx={{ marginTop: "40px" }}
-            >
-              Правда или ложь?
-            </Typography>
-
-            {disabled ? (
-              <Box
+          {!health ? (
+            <GameOver />
+          ) : (
+            <Stack alignItems="center">
+              <Rating
+                icon={<FavoriteRoundedIcon style={{ color: "crimson" }} />}
+                emptyIcon={
+                  <FavoriteBorderRoundedIcon style={{ color: "crimson" }} />
+                }
+                name="user-rating"
+                max={3}
+                readOnly
+                value={health}
                 sx={{
-                  display: "flex",
-                  width: "550px",
-                  height: "280px",
-                  backgroundColor: "white",
-                  borderRadius: "15px",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  marginTop: "110px",
-                  padding: "20px",
+                  padding: "5px 15px",
                 }}
+              />
+              <Typography
+                variant="h3"
+                fontWeight={600}
+                sx={{ marginTop: "40px" }}
               >
-                <Typography
-                  variant="subtitle1"
-                  sx={{
-                    fontSize: "40px",
-                    lineHeight: "1.5",
-                    textAlign: "center",
-                  }}
-                >
-                  Отлично! <br />
-                  Уровень пройден
-                </Typography>
-              </Box>
-            ) : (
-              <>
+                Правда или ложь?
+              </Typography>
+
+              {disabled ? (
                 <Box
                   sx={{
                     display: "flex",
                     width: "550px",
-                    height: "120px",
+                    height: "280px",
                     backgroundColor: "white",
                     borderRadius: "15px",
                     justifyContent: "center",
@@ -150,42 +127,96 @@ export const TruthOrLiePage = () => {
                     variant="subtitle1"
                     sx={{
                       fontSize: "40px",
-                      lineHeight: "1",
+                      lineHeight: "1.5",
                       textAlign: "center",
                     }}
                   >
-                    {currentQuestion.text}
+                    Отлично! <br />
+                    Уровень пройден
                   </Typography>
                 </Box>
-
-                <Stack direction="row" spacing={8} sx={{ marginTop: "90px" }}>
-                  <Button
-                    disabled={disabled}
-                    onClick={() => handleAnswer("Правда")}
-                    variant="contained"
+              ) : (
+                <>
+                  <Box
                     sx={{
-                      width: "350px",
-                      height: "70px",
-                      borderRadius: "40px",
+                      display: "flex",
+                      width: "550px",
+                      height: "120px",
+                      backgroundColor: "white",
+                      borderRadius: "15px",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      marginTop: "110px",
+                      padding: "20px",
                     }}
                   >
                     <Typography
-                      variant="button"
+                      variant="subtitle1"
                       sx={{
-                        display: "block",
-                        fontSize: "32px",
-                        color: "white",
+                        fontSize: "40px",
+                        lineHeight: "1",
+                        textAlign: "center",
                       }}
                     >
-                      Правда
+                      {currentQuestion.text}
                     </Typography>
-                  </Button>
+                  </Box>
+
+                  <Stack direction="row" spacing={8} sx={{ marginTop: "90px" }}>
+                    <Button
+                      disabled={disabled}
+                      onClick={() => handleAnswer("Правда")}
+                      variant="contained"
+                      sx={{
+                        width: "350px",
+                        height: "70px",
+                        borderRadius: "40px",
+                      }}
+                    >
+                      <Typography
+                        variant="button"
+                        sx={{
+                          display: "block",
+                          fontSize: "32px",
+                          color: "white",
+                        }}
+                      >
+                        Правда
+                      </Typography>
+                    </Button>
+                    <Button
+                      disabled={disabled}
+                      onClick={() => handleAnswer("Ложь")}
+                      variant="contained"
+                      sx={{
+                        width: "350px",
+                        height: "70px",
+                        borderRadius: "40px",
+                        background: "#F5F5F5",
+                      }}
+                    >
+                      <Typography
+                        variant="button"
+                        sx={{ display: "block", fontSize: "32px" }}
+                      >
+                        Ложь
+                      </Typography>
+                    </Button>
+                  </Stack>
+                </>
+              )}
+              <Stack
+                spacing={4}
+                alignItems="center"
+                sx={{ marginTop: "130px" }}
+              >
+                <Stack direction="row" spacing={10}>
                   <Button
-                    disabled={disabled}
-                    onClick={() => handleAnswer("Ложь")}
+                    disabled={!disabled}
+                    onClick={handleOpen}
                     variant="contained"
                     sx={{
-                      width: "350px",
+                      width: "250px",
                       height: "70px",
                       borderRadius: "40px",
                       background: "#F5F5F5",
@@ -193,77 +224,63 @@ export const TruthOrLiePage = () => {
                   >
                     <Typography
                       variant="button"
-                      sx={{ display: "block", fontSize: "32px" }}
+                      sx={{ display: "block", fontSize: "16px" }}
                     >
-                      Ложь
+                      Показать ответы
+                    </Typography>
+                  </Button>
+                  <Button
+                    onClick={restart}
+                    variant="contained"
+                    sx={{
+                      width: "250px",
+                      height: "70px",
+                      borderRadius: "40px",
+                      background: "#ffffff",
+                    }}
+                  >
+                    <Typography
+                      variant="button"
+                      sx={{ display: "block", fontSize: "16px" }}
+                    >
+                      Перезапустить
+                    </Typography>
+                  </Button>
+                  <Button
+                    onClick={nextLevel}
+                    disabled={lvl === 10 || !disabled}
+                    variant="contained"
+                    sx={{
+                      width: "250px",
+                      height: "70px",
+                      borderRadius: "40px",
+                      background: "#7E94F9",
+                    }}
+                  >
+                    <Typography
+                      variant="button"
+                      sx={{
+                        display: "block",
+                        fontSize: "16px",
+                        color: "white",
+                      }}
+                    >
+                      Следующий уровень
                     </Typography>
                   </Button>
                 </Stack>
-              </>
-            )}
-            <Stack spacing={4} alignItems="center" sx={{ marginTop: "130px" }}>
-              <Stack direction="row" spacing={10}>
-                <Button
-                  disabled={!disabled}
-                  onClick={handleOpen}
-                  variant="contained"
+                <Typography
                   sx={{
-                    width: "250px",
-                    height: "70px",
-                    borderRadius: "40px",
-                    background: "#F5F5F5",
+                    display: "block",
+                    fontSize: "18px",
+                    color: "#0000007d",
                   }}
                 >
-                  <Typography
-                    variant="button"
-                    sx={{ display: "block", fontSize: "16px" }}
-                  >
-                    Показать ответы
-                  </Typography>
-                </Button>
-                <Button
-                  onClick={restart}
-                  variant="contained"
-                  sx={{
-                    width: "250px",
-                    height: "70px",
-                    borderRadius: "40px",
-                    background: "#ffffff",
-                  }}
-                >
-                  <Typography
-                    variant="button"
-                    sx={{ display: "block", fontSize: "16px" }}
-                  >
-                    Перезапустить
-                  </Typography>
-                </Button>
-                <Button
-                  onClick={nextLevel}
-                  disabled={lvl === 10 || !disabled}
-                  variant="contained"
-                  sx={{
-                    width: "250px",
-                    height: "70px",
-                    borderRadius: "40px",
-                    background: "#7E94F9",
-                  }}
-                >
-                  <Typography
-                    variant="button"
-                    sx={{ display: "block", fontSize: "16px", color: "white" }}
-                  >
-                    Следующий уровень
-                  </Typography>
-                </Button>
+                  <b>{currentQuestion.number}/10</b> пройдено
+                </Typography>
               </Stack>
-              <Typography
-                sx={{ display: "block", fontSize: "18px", color: "#0000007d" }}
-              >
-                <b>{currentQuestion.number}/10</b> пройдено
-              </Typography>
             </Stack>
-          </Stack>
+          )}
         </Container>
         <TruthOrLieModal
           open={open}

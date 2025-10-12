@@ -15,6 +15,7 @@ interface StyleObject {
   adminPageTitle: CSSProperties;
   adminButton: CSSProperties;
   gamesModal: CSSProperties;
+  gameTitle: CSSProperties;
 }
 
 export const vars = {
@@ -142,6 +143,10 @@ export const stylesObj: StyleObject = {
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-between",
+  },
+  gameTitle: {
+    fontWeight: "500",
+    fontSize: "28px",
   },
 };
 

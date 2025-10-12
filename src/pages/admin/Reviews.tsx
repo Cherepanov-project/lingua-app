@@ -11,14 +11,7 @@ const Reviews = () => {
   return (
     <Box sx={{ p: "32px 40px" }}>
       <Box>
-        <Typography
-          sx={{
-            fontWeight: "600",
-            fontSize: "34px",
-            lineHeight: "175%",
-            color: "#000",
-          }}
-        >
+        <Typography sx={{ ...stylesObj.adminPageTitle }}>
           {ReviewsTitle}
         </Typography>
         <Typography

@@ -1,0 +1,38 @@
+[
+  {
+    "id": "user_123",
+    "email": "test@example.com",
+    "name": "John Doe",
+    "picture": "https://example.com/user.jpg",
+    "language": "ru",
+    "registrationDate": "29/01/2025",
+    "activeCourses": 1
+  },
+  {
+    "id": "auth0|686d264c6173be007be0d319",
+    "email": "kri@exm.com",
+    "name": "Kristina",
+    "picture": "https://example.com/user.jpg",
+    "language": "ru",
+    "registrationDate": "29/01/2025",
+    "activeCourses": 2
+  },
+  {
+    "id": "auth0|686d2cc6eda5191811225a4d",
+    "email": "any@exm.com",
+    "name": "Anya",
+    "picture": "https://example.com/user.jpg",
+    "language": "ru",
+    "registrationDate": "29/01/2025",
+    "activeCourses": 3
+  },
+  {
+    "id": "auth0|686d2d3e6173be007be0d62f",
+    "email": "dmi@exm.com",
+    "name": "Dmitriy",
+    "picture": "https://example.com/user.jpg",
+    "language": "ru",
+    "registrationDate": "29/01/2025",
+    "activeCourses": 0
+  }
+]

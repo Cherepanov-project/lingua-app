@@ -654,5 +654,43 @@
         }
       ]
     }
+  ],
+  "truthlie": [
+    {
+      "id": 0,
+      "level": 1,
+      "statements": [
+        {
+          "statement": "The sky is green",
+          "correctValue": "false"
+        },
+        {
+          "statement": "Paris is the capital of France",
+          "correctValue": "true"
+        },
+        {
+          "statement": "Fish can fly",
+          "correctValue": "true"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "level": 2,
+      "statements": [
+        {
+          "statement": "Water is transparent",
+          "correctValue": "true"
+        },
+        {
+          "statement": "Human has 4 legs",
+          "correctValue": "false"
+        },
+        {
+          "statement": "Dogs are best friends of human",
+          "correctValue": "true"
+        }
+      ]
+    }
   ]
 }

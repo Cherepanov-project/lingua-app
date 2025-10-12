@@ -16,9 +16,11 @@ import {
   type MatchGame,
 } from "../../shared/api/matchGameApi";
 import MatchGameModal from "./MatchGameModal";
+import { useGetTruthOrLieGamesQuery } from "../../shared/api/truthOrLieGameApi";
 
 const Games = () => {
-  const { data: gamesList = [], isLoading } = useGetMatchGamesQuery();
+  const { data: matchGamesList = [], isLoading: isLoading1 } = useGetMatchGamesQuery();
+  const { data: truthOrLieGamesList = [], isLoading: isLoading2 } = useGetTruthOrLieGamesQuery();
   const [open, setOpen] = useState(false);
   const [type, setType] = useState<"add" | "edit">("add");
   const [currentGame, setCurrentGame] = useState<MatchGame | undefined>(
@@ -48,7 +50,7 @@ const Games = () => {
     setType("edit");
     handleOpen(setOpenCreate);
   };
-  if (!isLoading) {
+  if (!isLoading1 && !isLoading2) {
     return (
       <Box sx={{ p: "32px 40px" }}>
         <Box
@@ -101,7 +103,7 @@ const Games = () => {
         <MatchGameModal
           open={openCreate}
           handleClose={() => handleClose(setOpenCreate)}
-          length={gamesList.length}
+          length={matchGamesList.length}
           currentGame={currentGame}
           setCurrentGame={setCurrentGame}
           type={type}
@@ -124,38 +126,53 @@ const Games = () => {
             </Box>
           </Box>
         </Modal>
-        <Box>
-          {...gamesList.map((game) => {
-            return (
-              <Box key={game.level}>
-                <Typography sx={{ fontWeight: "500", fontSize: "28px" }}>
-                  {MatchGameTitle}
-                </Typography>
-                <Box>
-                  {...game.pairs.map((pair) => {
-                    return (
-                      <Box sx={{ display: "flex" }}>
-                        <Input readOnly name="left" value={pair.left} />
-                        <Input readOnly name="right" value={pair.right} />
-                      </Box>
-                    );
-                  })}
-                  <Button onClick={() => handleEdit(game)} sx={{ mr: "4px" }}>
-                    {EditTitle}
-                  </Button>
-                  <Button
-                    sx={{ color: "red" }}
-                    onClick={() => {
-                      handleOpen(setOpenDelete);
-                      setDeleteId(game.id);
-                    }}
-                  >
-                    {DeleteTitle}
-                  </Button>
+        <Box
+          sx={{
+            overflow: "auto",
+            maxHeight: "75vh",
+            display: "flex",
+            flexDirection: "column",
+            gap: "56px",
+          }}
+        >
+          <Box>
+            {...matchGamesList.map((matchGame) => {
+              return (
+                <Box key={matchGame.level}>
+                  <Typography sx={{ fontWeight: "500", fontSize: "28px" }}>
+                    {MatchGameTitle}
+                  </Typography>
+                  <Box>
+                    {...matchGame.pairs.map((pair) => {
+                      return (
+                        <Box sx={{ display: "flex" }}>
+                          <Input readOnly name="left" value={pair.left} />
+                          <Input readOnly name="right" value={pair.right} />
+                        </Box>
+                      );
+                    })}
+                    <Button onClick={() => handleEdit(matchGame)} sx={{ mr: "4px" }}>
+                      {EditTitle}
+                    </Button>
+                    <Button
+                      sx={{ color: "red" }}
+                      onClick={() => {
+                        handleOpen(setOpenDelete);
+                        setDeleteId(matchGame.id);
+                      }}
+                    >
+                      {DeleteTitle}
+                    </Button>
+                  </Box>
                 </Box>
-              </Box>
-            );
-          })}
+              );
+            })}
+          </Box>
+          <Box>
+            {...truthOrLieGamesList.map(truthOrLieGame => {
+              return <p>{truthOrLieGame.level}</p>
+            })}
+          </Box>
         </Box>
       </Box>
     );

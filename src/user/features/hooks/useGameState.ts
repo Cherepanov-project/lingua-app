@@ -1,6 +1,7 @@
 import { useState, useCallback, useMemo } from "react";
 import type { Connection } from "../../../types/matchGame";
 import { useGetMatchGameLevelQuery } from "../../../shared/api/matchGameApi";
+import shuffle from 'lodash.shuffle';
 
 export function useGameState() {
   const [currentLevel, setCurrentLevel] = useState(1);
@@ -18,20 +19,9 @@ export function useGameState() {
     const left = pairs.map((pair) => pair.left);
     const right = pairs.map((pair) => pair.right);
 
-    function shuffleArray<T>(array: T[]): T[] {
-      const copy = [...array];
-      for (let i = copy.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        const tmp = copy[i];
-        copy[i] = copy[j];
-        copy[j] = tmp;
-      }
-      return copy;
-    }
-
     return {
-      left: shuffleArray(left),
-      right: shuffleArray(right),
+      left: shuffle(left),
+      right: shuffle(right),
     };
   }, [currentLevelData]);
 

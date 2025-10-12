@@ -1,5 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import heartIcon from "../../../assets/Heart.svg";
+import {MATCH_GAME_NAME} from "../../../shared/constants/matchGame.ts";
 
 const heartStyle = {
   width: "40px",
@@ -8,7 +9,6 @@ const heartStyle = {
 
 export const GamesMain = () => {
   return (
-    <>
       <Box
         sx={{
           display: "flex",
@@ -29,9 +29,8 @@ export const GamesMain = () => {
             color: "text.primary",
           }}
         >
-          Соедини пары
+          {MATCH_GAME_NAME}
         </Typography>
       </Box>
-    </>
   );
 };

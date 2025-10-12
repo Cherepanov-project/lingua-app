@@ -11,6 +11,8 @@ export const COLORS = {
   TEXT_PRIMARY: "#303030",
 } as const;
 
+export const MATCH_GAME_NAME = 'Соедини пары'
+
 export const BUTTON_STYLES = {
   WORD: {
     height: 70,

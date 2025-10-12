@@ -1,14 +1,15 @@
 import { Box } from "@mui/material";
 import { Typography } from "@mui/material";
+import {Game, MissingGame} from "../../../shared/constants/textGames.ts";
 
 const ProfileGamesPage = () => {
   return (
     <Box sx={{ padding: 3 }}>
       <Typography variant="h4" gutterBottom>
-        Игры
+        {Game}
       </Typography>
       <Typography variant="body1">
-        Страница с обучающими играми. Содержимое будет добавлено позже.
+        {MissingGame}
       </Typography>
     </Box>
   );

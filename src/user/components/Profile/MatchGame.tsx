@@ -97,6 +97,22 @@ export const MatchGame: React.FC = () => {
     [selectRight, selectedLeft, checkConnection]
   );
 
+  const renderWordButtons = (type: WordType) => (
+    <div style={LAYOUT_STYLES.WORDS_CONTAINER}>
+      {shuffledWords[type].map((word, index) => (
+        <WordButton
+          key={`${type}-${word}-${index}`}
+          word={word}
+          type={type}
+          status={getWordStatus(word, type)}
+          isWrongSelection={isWrongSelection}
+          onClick={type === 'right' ? handleRightClick : handleLeftClick}
+          buttonRef={type === 'right' ? setRightRef(word) : setLeftRef(word)}
+        />
+      ))}
+    </div>
+  );
+
   useEffect(() => {
     updateButtonPositions();
   }, [currentLevel, shuffledWords, updateButtonPositions]);
@@ -116,33 +132,8 @@ export const MatchGame: React.FC = () => {
   return (
     <>
       <div ref={gameContainerRef} style={LAYOUT_STYLES.GAME_CONTAINER}>
-        <div style={LAYOUT_STYLES.WORDS_CONTAINER}>
-          {shuffledWords.left.map((word, index) => (
-            <WordButton
-              key={`left-${word}-${index}`}
-              word={word}
-              type="left"
-              status={getWordStatus(word, "left")}
-              isWrongSelection={isWrongSelection}
-              onClick={handleLeftClick}
-              buttonRef={setLeftRef(word)}
-            />
-          ))}
-        </div>
-
-        <div style={LAYOUT_STYLES.WORDS_CONTAINER}>
-          {shuffledWords.right.map((word, index) => (
-            <WordButton
-              key={`right-${word}-${index}`}
-              word={word}
-              type="right"
-              status={getWordStatus(word, "right")}
-              isWrongSelection={isWrongSelection}
-              onClick={handleRightClick}
-              buttonRef={setRightRef(word)}
-            />
-          ))}
-        </div>
+        {renderWordButtons('left')}
+        {renderWordButtons('right')}
 
         <ConnectionLines
           connections={connections}

@@ -1,11 +1,10 @@
-import { useState, useCallback, useMemo } from "react";
-import shuffle from "lodash.shuffle";
-import {fetchLevel} from "../../../shared/api/matchGameApi.ts";
-import type {LevelData} from "../../../shared/helpers/matchGameHelpers.ts";
+import { useState, useCallback, useMemo } from 'react';
+import shuffle from 'lodash.shuffle';
+import { useGetLevelQuery } from '../../../shared/api/matchGameApi';
 
 export const useGameState = () => {
   const [currentLevel, setCurrentLevel] = useState<number>(1);
-  const [currentLevelData, setCurrentLevelData] = useState<LevelData>(() => fetchLevel(1));
+  const { data: currentLevelData, isLoading } = useGetLevelQuery(currentLevel);
   const [selectedLeft, setSelectedLeft] = useState<string | null>(null);
   const [selectedRight, setSelectedRight] = useState<string | null>(null);
   const [connections, setConnections] = useState<
@@ -16,6 +15,9 @@ export const useGameState = () => {
   const [isWrongSelection, setIsWrongSelection] = useState(false);
 
   const shuffledWords = useMemo(() => {
+    if (!currentLevelData) {
+      return { left: [], right: [] };
+    }
     return {
       left: shuffle(currentLevelData.pairs.map((p) => p.left)),
       right: shuffle(currentLevelData.pairs.map((p) => p.right)),
@@ -52,7 +54,7 @@ export const useGameState = () => {
         setConnections((prev) => [...prev, connection]);
       }
 
-      const total = currentLevelData.pairs.length;
+      const total = currentLevelData?.pairs.length || 0;
       const correct = connections.filter((c) => c.isCorrect).length + (connection.isCorrect ? 1 : 0);
       if (correct === total) {
         setGameCompleted(true);
@@ -82,7 +84,6 @@ export const useGameState = () => {
     setGameCompleted(false);
     setShowAnswers(false);
     resetSelection();
-    setCurrentLevelData(fetchLevel(next)); // ← всегда 5 пар
   }, [currentLevel, resetSelection]);
 
   const restartGame = useCallback(() => {
@@ -91,7 +92,6 @@ export const useGameState = () => {
     setGameCompleted(false);
     setShowAnswers(false);
     resetSelection();
-    setCurrentLevelData(fetchLevel(1));
   }, [resetSelection]);
 
   const toggleAnswers = useCallback(() => {
@@ -116,6 +116,6 @@ export const useGameState = () => {
     nextLevel,
     restartGame,
     toggleAnswers,
+    isLoading,
   };
 };
-

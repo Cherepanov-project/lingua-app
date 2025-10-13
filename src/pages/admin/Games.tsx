@@ -28,19 +28,36 @@ import {
   type MatchGame,
 } from "../../shared/api/matchGameApi";
 import MatchGameModal from "./MatchGameModal";
-import { useGetTruthOrLieGamesQuery } from "../../shared/api/truthOrLieGameApi";
+import {
+  useDeleteGameStatementMutation,
+  useDeleteTruthOrLieGameMutation,
+  useGetTruthOrLieGamesQuery,
+  type GameStatement,
+} from "../../shared/api/truthOrLieGameApi";
 import CloseIcon from "@mui/icons-material/Close";
 
 const Games = () => {
   const { data: matchGamesList = [] } = useGetMatchGamesQuery();
   const { data: truthOrLieGamesList = [] } = useGetTruthOrLieGamesQuery();
   const [open, setOpen] = useState(false);
+  const [gameStatement, setGameStatement] = useState<{
+    statement: string;
+    gameId: number;
+    prev: GameStatement[];
+  }>({
+    statement: "",
+    gameId: 0,
+    prev: [],
+  });
   const [type, setType] = useState<"add" | "edit">("add");
+  const [deleteType, setDeleteType] = useState("");
   const [currentGame, setCurrentGame] = useState<MatchGame | undefined>(
     undefined
   );
   const [deleteId, setDeleteId] = useState(0);
   const [deleteMatchGame] = useDeleteMatchGameMutation();
+  const [deleteTruthOrLieGame] = useDeleteTruthOrLieGameMutation();
+  const [deleteGameStatement] = useDeleteGameStatementMutation();
   const [openDelete, setOpenDelete] = useState(false);
   const [openCreate, setOpenCreate] = useState(false);
   const handleOpen = (
@@ -53,9 +70,30 @@ const Games = () => {
   ) => {
     setFunc(false);
   };
-  const handleDeleteMatchGame = async () => {
-    await deleteMatchGame(deleteId).unwrap();
+  const handleDelete = async () => {
+    switch (deleteType) {
+      case "match":
+        await deleteMatchGame(deleteId).unwrap();
+        break;
+      case "truthOrLie":
+        await deleteTruthOrLieGame(deleteId).unwrap();
+        break;
+      default:
+        break;
+    }
     setDeleteId(0);
+    setDeleteType("");
+    handleClose(setOpenDelete);
+  };
+  const handleDeleteStatement = async () => {
+    const newStatements = [
+      ...gameStatement.prev.filter(
+        (item) => item.statement !== gameStatement.statement
+      ),
+    ];
+    await deleteGameStatement({ gameId: gameStatement.gameId, newStatements });
+    setGameStatement({ gameId: 0, statement: "", prev: [] });
+    setDeleteType("");
     handleClose(setOpenDelete);
   };
   const handleEdit = (game: MatchGame) => {
@@ -123,7 +161,14 @@ const Games = () => {
             {DeleteTitle}?
           </Typography>
           <Box>
-            <Button sx={{ color: "red" }} onClick={handleDeleteMatchGame}>
+            <Button
+              sx={{ color: "red" }}
+              onClick={
+                deleteType === "statement"
+                  ? handleDeleteStatement
+                  : handleDelete
+              }
+            >
               {DeleteTitle}
             </Button>
             <Button
@@ -173,6 +218,7 @@ const Games = () => {
                     onClick={() => {
                       handleOpen(setOpenDelete);
                       setDeleteId(matchGame.id);
+                      setDeleteType("match");
                     }}
                   >
                     {DeleteTitle}
@@ -230,6 +276,15 @@ const Games = () => {
                             disableFocusRipple
                             disableTouchRipple
                             sx={{ boxShadow: "none", background: "none" }}
+                            onClick={() => {
+                              handleOpen(setOpenDelete);
+                              setGameStatement({
+                                gameId: truthOrLieGame.id,
+                                statement: statement.statement,
+                                prev: [...truthOrLieGame.statements],
+                              });
+                              setDeleteType("statement");
+                            }}
                           >
                             <CloseIcon />
                           </Fab>
@@ -237,6 +292,16 @@ const Games = () => {
                       </Box>
                     );
                   })}
+                  <Button
+                    sx={{ color: "red" }}
+                    onClick={() => {
+                      handleOpen(setOpenDelete);
+                      setDeleteId(truthOrLieGame.id);
+                      setDeleteType("truthOrLie");
+                    }}
+                  >
+                    {DeleteTitle}
+                  </Button>
                 </Box>
               </Box>
             );

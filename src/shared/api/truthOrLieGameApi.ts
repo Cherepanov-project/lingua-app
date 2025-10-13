@@ -3,10 +3,12 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export type TruthOrLieGame = {
   id: number;
   level: number;
-  statements: {
-    statement: string;
-    correctValue: boolean;
-  }[];
+  statements: GameStatement[];
+};
+
+export type GameStatement = {
+  statement: string;
+  correctValue: boolean;
 };
 
 const API_BASE_URL = "http://localhost:3001";
@@ -29,7 +31,31 @@ export const truthOrLieGamesApi = createApi({
             ]
           : [{ type: "TruthOrLieGames", id: "LIST" }],
     }),
+    deleteTruthOrLieGame: builder.mutation<TruthOrLieGame, number>({
+      query: (id) => ({
+        url: `truthlie/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: [{ type: "TruthOrLieGames", id: "LIST" }],
+    }),
+    deleteGameStatement: builder.mutation<
+      TruthOrLieGame,
+      { gameId: number; newStatements: GameStatement[] }
+    >({
+      query: ({ gameId, newStatements }) => ({
+        url: `truthlie/${gameId}`,
+        method: "PATCH",
+        body: {
+          statements: newStatements,
+        },
+      }),
+      invalidatesTags: [{ type: "TruthOrLieGames", id: "LIST" }],
+    }),
   }),
 });
 
-export const { useGetTruthOrLieGamesQuery } = truthOrLieGamesApi;
+export const {
+  useGetTruthOrLieGamesQuery,
+  useDeleteTruthOrLieGameMutation,
+  useDeleteGameStatementMutation,
+} = truthOrLieGamesApi;

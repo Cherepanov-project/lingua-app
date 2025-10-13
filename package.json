@@ -9,7 +9,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "start:server": "node server.mjs",
-    "dev:api": "json-server --watch mock/db.json --port 3001",
+    "dev:api": "node server.cjs",
     "start": "concurrently \"npm run dev\" \"npm run dev:api\"",
     "start:api": "node server.cjs",
     "type-check": "tsc --noEmit",

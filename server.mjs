@@ -4,7 +4,6 @@ import path from 'path';
 
 const server = jsonServer.create();
 
-// Создаем объединенную базу данных из отдельных файлов
 const db = {
   languages: JSON.parse(fs.readFileSync(path.join('mock', 'languages.json'), 'utf8')),
   levels: JSON.parse(fs.readFileSync(path.join('mock', 'levels.json'), 'utf8')),
@@ -24,6 +23,7 @@ const middlewares = jsonServer.defaults();
 
 
 server.use(middlewares);
+server.use(router);
 
 // request proxy
 server.get('/api/v2/users/:userId', (req, res) => {

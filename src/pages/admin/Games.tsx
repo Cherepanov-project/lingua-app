@@ -1,6 +1,7 @@
 import {
   Box,
   Button,
+  Fab,
   Input,
   Modal,
   ToggleButton,
@@ -28,6 +29,7 @@ import {
 } from "../../shared/api/matchGameApi";
 import MatchGameModal from "./MatchGameModal";
 import { useGetTruthOrLieGamesQuery } from "../../shared/api/truthOrLieGameApi";
+import CloseIcon from "@mui/icons-material/Close";
 
 const Games = () => {
   const { data: matchGamesList = [] } = useGetMatchGamesQuery();
@@ -51,7 +53,7 @@ const Games = () => {
   ) => {
     setFunc(false);
   };
-  const handleDelete = async () => {
+  const handleDeleteMatchGame = async () => {
     await deleteMatchGame(deleteId).unwrap();
     setDeleteId(0);
     handleClose(setOpenDelete);
@@ -121,7 +123,7 @@ const Games = () => {
             {DeleteTitle}?
           </Typography>
           <Box>
-            <Button sx={{ color: "red" }} onClick={handleDelete}>
+            <Button sx={{ color: "red" }} onClick={handleDeleteMatchGame}>
               {DeleteTitle}
             </Button>
             <Button
@@ -140,6 +142,8 @@ const Games = () => {
           display: "flex",
           flexDirection: "column",
           gap: "56px",
+          maxWidth: "750px",
+          padding: "14px",
         }}
       >
         <Box>
@@ -188,22 +192,47 @@ const Games = () => {
                 <Box>
                   {...truthOrLieGame.statements.map((statement) => {
                     return (
-                      <Box sx={{ display: "flex" }}>
+                      <Box
+                        sx={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          alignItems: "center",
+                        }}
+                      >
                         <Typography sx={{ fontSize: "18px" }}>
                           {statement.statement}
                         </Typography>
-                        <Box sx={{ display: "flex" }}>
+                        <Box sx={{ display: "flex", gap: "12px" }}>
                           <ToggleButtonGroup
                             exclusive
                             value={statement.correctValue}
+                            sx={{
+                              display: "flex",
+                              gap: "8px",
+                              alignItems: "center",
+                            }}
                           >
-                            <ToggleButton value="true">
+                            <ToggleButton
+                              sx={{ ...stylesObj.toggleButton }}
+                              value="true"
+                            >
                               {TruthTitle}
                             </ToggleButton>
-                            <ToggleButton value="false">
+                            <ToggleButton
+                              sx={{ ...stylesObj.toggleButton }}
+                              value="false"
+                            >
                               {LieTitle}
                             </ToggleButton>
                           </ToggleButtonGroup>
+                          <Fab
+                            disableRipple
+                            disableFocusRipple
+                            disableTouchRipple
+                            sx={{ boxShadow: "none", background: "none" }}
+                          >
+                            <CloseIcon />
+                          </Fab>
                         </Box>
                       </Box>
                     );

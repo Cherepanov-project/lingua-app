@@ -1,13 +1,7 @@
 [
-  {
-    "id": 1,
-    "level": 1,
-    "pairs": [
       { "left": "Яблоко", "right": "Apple" },
       { "left": "Машина", "right": "Car" },
       { "left": "Дом", "right": "House" },
       { "left": "Собака", "right": "Dog" },
       { "left": "Кошка", "right": "Cat" }
-    ]
-  }
 ]

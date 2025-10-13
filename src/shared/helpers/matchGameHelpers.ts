@@ -31,6 +31,7 @@ export function generateDynamicLevel(level: number, pairsCount: number = 5): Lev
   const shuffled = shuffle([...WORD_POOL]);
   const selected = shuffled.slice(0, pairsCount);
 
+
   return {
     id: Date.now(),
     level,

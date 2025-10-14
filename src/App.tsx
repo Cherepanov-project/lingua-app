@@ -30,6 +30,7 @@ import AdminHome from "./pages/admin/AdminHome.tsx";
 import Users from "./pages/admin/Users.tsx";
 import Pictures from "./pages/admin/Pictures.tsx";
 import Reviews from "./pages/admin/Reviews.tsx";
+import Games from "./pages/admin/Games.tsx";
 
 const App: React.FC = () => {
   return (
@@ -97,7 +98,7 @@ const App: React.FC = () => {
               <Route index element={<AdminHome />} />
               <Route path="users" element={<Users />} />
               <Route path="courses" element={<Courses />} />
-              <Route path="games" element={<div>Игры</div>} />
+              <Route path="games" element={<Games />} />
               <Route path="reviews" element={<Reviews />} />
               <Route path="stats" element={<div>Статистика</div>} />
               <Route path="settings" element={<div>Настройки</div>} />

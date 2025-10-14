@@ -1,33 +1,19 @@
-import {
-  Box,
-  Modal,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow,
-} from "@mui/material";
-import type { MockDataTruthOrLie } from "./mockDataTruthOrLie";
+import { Box, Modal, Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
+import { useAppSelector } from "../../../../shared/hooks/redux";
+import type { UserSelection } from "../types/truthOrLie";
 
 type TruthOrLieModalProps = {
-  handleClose: () => void;
-  open: boolean;
-  questions: MockDataTruthOrLie;
-  lvl: number;
-  userAnswer: string[];
+  closeModal: () => void;
+  userSelection: UserSelection[];
 };
 
-const TruthOrLieModal = ({
-  handleClose,
-  open,
-  questions,
-  lvl,
-  userAnswer,
-}: TruthOrLieModalProps) => {
+const TruthOrLieModal = ({ closeModal, userSelection }: TruthOrLieModalProps) => {
+  const isOpenModal = useAppSelector((state) => state.truthOrLie.isOpenModal);
+
   return (
     <Modal
-      open={open}
-      onClose={handleClose}
+      open={isOpenModal}
+      onClose={closeModal}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
@@ -45,31 +31,26 @@ const TruthOrLieModal = ({
             </TableRow>
           </TableHead>
           <TableBody>
-            {questions[lvl].map((row, index) => (
-              <TableRow
-                key={row.text}
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell component="th" scope="row">
-                  {row.text}
-                </TableCell>
-                <TableCell align="center">
-                  {row.answer ? "Правда" : "Ложь"}
-                </TableCell>
-                <TableCell
-                  align="center"
-                  sx={{
-                    color:
-                      (row.answer && userAnswer[index] === "Правда") ||
-                      (!row.answer && userAnswer[index] === "Ложь")
-                        ? "green"
-                        : "red",
-                  }}
-                >
-                  {userAnswer[index]}
-                </TableCell>
-              </TableRow>
-            ))}
+            {userSelection &&
+              userSelection.map((row) => (
+                <TableRow key={row.text} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+                  <TableCell component="th" scope="row">
+                    {row.text}
+                  </TableCell>
+                  <TableCell align="center">{row.isTrue ? "Правда" : "Ложь"}</TableCell>
+                  <TableCell
+                    align="center"
+                    sx={{
+                      color:
+                        (row.isTrue && row.userAnswer === "Правда") || (!row.isTrue && row.userAnswer === "Ложь")
+                          ? "green"
+                          : "red",
+                    }}
+                  >
+                    {row.userAnswer}
+                  </TableCell>
+                </TableRow>
+              ))}
           </TableBody>
         </Table>
       </Box>

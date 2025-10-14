@@ -1,294 +1,67 @@
-import {
-  Box,
-  Button,
-  Container,
-  Rating,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { Container, Stack, Typography } from "@mui/material";
 import GameHeader from "../GameHeader";
 import GameOver from "../GameOver";
-import FavoriteBorderRoundedIcon from "@mui/icons-material/FavoriteBorderRounded";
-import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
-import { mockDataTruthOrLie } from "./mockDataTruthOrLie";
-import { useState } from "react";
+
 import TruthOrLieModal from "./TruthOrLieModal";
+import { useTruthOrLie } from "./hooks/useTruthOrLie";
+import { useAppSelector } from "../../../../shared/hooks/redux";
+import { HealthBar } from "../HealthBar";
+import { truthOrLieTitle, loadingTitle } from "../../../../shared/constants/textConsts";
+import { TruthOrLieGameControls } from "./TruthOrLieGameControls";
+import LevelCompleted from "../LevelCompleted";
+import { TruthOrLieGame } from "./TruthOrLieGame";
 
 export const TruthOrLiePage = () => {
-  const [questions] = useState(mockDataTruthOrLie);
-  const [health, setHealth] = useState(3);
-  const [lvl, setLvl] = useState(1);
-  const [open, setOpen] = useState(false);
-  const [userAnswer, setUserAnswer] = useState<string[]>([]);
-  const [currentQuestion, setCurrentQuestion] = useState(questions[1][0]);
-  const [count, setCount] = useState(0);
-  const [disabled, setDisabled] = useState(false);
+  const { currentStatement, currentLevel, userSelection, isLevelCompleted, isLoading, closeModal } = useTruthOrLie();
 
-  console.log(currentQuestion.answer);
-
-  const handleAnswer = (variant: "Правда" | "Ложь") => {
-    setUserAnswer((prev) => [...prev, variant]);
-
-    if (
-      (variant === "Правда" && currentQuestion.answer === false) ||
-      (variant === "Ложь" && currentQuestion.answer === true)
-    ) {
-      setHealth((prev) => prev - 1);
-    }
-
-    if (count < 9) {
-      setCount((prev) => prev + 1);
-      setCurrentQuestion(questions[lvl][count + 1]);
-    } else {
-      setDisabled(true);
-    }
-  };
-
-  const nextLevel = () => {
-    if (lvl < 10) {
-      const newLvl = lvl + 1;
-      setLvl(newLvl);
-      setCurrentQuestion(questions[newLvl][0]);
-      setCount(0);
-      setUserAnswer([]);
-      setDisabled(false);
-    }
-  };
-
-  const restart = () => {
-    setLvl(1);
-    setCurrentQuestion(questions[1][0]);
-    setCount(0);
-    setUserAnswer([]);
-    setDisabled(false);
-  };
-
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const health = useAppSelector((state) => state.truthOrLie.health);
 
   return (
-    <Container
-      maxWidth={false}
-      sx={{ backgroundColor: "white", height: "100vh" }}
-    >
-      <Container
-        maxWidth="lg"
-        sx={{ backgroundColor: "white", height: "100vh" }}
-      >
-        <GameHeader level={lvl} />
+    <Container maxWidth={false} sx={{ backgroundColor: "white", height: "100vh" }}>
+      <Container maxWidth="lg" sx={{ backgroundColor: "white", height: "100vh" }}>
+        <GameHeader level={currentLevel} />
         <Container
           maxWidth="lg"
           sx={{
             borderRadius: "30px",
             backgroundColor: "#D9E0FF",
             padding: "50px",
+            height: "900px",
           }}
         >
           {!health ? (
             <GameOver />
           ) : (
             <Stack alignItems="center">
-              <Rating
-                icon={<FavoriteRoundedIcon style={{ color: "crimson" }} />}
-                emptyIcon={
-                  <FavoriteBorderRoundedIcon style={{ color: "crimson" }} />
-                }
-                name="user-rating"
-                max={3}
-                readOnly
-                value={health}
-                sx={{
-                  padding: "5px 15px",
-                }}
-              />
-              <Typography
-                variant="h3"
-                fontWeight={600}
-                sx={{ marginTop: "40px" }}
-              >
-                Правда или ложь?
+              <HealthBar health={health} />
+              <Typography variant="h3" fontWeight={600} sx={{ marginTop: "40px" }}>
+                {truthOrLieTitle}
               </Typography>
-
-              {disabled ? (
-                <Box
-                  sx={{
-                    display: "flex",
-                    width: "550px",
-                    height: "280px",
-                    backgroundColor: "white",
-                    borderRadius: "15px",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    marginTop: "110px",
-                    padding: "20px",
-                  }}
-                >
-                  <Typography
-                    variant="subtitle1"
-                    sx={{
-                      fontSize: "40px",
-                      lineHeight: "1.5",
-                      textAlign: "center",
-                    }}
-                  >
-                    Отлично! <br />
-                    Уровень пройден
-                  </Typography>
-                </Box>
+              {isLoading || !currentStatement ? (
+                <Typography variant="h3" fontWeight={600} sx={{ marginTop: "250px" }}>
+                  {loadingTitle}
+                </Typography>
               ) : (
                 <>
-                  <Box
-                    sx={{
-                      display: "flex",
-                      width: "550px",
-                      height: "120px",
-                      backgroundColor: "white",
-                      borderRadius: "15px",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      marginTop: "110px",
-                      padding: "20px",
-                    }}
-                  >
+                  {isLevelCompleted ? <LevelCompleted /> : <TruthOrLieGame />}
+                  <Stack spacing={4} alignItems="center" sx={{ marginTop: "130px" }}>
+                    <TruthOrLieGameControls />
                     <Typography
-                      variant="subtitle1"
                       sx={{
-                        fontSize: "40px",
-                        lineHeight: "1",
-                        textAlign: "center",
+                        display: "block",
+                        fontSize: "18px",
+                        color: "#0000007d",
                       }}
                     >
-                      {currentQuestion.text}
+                      <b>{currentStatement.id}/10</b> пройдено
                     </Typography>
-                  </Box>
-
-                  <Stack direction="row" spacing={8} sx={{ marginTop: "90px" }}>
-                    <Button
-                      disabled={disabled}
-                      onClick={() => handleAnswer("Правда")}
-                      variant="contained"
-                      sx={{
-                        width: "350px",
-                        height: "70px",
-                        borderRadius: "40px",
-                      }}
-                    >
-                      <Typography
-                        variant="button"
-                        sx={{
-                          display: "block",
-                          fontSize: "32px",
-                          color: "white",
-                        }}
-                      >
-                        Правда
-                      </Typography>
-                    </Button>
-                    <Button
-                      disabled={disabled}
-                      onClick={() => handleAnswer("Ложь")}
-                      variant="contained"
-                      sx={{
-                        width: "350px",
-                        height: "70px",
-                        borderRadius: "40px",
-                        background: "#F5F5F5",
-                      }}
-                    >
-                      <Typography
-                        variant="button"
-                        sx={{ display: "block", fontSize: "32px" }}
-                      >
-                        Ложь
-                      </Typography>
-                    </Button>
                   </Stack>
                 </>
               )}
-              <Stack
-                spacing={4}
-                alignItems="center"
-                sx={{ marginTop: "130px" }}
-              >
-                <Stack direction="row" spacing={10}>
-                  <Button
-                    disabled={!disabled}
-                    onClick={handleOpen}
-                    variant="contained"
-                    sx={{
-                      width: "250px",
-                      height: "70px",
-                      borderRadius: "40px",
-                      background: "#F5F5F5",
-                    }}
-                  >
-                    <Typography
-                      variant="button"
-                      sx={{ display: "block", fontSize: "16px" }}
-                    >
-                      Показать ответы
-                    </Typography>
-                  </Button>
-                  <Button
-                    onClick={restart}
-                    variant="contained"
-                    sx={{
-                      width: "250px",
-                      height: "70px",
-                      borderRadius: "40px",
-                      background: "#ffffff",
-                    }}
-                  >
-                    <Typography
-                      variant="button"
-                      sx={{ display: "block", fontSize: "16px" }}
-                    >
-                      Перезапустить
-                    </Typography>
-                  </Button>
-                  <Button
-                    onClick={nextLevel}
-                    disabled={lvl === 10 || !disabled}
-                    variant="contained"
-                    sx={{
-                      width: "250px",
-                      height: "70px",
-                      borderRadius: "40px",
-                      background: "#7E94F9",
-                    }}
-                  >
-                    <Typography
-                      variant="button"
-                      sx={{
-                        display: "block",
-                        fontSize: "16px",
-                        color: "white",
-                      }}
-                    >
-                      Следующий уровень
-                    </Typography>
-                  </Button>
-                </Stack>
-                <Typography
-                  sx={{
-                    display: "block",
-                    fontSize: "18px",
-                    color: "#0000007d",
-                  }}
-                >
-                  <b>{currentQuestion.number}/10</b> пройдено
-                </Typography>
-              </Stack>
             </Stack>
           )}
         </Container>
-        <TruthOrLieModal
-          open={open}
-          handleClose={handleClose}
-          lvl={lvl}
-          userAnswer={userAnswer}
-          questions={questions}
-        />
+        <TruthOrLieModal closeModal={closeModal} userSelection={userSelection} />
       </Container>
     </Container>
   );

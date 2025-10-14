@@ -474,7 +474,7 @@
       "id": "dfkjghdfkjg",
       "type": "input",
       "question": "How old is Anna?",
-      "answer": 27
+      "isTrue": 27
     }
   ],
   "stats": {
@@ -652,6 +652,168 @@
           "left": "Дерево",
           "right": "Tree"
         }
+      ]
+    }
+  ],
+  "truthOrLie": [
+    {
+      "id": "lvl1",
+      "level": 1,
+      "statements": [
+        { "id": 1, "text": "The sky is blue.", "isTrue": true },
+        { "id": 2, "text": "Cats can fly.", "isTrue": false },
+        { "id": 3, "text": "Fish live in water.", "isTrue": true },
+        { "id": 4, "text": "The sun is cold.", "isTrue": false },
+        { "id": 5, "text": "Dogs have four legs.", "isTrue": true },
+        { "id": 6, "text": "We eat soup with a fork.", "isTrue": false },
+        { "id": 7, "text": "Apples are fruits.", "isTrue": true },
+        { "id": 8, "text": "The moon is made of cheese.", "isTrue": false },
+        { "id": 9, "text": "You wear shoes on your feet.", "isTrue": true },
+        { "id": 10, "text": "Fire is hot.", "isTrue": true }
+      ]
+    },
+    {
+      "id": "lvl2",
+      "level": 2,
+      "statements": [
+        { "id": 1, "text": "Birds can sing.", "isTrue": true },
+        { "id": 2, "text": "Sugar tastes sweet.", "isTrue": true },
+        { "id": 3, "text": "Books are for eating.", "isTrue": false },
+        { "id": 4, "text": "The ocean is full of water.", "isTrue": true },
+        { "id": 5, "text": "A bed is for sleeping.", "isTrue": true },
+        { "id": 6, "text": "Cows can drive cars.", "isTrue": false },
+        { "id": 7, "text": "Rain is wet.", "isTrue": true },
+        { "id": 8, "text": "We wear a hat on the head.", "isTrue": true },
+        { "id": 9, "text": "Bananas are blue.", "isTrue": false },
+        { "id": 10, "text": "Winter is usually cold.", "isTrue": true }
+      ]
+    },
+    {
+      "id": "lvl3",
+      "level": 3,
+      "statements": [
+        { "id": 1, "text": "Milk comes from cows.", "isTrue": true },
+        { "id": 2, "text": "People eat rocks for lunch.", "isTrue": false },
+        { "id": 3, "text": "Ice is frozen water.", "isTrue": true },
+        { "id": 4, "text": "The Earth is flat.", "isTrue": false },
+        { "id": 5, "text": "We use a key to open a door.", "isTrue": true },
+        { "id": 6, "text": "Cars can swim in the sea.", "isTrue": false },
+        { "id": 7, "text": "The clock shows the time.", "isTrue": true },
+        { "id": 8, "text": "Dogs usually meow.", "isTrue": false },
+        { "id": 9, "text": "Water is needed to live.", "isTrue": true },
+        { "id": 10, "text": "Pencils are for writing.", "isTrue": true }
+      ]
+    },
+    {
+      "id": "lvl4",
+      "level": 4,
+      "statements": [
+        { "id": 1, "text": "The phone is used for calling.", "isTrue": true },
+        { "id": 2, "text": "Shoes are worn on hands.", "isTrue": false },
+        { "id": 3, "text": "Bread is usually eaten.", "isTrue": true },
+        { "id": 4, "text": "The sun rises in the west.", "isTrue": false },
+        { "id": 5, "text": "A cat is an animal.", "isTrue": true },
+        { "id": 6, "text": "We drink coffee from a cup.", "isTrue": true },
+        { "id": 7, "text": "People usually sleep in the kitchen.", "isTrue": false },
+        { "id": 8, "text": "Clouds are in the sky.", "isTrue": true },
+        { "id": 9, "text": "The fridge keeps food cold.", "isTrue": true },
+        { "id": 10, "text": "Fish can walk on land.", "isTrue": false }
+      ]
+    },
+    {
+      "id": "lvl5",
+      "level": 5,
+      "statements": [
+        { "id": 1, "text": "Most people have two eyes.", "isTrue": true },
+        { "id": 2, "text": "A chair is for sitting.", "isTrue": true },
+        { "id": 3, "text": "Cats usually like water.", "isTrue": false },
+        { "id": 4, "text": "A bus carries many people.", "isTrue": true },
+        { "id": 5, "text": "We use soap to wash our hands.", "isTrue": true },
+        { "id": 6, "text": "The stars shine at night.", "isTrue": true },
+        { "id": 7, "text": "Elephants are small animals.", "isTrue": false },
+        { "id": 8, "text": "Children go to school.", "isTrue": true },
+        { "id": 9, "text": "Pizza is a kind of food.", "isTrue": true },
+        { "id": 10, "text": "The moon shines in the daytime only.", "isTrue": false }
+      ]
+    },
+    {
+      "id": "lvl6",
+      "level": 6,
+      "statements": [
+        { "id": 1, "text": "The Earth has one moon.", "isTrue": true },
+        { "id": 2, "text": "The internet is older than books.", "isTrue": false },
+        { "id": 3, "text": "Rain falls from clouds.", "isTrue": true },
+        { "id": 4, "text": "Mountains are flat.", "isTrue": false },
+        { "id": 5, "text": "Airplanes can fly in the sky.", "isTrue": true },
+        { "id": 6, "text": "The desert is full of water.", "isTrue": false },
+        { "id": 7, "text": "Trees make oxygen.", "isTrue": true },
+        { "id": 8, "text": "Penguins live in the Arctic.", "isTrue": false },
+        { "id": 9, "text": "Honey comes from bees.", "isTrue": true },
+        { "id": 10, "text": "Lions are wild animals.", "isTrue": true }
+      ]
+    },
+    {
+      "id": "lvl7",
+      "level": 7,
+      "statements": [
+        { "id": 1, "text": "The capital of France is Paris.", "isTrue": true },
+        { "id": 2, "text": "Water boils at 0 degrees Celsius.", "isTrue": false },
+        { "id": 3, "text": "The Amazon is a big river.", "isTrue": true },
+        { "id": 4, "text": "Humans can breathe underwater without help.", "isTrue": false },
+        { "id": 5, "text": "The Great Wall of China is in China.", "isTrue": true },
+        { "id": 6, "text": "The camel lives in the desert.", "isTrue": true },
+        { "id": 7, "text": "Sharks are birds.", "isTrue": false },
+        { "id": 8, "text": "Volcanoes can erupt.", "isTrue": true },
+        { "id": 9, "text": "Chocolate is made from cocoa beans.", "isTrue": true },
+        { "id": 10, "text": "A year has 100 days.", "isTrue": false }
+      ]
+    },
+    {
+      "id": "lvl8",
+      "level": 8,
+      "statements": [
+        { "id": 1, "text": "The human heart has four chambers.", "isTrue": true },
+        { "id": 2, "text": "Saturn is a planet with rings.", "isTrue": true },
+        { "id": 3, "text": "Whales are the largest animals on Earth.", "isTrue": true },
+        { "id": 4, "text": "Tomatoes grow underground.", "isTrue": false },
+        { "id": 5, "text": "Electricity powers lights.", "isTrue": true },
+        { "id": 6, "text": "The Pacific is the smallest ocean.", "isTrue": false },
+        { "id": 7, "text": "Spiders have eight legs.", "isTrue": true },
+        { "id": 8, "text": "The Eiffel Tower is in Rome.", "isTrue": false },
+        { "id": 9, "text": "Blood is red.", "isTrue": true },
+        { "id": 10, "text": "Deserts are usually hot.", "isTrue": true }
+      ]
+    },
+    {
+      "id": "lvl9",
+      "level": 9,
+      "statements": [
+        { "id": 1, "text": "A leap year has 366 days.", "isTrue": true },
+        { "id": 2, "text": "Oxygen is needed to breathe.", "isTrue": true },
+        { "id": 3, "text": "The capital of Japan is Tokyo.", "isTrue": true },
+        { "id": 4, "text": "Water is heavier than metal.", "isTrue": false },
+        { "id": 5, "text": "The Sahara is the largest hot desert.", "isTrue": true },
+        { "id": 6, "text": "Sound travels faster than light.", "isTrue": false },
+        { "id": 7, "text": "Dinosaurs are still alive today.", "isTrue": false },
+        { "id": 8, "text": "The human brain controls the body.", "isTrue": true },
+        { "id": 9, "text": "The North Pole is very cold.", "isTrue": true },
+        { "id": 10, "text": "All snakes are poisonous.", "isTrue": false }
+      ]
+    },
+    {
+      "id": "lvl10",
+      "level": 10,
+      "statements": [
+        { "id": 1, "text": "The Earth orbits the Sun.", "isTrue": true },
+        { "id": 2, "text": "The speed of light is faster than sound.", "isTrue": true },
+        { "id": 3, "text": "Canberra is the capital of Australia.", "isTrue": true },
+        { "id": 4, "text": "The human body has 300 bones in adulthood.", "isTrue": false },
+        { "id": 5, "text": "Pluto is no longer a planet.", "isTrue": true },
+        { "id": 6, "text": "Atoms are the building blocks of matter.", "isTrue": true },
+        { "id": 7, "text": "The Atlantic Ocean is larger than the Pacific.", "isTrue": false },
+        { "id": 8, "text": "Water is a chemical compound.", "isTrue": true },
+        { "id": 9, "text": "Albert Einstein discovered gravity.", "isTrue": false },
+        { "id": 10, "text": "Humans landed on the Moon in 1969.", "isTrue": true }
       ]
     }
   ]

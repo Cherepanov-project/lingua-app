@@ -1,4 +1,3 @@
-// Импортируем данные из отдельных JSON файлов
 import languagesData from '../../../mock/languages.json';
 import levelsData from '../../../mock/levels.json';
 import coursesData from '../../../mock/courses.json';

@@ -68,20 +68,19 @@ const ProfilePage = () => {
       sx={{
         flexGrow: "1",
         padding: "0 80px",
-        paddingBottom: "50px",
-        overflowY: "scroll",
-        scrollbarColor: "#d9e0ff transparent",
+        paddingBottom: "80px",
+        overflowY: "hidden",
       }}
     >
       <ProfileHeader userProfile={userProfile} />
-      <Grid component={"section"} rowSpacing={5} columnSpacing={10} container>
-        <Grid size={7}>
+      <Grid component={"section"} rowSpacing={4} columnSpacing={10} container>
+        <Grid size={6}>
           <ProfileWidgetPlanToday />
         </Grid>
         <Grid size={5}>
           <ProfileWidgetProgress />
         </Grid>
-        <Grid size={7}>
+        <Grid size={6}>
           <ProfileWidgetGrammar />
         </Grid>
         <Grid size={5}>

@@ -22,6 +22,8 @@ import { ProfileExercisesPage } from "./user/components/ProfilePages/ProfileExer
 import { ProfileGrammarPage } from "./user/components/ProfilePages/ProfileGrammarPage.tsx";
 import { ProfileGamesPage } from "./user/components/ProfilePages/ProfileGamesPage.tsx";
 import { ProfileSettingsPage } from "./user/components/ProfilePages/ProfileSettingsPage.tsx";
+import { GamesLayout } from "./user/components/GamesLayout/GamesLayout.tsx";
+import { MatchGame } from "./user/components/Profile/MatchGame.tsx";
 import AdminProtectedRoute from "./pages/admin/AdminProtectedRoute.tsx";
 import AdminContent from "./pages/admin/adminComponents/AdminContent.tsx";
 import AdminHome from "./pages/admin/AdminHome.tsx";
@@ -53,13 +55,16 @@ const App: React.FC = () => {
               <Route path="grammar" element={<ProfileGrammarPage />} />
               <Route path="games" element={<ProfileGamesPage />} />
               <Route path="settings" element={<ProfileSettingsPage />} />
-              <Route path="exercises" element={<ProfileExercisesPage />} />
             </Route>
             <Route path="/reset-password" element={<PasswordReset />} />
             <Route path="/auth-callback" element={<AuthCallback />} />
             <Route path="/courses" element={<Courses />} />
             <Route path="/course/create" element={<CreateCourse />} />
             <Route path="/course/:id" element={<Course />} />
+            <Route path="/games" element={<GamesLayout />}>
+              <Route path="matchgame" element={<MatchGame />} />
+            </Route>
+
             <Route
               path="/course/:courseId/module/:moduleId"
               element={<EditModule />}
@@ -71,6 +76,14 @@ const App: React.FC = () => {
             <Route
               path="/course/:courseId/module/:moduleId/lesson/:lessonId/listening"
               element={<ListeningExercise />}
+            />
+            <Route
+              path="/admin/*"
+              element={
+                <ProtectedRoute>
+                  <AdminContent />
+                </ProtectedRoute>
+              }
             />
             <Route
               path="/admin"

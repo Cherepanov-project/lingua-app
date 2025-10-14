@@ -1,0 +1,31 @@
+[
+  {
+    "id": "dfkjghdfkjgh",
+    "type": "multiple-choice",
+    "question": "How old is Anna?",
+    "options": [
+      {
+        "value": "21",
+        "correct": false
+      },
+      {
+        "value": "23",
+        "correct": false
+      },
+      {
+        "value": "25",
+        "correct": false
+      },
+      {
+        "value": "27",
+        "correct": true
+      }
+    ]
+  },
+  {
+    "id": "dfkjghdfkjg",
+    "type": "input",
+    "question": "How old is Anna?",
+    "answer": 27
+  }
+]

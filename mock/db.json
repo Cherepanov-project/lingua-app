@@ -95,7 +95,9 @@
       "level": "A1",
       "description": "Идеально для начинающих",
       "amountTime": 30,
-      "modules": ["39da"],
+      "modules": [
+        "39da"
+      ],
       "published": false
     },
     {
@@ -167,7 +169,9 @@
       "level": "A2",
       "description": "Расширьте знания",
       "amountTime": 20,
-      "modules": ["EkwC6lJ"],
+      "modules": [
+        "EkwC6lJ"
+      ],
       "published": false
     },
     {
@@ -409,7 +413,9 @@
     {
       "id": "39da",
       "name": "Starter Guide",
-      "lessons": ["1abd"]
+      "lessons": [
+        "1abd"
+      ]
     },
     {
       "name": "fjhfhgkj",
@@ -421,7 +427,9 @@
     {
       "id": "1abd",
       "name": "sdfsdfsd",
-      "exercises": ["blahblah"]
+      "exercises": [
+        "blahblah"
+      ]
     }
   ],
   "exercises": [
@@ -430,20 +438,26 @@
       "type": "reading",
       "name": "Reading comprehension 1",
       "text": "bdsfbkjfgjbjfg",
-      "questions": ["dfkjghdfkjgh"]
+      "questions": [
+        "dfkjghdfkjgh"
+      ]
     },
     {
       "id": "blahblah2",
       "type": "listening",
       "name": "Listening comprehension 1",
       "text": "bdsfbkjfgjbjfg",
-      "questions": ["dfkjghdfkjgh"]
+      "questions": [
+        "dfkjghdfkjgh"
+      ]
     },
     {
       "id": "blahblah3",
       "type": "grammar",
       "name": "Grammar 101",
-      "questions": ["dfkjghdfkjgh"]
+      "questions": [
+        "dfkjghdfkjgh"
+      ]
     }
   ],
   "questions": [
@@ -679,15 +693,15 @@
       "level": 2,
       "statements": [
         {
-          "statement": "Water is transparent",
-          "correctValue": "true"
-        },
-        {
           "statement": "Human has 4 legs",
           "correctValue": "false"
         },
         {
           "statement": "Dogs are best friends of human",
+          "correctValue": "true"
+        },
+        {
+          "statement": "Water is transparent",
           "correctValue": "true"
         }
       ]

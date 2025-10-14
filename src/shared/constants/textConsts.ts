@@ -12,3 +12,4 @@ export const AddTitle = "Добавить";
 export const TruthOrLieGameTitle = "Правда или ложь";
 export const TruthTitle = "Правда";
 export const LieTitle = "Ложь";
+export const AddNewStatement = "Добавить новое утверждение";

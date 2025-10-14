@@ -33,33 +33,40 @@ import {
   useDeleteTruthOrLieGameMutation,
   useGetTruthOrLieGamesQuery,
   type GameStatement,
+  type TruthOrLieGame,
 } from "../../shared/api/truthOrLieGameApi";
 import CloseIcon from "@mui/icons-material/Close";
+import TruthOrLieModal from "./TruthOrLieModal";
 
 const Games = () => {
   const { data: matchGamesList = [] } = useGetMatchGamesQuery();
-  const { data: truthOrLieGamesList = [] } = useGetTruthOrLieGamesQuery();
+  const { data: truthOrLieGamesList = [], isLoading } =
+    useGetTruthOrLieGamesQuery();
   const [open, setOpen] = useState(false);
   const [gameStatement, setGameStatement] = useState<{
-    statement: string;
+    statementId: number;
     gameId: number;
     prev: GameStatement[];
   }>({
-    statement: "",
+    statementId: 0,
     gameId: 0,
     prev: [],
   });
   const [type, setType] = useState<"add" | "edit">("add");
   const [deleteType, setDeleteType] = useState("");
-  const [currentGame, setCurrentGame] = useState<MatchGame | undefined>(
-    undefined
-  );
+  const [currentMatchGame, setCurrentMatchGame] = useState<
+    MatchGame | undefined
+  >(undefined);
+  const [currentTruthOrLieGame, setCurrentTruthOrLieGame] = useState<
+    TruthOrLieGame | undefined
+  >(undefined);
   const [deleteId, setDeleteId] = useState(0);
   const [deleteMatchGame] = useDeleteMatchGameMutation();
   const [deleteTruthOrLieGame] = useDeleteTruthOrLieGameMutation();
   const [deleteGameStatement] = useDeleteGameStatementMutation();
   const [openDelete, setOpenDelete] = useState(false);
-  const [openCreate, setOpenCreate] = useState(false);
+  const [openCreateMatch, setOpenCreateMatch] = useState(false);
+  const [openCreateTruthOrLie, setOpenCreateTruthOrLie] = useState(false);
   const handleOpen = (
     setFunc: React.Dispatch<React.SetStateAction<boolean>>
   ) => {
@@ -88,228 +95,263 @@ const Games = () => {
   const handleDeleteStatement = async () => {
     const newStatements = [
       ...gameStatement.prev.filter(
-        (item) => item.statement !== gameStatement.statement
+        (_, index) => index !== gameStatement.statementId
       ),
     ];
     await deleteGameStatement({ gameId: gameStatement.gameId, newStatements });
-    setGameStatement({ gameId: 0, statement: "", prev: [] });
+    setGameStatement({ gameId: 0, statementId: 0, prev: [] });
     setDeleteType("");
     handleClose(setOpenDelete);
   };
-  const handleEdit = (game: MatchGame) => {
-    setCurrentGame(game);
+  const handleEditMatch = (game: MatchGame) => {
+    setCurrentMatchGame(game);
     setType("edit");
-    handleOpen(setOpenCreate);
+    handleOpen(setOpenCreateMatch);
   };
-  return (
-    <Box sx={{ p: "32px 40px" }}>
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-        }}
-      >
-        <Typography sx={{ ...stylesObj.adminPageTitle }}>
-          {GamesTitle}
-        </Typography>
-        <Button
-          startIcon={<AddIcon />}
-          variant="contained"
-          sx={{ ...stylesObj.adminButton }}
-          onClick={() => handleOpen(setOpen)}
+  const handleEditTruthOrLie = (game: TruthOrLieGame) => {
+    setCurrentTruthOrLieGame(game);
+    setType("edit");
+    handleOpen(setOpenCreateTruthOrLie);
+  };
+  if (!isLoading) {
+    return (
+      <Box sx={{ p: "32px 40px" }}>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
         >
-          {AddNewGame}
-        </Button>
-      </Box>
-      <Modal open={open} onClose={() => handleClose(setOpen)}>
-        <Box sx={{ ...stylesObj.gamesModal }}>
-          <Box>
-            <Typography variant="h6" component="h2">
-              {AddNewGame}
-            </Typography>
-            <Button
-              sx={{ ...stylesObj.adminButton, mt: "18px", width: "100%" }}
-              variant="contained"
-              onClick={() => {
-                handleClose(setOpen);
-                setType("add");
-                handleOpen(setOpenCreate);
-              }}
-            >
-              {MatchGameTitle}
-            </Button>
-          </Box>
-          <Box>
-            <Button sx={{ color: "gray" }} onClick={() => handleClose(setOpen)}>
-              {CancelTitle}
-            </Button>
-          </Box>
-        </Box>
-      </Modal>
-      <MatchGameModal
-        open={openCreate}
-        handleClose={() => handleClose(setOpenCreate)}
-        length={matchGamesList.length}
-        currentGame={currentGame}
-        setCurrentGame={setCurrentGame}
-        type={type}
-      />
-      <Modal open={openDelete} onClose={() => handleClose(setOpenDelete)}>
-        <Box sx={{ ...stylesObj.gamesModal, height: "150px" }}>
-          <Typography variant="h6" component="h2">
-            {DeleteTitle}?
+          <Typography sx={{ ...stylesObj.adminPageTitle }}>
+            {GamesTitle}
           </Typography>
+          <Button
+            startIcon={<AddIcon />}
+            variant="contained"
+            sx={{ ...stylesObj.adminButton }}
+            onClick={() => handleOpen(setOpen)}
+          >
+            {AddNewGame}
+          </Button>
+        </Box>
+        <Modal open={open} onClose={() => handleClose(setOpen)}>
+          <Box sx={{ ...stylesObj.gamesModal }}>
+            <Box>
+              <Typography variant="h6" component="h2">
+                {AddNewGame}
+              </Typography>
+              <Button
+                sx={{ ...stylesObj.adminButton, mt: "18px", width: "100%" }}
+                variant="contained"
+                onClick={() => {
+                  handleClose(setOpen);
+                  setType("add");
+                  handleOpen(setOpenCreateMatch);
+                }}
+              >
+                {MatchGameTitle}
+              </Button>
+              <Button
+                sx={{ ...stylesObj.adminButton, mt: "18px", width: "100%" }}
+                variant="contained"
+                onClick={() => {
+                  handleClose(setOpen);
+                  setType("add");
+                  handleOpen(setOpenCreateTruthOrLie);
+                }}
+              >
+                {TruthOrLieGameTitle}
+              </Button>
+            </Box>
+            <Box>
+              <Button
+                sx={{ color: "gray" }}
+                onClick={() => handleClose(setOpen)}
+              >
+                {CancelTitle}
+              </Button>
+            </Box>
+          </Box>
+        </Modal>
+        <MatchGameModal
+          open={openCreateMatch}
+          handleClose={() => handleClose(setOpenCreateMatch)}
+          length={matchGamesList.length}
+          currentGame={currentMatchGame}
+          setCurrentGame={setCurrentMatchGame}
+          type={type}
+        />
+        <TruthOrLieModal
+          open={openCreateTruthOrLie}
+          handleClose={() => handleClose(setOpenCreateTruthOrLie)}
+          length={truthOrLieGamesList.length}
+          currentGame={currentTruthOrLieGame}
+          setCurrentGame={setCurrentTruthOrLieGame}
+          type={type}
+        />
+        <Modal open={openDelete} onClose={() => handleClose(setOpenDelete)}>
+          <Box sx={{ ...stylesObj.gamesModal, height: "150px" }}>
+            <Typography variant="h6" component="h2">
+              {DeleteTitle}?
+            </Typography>
+            <Box>
+              <Button
+                sx={{ color: "red" }}
+                onClick={
+                  deleteType === "statement"
+                    ? handleDeleteStatement
+                    : handleDelete
+                }
+              >
+                {DeleteTitle}
+              </Button>
+              <Button
+                sx={{ color: "gray" }}
+                onClick={() => handleClose(setOpenDelete)}
+              >
+                {CancelTitle}
+              </Button>
+            </Box>
+          </Box>
+        </Modal>
+        <Box
+          sx={{
+            overflow: "auto",
+            maxHeight: "75vh",
+            display: "flex",
+            flexDirection: "column",
+            gap: "56px",
+            maxWidth: "750px",
+            padding: "14px",
+          }}
+        >
           <Box>
-            <Button
-              sx={{ color: "red" }}
-              onClick={
-                deleteType === "statement"
-                  ? handleDeleteStatement
-                  : handleDelete
-              }
-            >
-              {DeleteTitle}
-            </Button>
-            <Button
-              sx={{ color: "gray" }}
-              onClick={() => handleClose(setOpenDelete)}
-            >
-              {CancelTitle}
-            </Button>
+            {...matchGamesList.map((matchGame) => {
+              return (
+                <Box key={matchGame.level}>
+                  <Typography sx={{ ...stylesObj.gameTitle }}>
+                    {MatchGameTitle}
+                  </Typography>
+                  <Box>
+                    {...matchGame.pairs.map((pair) => {
+                      return (
+                        <Box sx={{ display: "flex" }}>
+                          <Input readOnly name="left" value={pair.left} />
+                          <Input readOnly name="right" value={pair.right} />
+                        </Box>
+                      );
+                    })}
+                    <Button
+                      onClick={() => handleEditMatch(matchGame)}
+                      sx={{ mr: "4px" }}
+                    >
+                      {EditTitle}
+                    </Button>
+                    <Button
+                      sx={{ color: "red" }}
+                      onClick={() => {
+                        handleOpen(setOpenDelete);
+                        setDeleteId(matchGame.id);
+                        setDeleteType("match");
+                      }}
+                    >
+                      {DeleteTitle}
+                    </Button>
+                  </Box>
+                </Box>
+              );
+            })}
+          </Box>
+          <Box>
+            {...truthOrLieGamesList.map((truthOrLieGame) => {
+              return (
+                <Box key={truthOrLieGame.level}>
+                  <Typography sx={{ ...stylesObj.gameTitle }}>
+                    {TruthOrLieGameTitle}
+                  </Typography>
+                  <Box>
+                    {...truthOrLieGame.statements.map((statement, index) => {
+                      return (
+                        <Box
+                          sx={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                            alignItems: "center",
+                          }}
+                        >
+                          <Typography sx={{ fontSize: "18px" }}>
+                            {statement.statement}
+                          </Typography>
+                          <Box sx={{ display: "flex", gap: "12px" }}>
+                            <ToggleButtonGroup
+                              exclusive
+                              value={statement.correctValue}
+                              sx={{
+                                display: "flex",
+                                gap: "8px",
+                                alignItems: "center",
+                              }}
+                            >
+                              <ToggleButton
+                                sx={{ ...stylesObj.toggleButton }}
+                                value="true"
+                              >
+                                {TruthTitle}
+                              </ToggleButton>
+                              <ToggleButton
+                                sx={{ ...stylesObj.toggleButton }}
+                                value="false"
+                              >
+                                {LieTitle}
+                              </ToggleButton>
+                            </ToggleButtonGroup>
+                            <Fab
+                              disableRipple
+                              disableFocusRipple
+                              disableTouchRipple
+                              sx={{ boxShadow: "none", background: "none" }}
+                              onClick={() => {
+                                handleOpen(setOpenDelete);
+                                setGameStatement({
+                                  gameId: truthOrLieGame.id,
+                                  statementId: index,
+                                  prev: [...truthOrLieGame.statements],
+                                });
+                                setDeleteType("statement");
+                              }}
+                            >
+                              <CloseIcon />
+                            </Fab>
+                          </Box>
+                        </Box>
+                      );
+                    })}
+                    <Button
+                      onClick={() => handleEditTruthOrLie(truthOrLieGame)}
+                      sx={{ mr: "4px" }}
+                    >
+                      {EditTitle}
+                    </Button>
+                    <Button
+                      sx={{ color: "red" }}
+                      onClick={() => {
+                        handleOpen(setOpenDelete);
+                        setDeleteId(truthOrLieGame.id);
+                        setDeleteType("truthOrLie");
+                      }}
+                    >
+                      {DeleteTitle}
+                    </Button>
+                  </Box>
+                </Box>
+              );
+            })}
           </Box>
         </Box>
-      </Modal>
-      <Box
-        sx={{
-          overflow: "auto",
-          maxHeight: "75vh",
-          display: "flex",
-          flexDirection: "column",
-          gap: "56px",
-          maxWidth: "750px",
-          padding: "14px",
-        }}
-      >
-        <Box>
-          {...matchGamesList.map((matchGame) => {
-            return (
-              <Box key={matchGame.level}>
-                <Typography sx={{ ...stylesObj.gameTitle }}>
-                  {MatchGameTitle}
-                </Typography>
-                <Box>
-                  {...matchGame.pairs.map((pair) => {
-                    return (
-                      <Box sx={{ display: "flex" }}>
-                        <Input readOnly name="left" value={pair.left} />
-                        <Input readOnly name="right" value={pair.right} />
-                      </Box>
-                    );
-                  })}
-                  <Button
-                    onClick={() => handleEdit(matchGame)}
-                    sx={{ mr: "4px" }}
-                  >
-                    {EditTitle}
-                  </Button>
-                  <Button
-                    sx={{ color: "red" }}
-                    onClick={() => {
-                      handleOpen(setOpenDelete);
-                      setDeleteId(matchGame.id);
-                      setDeleteType("match");
-                    }}
-                  >
-                    {DeleteTitle}
-                  </Button>
-                </Box>
-              </Box>
-            );
-          })}
-        </Box>
-        <Box>
-          {...truthOrLieGamesList.map((truthOrLieGame) => {
-            return (
-              <Box key={truthOrLieGame.level}>
-                <Typography sx={{ ...stylesObj.gameTitle }}>
-                  {TruthOrLieGameTitle}
-                </Typography>
-                <Box>
-                  {...truthOrLieGame.statements.map((statement) => {
-                    return (
-                      <Box
-                        sx={{
-                          display: "flex",
-                          justifyContent: "space-between",
-                          alignItems: "center",
-                        }}
-                      >
-                        <Typography sx={{ fontSize: "18px" }}>
-                          {statement.statement}
-                        </Typography>
-                        <Box sx={{ display: "flex", gap: "12px" }}>
-                          <ToggleButtonGroup
-                            exclusive
-                            value={statement.correctValue}
-                            sx={{
-                              display: "flex",
-                              gap: "8px",
-                              alignItems: "center",
-                            }}
-                          >
-                            <ToggleButton
-                              sx={{ ...stylesObj.toggleButton }}
-                              value="true"
-                            >
-                              {TruthTitle}
-                            </ToggleButton>
-                            <ToggleButton
-                              sx={{ ...stylesObj.toggleButton }}
-                              value="false"
-                            >
-                              {LieTitle}
-                            </ToggleButton>
-                          </ToggleButtonGroup>
-                          <Fab
-                            disableRipple
-                            disableFocusRipple
-                            disableTouchRipple
-                            sx={{ boxShadow: "none", background: "none" }}
-                            onClick={() => {
-                              handleOpen(setOpenDelete);
-                              setGameStatement({
-                                gameId: truthOrLieGame.id,
-                                statement: statement.statement,
-                                prev: [...truthOrLieGame.statements],
-                              });
-                              setDeleteType("statement");
-                            }}
-                          >
-                            <CloseIcon />
-                          </Fab>
-                        </Box>
-                      </Box>
-                    );
-                  })}
-                  <Button
-                    sx={{ color: "red" }}
-                    onClick={() => {
-                      handleOpen(setOpenDelete);
-                      setDeleteId(truthOrLieGame.id);
-                      setDeleteType("truthOrLie");
-                    }}
-                  >
-                    {DeleteTitle}
-                  </Button>
-                </Box>
-              </Box>
-            );
-          })}
-        </Box>
       </Box>
-    </Box>
-  );
+    );
+  }
 };
 
 export default Games;

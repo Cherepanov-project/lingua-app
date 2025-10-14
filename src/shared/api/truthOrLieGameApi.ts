@@ -8,7 +8,7 @@ export type TruthOrLieGame = {
 
 export type GameStatement = {
   statement: string;
-  correctValue: boolean;
+  correctValue: string;
 };
 
 const API_BASE_URL = "http://localhost:3001";
@@ -31,6 +31,17 @@ export const truthOrLieGamesApi = createApi({
             ]
           : [{ type: "TruthOrLieGames", id: "LIST" }],
     }),
+    addTruthOrLieGame: builder.mutation<
+      TruthOrLieGame,
+      Omit<TruthOrLieGame, "id">
+    >({
+      query: (newGame) => ({
+        url: "truthlie",
+        method: "POST",
+        body: newGame,
+      }),
+      invalidatesTags: [{ type: "TruthOrLieGames", id: "LIST" }],
+    }),
     deleteTruthOrLieGame: builder.mutation<TruthOrLieGame, number>({
       query: (id) => ({
         url: `truthlie/${id}`,
@@ -51,6 +62,14 @@ export const truthOrLieGamesApi = createApi({
       }),
       invalidatesTags: [{ type: "TruthOrLieGames", id: "LIST" }],
     }),
+    editTruthOrLieGame: builder.mutation<TruthOrLieGame, TruthOrLieGame>({
+      query: (newGame) => ({
+        url: `truthlie/${newGame.id}`,
+        method: "PATCH",
+        body: newGame,
+      }),
+      invalidatesTags: [{ type: "TruthOrLieGames", id: "LIST" }],
+    }),
   }),
 });
 
@@ -58,4 +77,6 @@ export const {
   useGetTruthOrLieGamesQuery,
   useDeleteTruthOrLieGameMutation,
   useDeleteGameStatementMutation,
+  useAddTruthOrLieGameMutation,
+  useEditTruthOrLieGameMutation,
 } = truthOrLieGamesApi;

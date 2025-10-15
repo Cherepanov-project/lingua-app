@@ -9,6 +9,12 @@ export const EditTitle = "Редактировать";
 export const DeleteTitle = "Удалить";
 export const SaveTitle = "Сохранить";
 export const AddTitle = "Добавить";
+
+export const LoadingTitle = "Загрузка...";
+export const LevelCompletedTitle = "Уровень пройден";
+export const ShowAnswerTitle = "Показать ответы";
+export const RestartTitle = "Перезапустить";
+export const NextLevelTitle = "Следующий уровень";
 export const TruthOrLieGameTitle = "Правда или ложь";
 export const TruthTitle = "Правда";
 export const LieTitle = "Ложь";

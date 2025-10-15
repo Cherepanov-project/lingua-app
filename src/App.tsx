@@ -22,6 +22,7 @@ import { ProfileExercisesPage } from "./user/components/ProfilePages/ProfileExer
 import { ProfileGrammarPage } from "./user/components/ProfilePages/ProfileGrammarPage.tsx";
 import { ProfileGamesPage } from "./user/components/ProfilePages/ProfileGamesPage.tsx";
 import { ProfileSettingsPage } from "./user/components/ProfilePages/ProfileSettingsPage.tsx";
+import { TruthOrLiePage } from "./user/components/Games/TruthOrLie/TruthOrLiePage.tsx";
 import { GamesLayout } from "./user/components/GamesLayout/GamesLayout.tsx";
 import { MatchGame } from "./user/components/Profile/MatchGame.tsx";
 import AdminProtectedRoute from "./pages/admin/AdminProtectedRoute.tsx";
@@ -56,6 +57,8 @@ const App: React.FC = () => {
               <Route path="games" element={<ProfileGamesPage />} />
               <Route path="settings" element={<ProfileSettingsPage />} />
             </Route>
+
+            <Route path="/truth-or-lie" element={<TruthOrLiePage />} />
             <Route path="/reset-password" element={<PasswordReset />} />
             <Route path="/auth-callback" element={<AuthCallback />} />
             <Route path="/courses" element={<Courses />} />
@@ -65,14 +68,8 @@ const App: React.FC = () => {
               <Route path="matchgame" element={<MatchGame />} />
             </Route>
 
-            <Route
-              path="/course/:courseId/module/:moduleId"
-              element={<EditModule />}
-            />
-            <Route
-              path="/course/:courseId/module/:moduleId/lesson/:lessonId"
-              element={<EditLesson />}
-            />
+            <Route path="/course/:courseId/module/:moduleId" element={<EditModule />} />
+            <Route path="/course/:courseId/module/:moduleId/lesson/:lessonId" element={<EditLesson />} />
             <Route
               path="/course/:courseId/module/:moduleId/lesson/:lessonId/listening"
               element={<ListeningExercise />}

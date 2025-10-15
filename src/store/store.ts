@@ -1,9 +1,11 @@
-import {configureStore} from "@reduxjs/toolkit";
-import {authApi} from "../user/features/auth/authApi";
-import {languagesApi} from "../shared/api/languagesApi";
-import {usersApi} from '../shared/api/usersApi';
-import {picturesApi} from '../shared/api/picturesApi';
-import {matchGameApi} from "../shared/api/matchGameApi.ts";
+import truthOrLieReducer from "../store/reducers/TruthOrLieSlice";
+import { configureStore } from "@reduxjs/toolkit";
+import { authApi } from "../user/features/auth/authApi";
+import { languagesApi } from "../shared/api/languagesApi";
+import { usersApi } from "../shared/api/usersApi";
+import { picturesApi } from "../shared/api/picturesApi";
+import { matchGameApi } from "../shared/api/matchGameApi.ts";
+import { truthOrLieGamesApi } from "../shared/api/truthOrLieGameApi.ts";
 
 export const store = configureStore({
   reducer: {
@@ -11,6 +13,8 @@ export const store = configureStore({
     [languagesApi.reducerPath]: languagesApi.reducer,
     [usersApi.reducerPath]: usersApi.reducer,
     [picturesApi.reducerPath]: picturesApi.reducer,
+    [truthOrLieGamesApi.reducerPath]: truthOrLieGamesApi.reducer,
+    truthOrLie: truthOrLieReducer,
     [matchGameApi.reducerPath]: matchGameApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
@@ -19,7 +23,8 @@ export const store = configureStore({
       .concat(languagesApi.middleware)
       .concat(usersApi.middleware)
       .concat(picturesApi.middleware)
-      .concat(matchGameApi.middleware)
+      .concat(truthOrLieGamesApi.middleware)
+      .concat(matchGameApi.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

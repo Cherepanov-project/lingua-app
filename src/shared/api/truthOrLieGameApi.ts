@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import type { Statement, TruthOrLieData } from "../../user/components/Games/types/truthOrLie";
 
 export type TruthOrLieGame = {
   id: number;
@@ -11,8 +12,7 @@ export type GameStatement = {
   correctValue: string;
 };
 
-const API_BASE_URL =
-  import.meta.env.VITE_API_BASE_URL || "http://localhost:3001";
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:3001";
 
 export const truthOrLieGamesApi = createApi({
   reducerPath: "truthOrLieGames",
@@ -32,10 +32,11 @@ export const truthOrLieGamesApi = createApi({
             ]
           : [{ type: "TruthOrLieGames", id: "LIST" }],
     }),
-    addTruthOrLieGame: builder.mutation<
-      TruthOrLieGame,
-      Omit<TruthOrLieGame, "id">
-    >({
+    getStatementsByLevel: builder.query<Statement[], number>({
+      query: (level) => `truthlie?level=${level}`,
+      transformResponse: (response: TruthOrLieData[]) => response[0].statements,
+    }),
+    addTruthOrLieGame: builder.mutation<TruthOrLieGame, Omit<TruthOrLieGame, "id">>({
       query: (newGame) => ({
         url: "truthlie",
         method: "POST",
@@ -50,10 +51,7 @@ export const truthOrLieGamesApi = createApi({
       }),
       invalidatesTags: [{ type: "TruthOrLieGames", id: "LIST" }],
     }),
-    deleteGameStatement: builder.mutation<
-      TruthOrLieGame,
-      { gameId: number; newStatements: GameStatement[] }
-    >({
+    deleteGameStatement: builder.mutation<TruthOrLieGame, { gameId: number; newStatements: GameStatement[] }>({
       query: ({ gameId, newStatements }) => ({
         url: `truthlie/${gameId}`,
         method: "PATCH",
@@ -76,6 +74,7 @@ export const truthOrLieGamesApi = createApi({
 
 export const {
   useGetTruthOrLieGamesQuery,
+  useGetStatementsByLevelQuery,
   useDeleteTruthOrLieGameMutation,
   useDeleteGameStatementMutation,
   useAddTruthOrLieGameMutation,

@@ -1,0 +1,162 @@
+[
+  {
+    "id": 1,
+    "level": 1,
+    "statements": [
+      { "id": 1, "statement": "The sky is blue.", "correctValue": true },
+      { "id": 2, "statement": "Cats can fly.", "correctValue": false },
+      { "id": 3, "statement": "Fish live in water.", "correctValue": true },
+      { "id": 4, "statement": "The sun is cold.", "correctValue": false },
+      { "id": 5, "statement": "Dogs have four legs.", "correctValue": true },
+      { "id": 6, "statement": "We eat soup with a fork.", "correctValue": false },
+      { "id": 7, "statement": "Apples are fruits.", "correctValue": true },
+      { "id": 8, "statement": "The moon is made of cheese.", "correctValue": false },
+      { "id": 9, "statement": "You wear shoes on your feet.", "correctValue": true },
+      { "id": 10, "statement": "Fire is hot.", "correctValue": true }
+    ]
+  },
+  {
+    "id": "2",
+    "level": 2,
+    "statements": [
+      { "id": 1, "statement": "Birds can sing.", "correctValue": true },
+      { "id": 2, "statement": "Sugar tastes sweet.", "correctValue": true },
+      { "id": 3, "statement": "Books are for eating.", "correctValue": false },
+      { "id": 4, "statement": "The ocean is full of water.", "correctValue": true },
+      { "id": 5, "statement": "A bed is for sleeping.", "correctValue": true },
+      { "id": 6, "statement": "Cows can drive cars.", "correctValue": false },
+      { "id": 7, "statement": "Rain is wet.", "correctValue": true },
+      { "id": 8, "statement": "We wear a hat on the head.", "correctValue": true },
+      { "id": 9, "statement": "Bananas are blue.", "correctValue": false },
+      { "id": 10, "statement": "Winter is usually cold.", "correctValue": true }
+    ]
+  },
+  {
+    "id": "3",
+    "level": 3,
+    "statements": [
+      { "id": 1, "statement": "Milk comes from cows.", "correctValue": true },
+      { "id": 2, "statement": "People eat rocks for lunch.", "correctValue": false },
+      { "id": 3, "statement": "Ice is frozen water.", "correctValue": true },
+      { "id": 4, "statement": "The Earth is flat.", "correctValue": false },
+      { "id": 5, "statement": "We use a key to open a door.", "correctValue": true },
+      { "id": 6, "statement": "Cars can swim in the sea.", "correctValue": false },
+      { "id": 7, "statement": "The clock shows the time.", "correctValue": true },
+      { "id": 8, "statement": "Dogs usually meow.", "correctValue": false },
+      { "id": 9, "statement": "Water is needed to live.", "correctValue": true },
+      { "id": 10, "statement": "Pencils are for writing.", "correctValue": true }
+    ]
+  },
+  {
+    "id": "4",
+    "level": 4,
+    "statements": [
+      { "id": 1, "statement": "The phone is used for calling.", "correctValue": true },
+      { "id": 2, "statement": "Shoes are worn on hands.", "correctValue": false },
+      { "id": 3, "statement": "Bread is usually eaten.", "correctValue": true },
+      { "id": 4, "statement": "The sun rises in the west.", "correctValue": false },
+      { "id": 5, "statement": "A cat is an animal.", "correctValue": true },
+      { "id": 6, "statement": "We drink coffee from a cup.", "correctValue": true },
+      { "id": 7, "statement": "People usually sleep in the kitchen.", "correctValue": false },
+      { "id": 8, "statement": "Clouds are in the sky.", "correctValue": true },
+      { "id": 9, "statement": "The fridge keeps food cold.", "correctValue": true },
+      { "id": 10, "statement": "Fish can walk on land.", "correctValue": false }
+    ]
+  },
+  {
+    "id": "5",
+    "level": 5,
+    "statements": [
+      { "id": 1, "statement": "Most people have two eyes.", "correctValue": true },
+      { "id": 2, "statement": "A chair is for sitting.", "correctValue": true },
+      { "id": 3, "statement": "Cats usually like water.", "correctValue": false },
+      { "id": 4, "statement": "A bus carries many people.", "correctValue": true },
+      { "id": 5, "statement": "We use soap to wash our hands.", "correctValue": true },
+      { "id": 6, "statement": "The stars shine at night.", "correctValue": true },
+      { "id": 7, "statement": "Elephants are small animals.", "correctValue": false },
+      { "id": 8, "statement": "Children go to school.", "correctValue": true },
+      { "id": 9, "statement": "Pizza is a kind of food.", "correctValue": true },
+      { "id": 10, "statement": "The moon shines in the daytime only.", "correctValue": false }
+    ]
+  },
+  {
+    "id": "6",
+    "level": 6,
+    "statements": [
+      { "id": 1, "statement": "The Earth has one moon.", "correctValue": true },
+      { "id": 2, "statement": "The internet is older than books.", "correctValue": false },
+      { "id": 3, "statement": "Rain falls from clouds.", "correctValue": true },
+      { "id": 4, "statement": "Mountains are flat.", "correctValue": false },
+      { "id": 5, "statement": "Airplanes can fly in the sky.", "correctValue": true },
+      { "id": 6, "statement": "The desert is full of water.", "correctValue": false },
+      { "id": 7, "statement": "Trees make oxygen.", "correctValue": true },
+      { "id": 8, "statement": "Penguins live in the Arctic.", "correctValue": false },
+      { "id": 9, "statement": "Honey comes from bees.", "correctValue": true },
+      { "id": 10, "statement": "Lions are wild animals.", "correctValue": true }
+    ]
+  },
+  {
+    "id": "7",
+    "level": 7,
+    "statements": [
+      { "id": 1, "statement": "The capital of France is Paris.", "correctValue": true },
+      { "id": 2, "statement": "Water boils at 0 degrees Celsius.", "correctValue": false },
+      { "id": 3, "statement": "The Amazon is a big river.", "correctValue": true },
+      { "id": 4, "statement": "Humans can breathe underwater without help.", "correctValue": false },
+      { "id": 5, "statement": "The Great Wall of China is in China.", "correctValue": true },
+      { "id": 6, "statement": "The camel lives in the desert.", "correctValue": true },
+      { "id": 7, "statement": "Sharks are birds.", "correctValue": false },
+      { "id": 8, "statement": "Volcanoes can erupt.", "correctValue": true },
+      { "id": 9, "statement": "Chocolate is made from cocoa beans.", "correctValue": true },
+      { "id": 10, "statement": "A year has 100 days.", "correctValue": false }
+    ]
+  },
+  {
+    "id": "8",
+    "level": 8,
+    "statements": [
+      { "id": 1, "statement": "The human heart has four chambers.", "correctValue": true },
+      { "id": 2, "statement": "Saturn is a planet with rings.", "correctValue": true },
+      { "id": 3, "statement": "Whales are the largest animals on Earth.", "correctValue": true },
+      { "id": 4, "statement": "Tomatoes grow underground.", "correctValue": false },
+      { "id": 5, "statement": "Electricity powers lights.", "correctValue": true },
+      { "id": 6, "statement": "The Pacific is the smallest ocean.", "correctValue": false },
+      { "id": 7, "statement": "Spiders have eight legs.", "correctValue": true },
+      { "id": 8, "statement": "The Eiffel Tower is in Rome.", "correctValue": false },
+      { "id": 9, "statement": "Blood is red.", "correctValue": true },
+      { "id": 10, "statement": "Deserts are usually hot.", "correctValue": true }
+    ]
+  },
+  {
+    "id": "9",
+    "level": 9,
+    "statements": [
+      { "id": 1, "statement": "A leap year has 366 days.", "correctValue": true },
+      { "id": 2, "statement": "Oxygen is needed to breathe.", "correctValue": true },
+      { "id": 3, "statement": "The capital of Japan is Tokyo.", "correctValue": true },
+      { "id": 4, "statement": "Water is heavier than metal.", "correctValue": false },
+      { "id": 5, "statement": "The Sahara is the largest hot desert.", "correctValue": true },
+      { "id": 6, "statement": "Sound travels faster than light.", "correctValue": false },
+      { "id": 7, "statement": "Dinosaurs are still alive today.", "correctValue": false },
+      { "id": 8, "statement": "The human brain controls the body.", "correctValue": true },
+      { "id": 9, "statement": "The North Pole is very cold.", "correctValue": true },
+      { "id": 10, "statement": "All snakes are poisonous.", "correctValue": false }
+    ]
+  },
+  {
+    "id": "10",
+    "level": 10,
+    "statements": [
+      { "id": 1, "statement": "The Earth orbits the Sun.", "correctValue": true },
+      { "id": 2, "statement": "The speed of light is faster than sound.", "correctValue": true },
+      { "id": 3, "statement": "Canberra is the capital of Australia.", "correctValue": true },
+      { "id": 4, "statement": "The human body has 300 bones in adulthood.", "correctValue": false },
+      { "id": 5, "statement": "Pluto is no longer a planet.", "correctValue": true },
+      { "id": 6, "statement": "Atoms are the building blocks of matter.", "correctValue": true },
+      { "id": 7, "statement": "The Atlantic Ocean is larger than the Pacific.", "correctValue": false },
+      { "id": 8, "statement": "Water is a chemical compound.", "correctValue": true },
+      { "id": 9, "statement": "Albert Einstein discovered gravity.", "correctValue": false },
+      { "id": 10, "statement": "Humans landed on the Moon in 1969.", "correctValue": true }
+    ]
+  }
+]

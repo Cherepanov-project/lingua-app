@@ -15,6 +15,7 @@ const db = {
   users: JSON.parse(fs.readFileSync(path.join('mock', 'users.json'), 'utf8')),
   pictures: JSON.parse(fs.readFileSync(path.join('mock', 'pictures.json'), 'utf8')),
   matchgame: JSON.parse(fs.readFileSync(path.join('mock', 'matchgame.json'), 'utf8')),
+  truthlie: JSON.parse(fs.readFileSync(path.join('mock', 'truthlie.json'), 'utf8')),
   stats: JSON.parse(fs.readFileSync(path.join('mock', 'stats.json'), 'utf8'))
 };
 

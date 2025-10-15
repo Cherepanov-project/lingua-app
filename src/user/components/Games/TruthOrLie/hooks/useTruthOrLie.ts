@@ -1,6 +1,6 @@
 import { useEffect } from "react";
-import { useGetStatementsByLevelQuery } from "../../../../../shared/api/truthOrLieApi";
 import { useAppDispatch, useAppSelector } from "../../../../../shared/hooks/redux";
+import { useGetStatementsByLevelQuery } from "../../../../../shared/api/truthOrLieGameApi";
 import {
   setAllStatementsByLevel,
   setCurrentLevel,
@@ -21,6 +21,8 @@ export const useTruthOrLie = () => {
   const isLevelCompleted = useAppSelector((state) => state.truthOrLie.isLevelCompleted);
 
   const { data: statements, isLoading } = useGetStatementsByLevelQuery(currentLevel);
+  console.log(statements);
+  console.log(currentStatement);
 
   useEffect(() => {
     if (!statements) return;
@@ -32,8 +34,8 @@ export const useTruthOrLie = () => {
     if (!statements || !currentStatement) return;
 
     if (
-      (variant === "Правда" && currentStatement.isTrue === false) ||
-      (variant === "Ложь" && currentStatement.isTrue === true)
+      (variant === "Правда" && currentStatement.correctValue === false) ||
+      (variant === "Ложь" && currentStatement.correctValue === true)
     ) {
       dispatch(setHealth());
     }

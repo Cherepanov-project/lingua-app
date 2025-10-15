@@ -1,6 +1,6 @@
 import { Box, Button, Stack, Typography } from "@mui/material";
 import { useTruthOrLie } from "./hooks/useTruthOrLie";
-import { lieTitle, truthTitle } from "../../../../shared/constants/textConsts";
+import { LieTitle, TruthTitle } from "../../../../shared/constants/textConsts";
 
 export const TruthOrLieGame = () => {
   const { currentStatement, isLevelCompleted, handleSelect } = useTruthOrLie();
@@ -28,7 +28,7 @@ export const TruthOrLieGame = () => {
             textAlign: "center",
           }}
         >
-          {currentStatement?.text}
+          {currentStatement?.statement}
         </Typography>
       </Box>
 
@@ -51,7 +51,7 @@ export const TruthOrLieGame = () => {
               color: "white",
             }}
           >
-            {truthTitle}
+            {TruthTitle}
           </Typography>
         </Button>
         <Button
@@ -66,7 +66,7 @@ export const TruthOrLieGame = () => {
           }}
         >
           <Typography variant="button" sx={{ display: "block", fontSize: "32px" }}>
-            {lieTitle}
+            {LieTitle}
           </Typography>
         </Button>
       </Stack>

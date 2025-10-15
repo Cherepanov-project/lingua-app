@@ -6,7 +6,7 @@ import TruthOrLieModal from "./TruthOrLieModal";
 import { useTruthOrLie } from "./hooks/useTruthOrLie";
 import { useAppSelector } from "../../../../shared/hooks/redux";
 import { HealthBar } from "../HealthBar";
-import { truthOrLieTitle, loadingTitle } from "../../../../shared/constants/textConsts";
+import { TruthOrLieGameTitle, LoadingTitle } from "../../../../shared/constants/textConsts";
 import { TruthOrLieGameControls } from "./TruthOrLieGameControls";
 import LevelCompleted from "../LevelCompleted";
 import { TruthOrLieGame } from "./TruthOrLieGame";
@@ -35,11 +35,11 @@ export const TruthOrLiePage = () => {
             <Stack alignItems="center">
               <HealthBar health={health} />
               <Typography variant="h3" fontWeight={600} sx={{ marginTop: "40px" }}>
-                {truthOrLieTitle}
+                {TruthOrLieGameTitle}
               </Typography>
               {isLoading || !currentStatement ? (
                 <Typography variant="h3" fontWeight={600} sx={{ marginTop: "250px" }}>
-                  {loadingTitle}
+                  {LoadingTitle}
                 </Typography>
               ) : (
                 <>

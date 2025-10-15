@@ -23,6 +23,8 @@ import { ProfileGrammarPage } from "./user/components/ProfilePages/ProfileGramma
 import { ProfileGamesPage } from "./user/components/ProfilePages/ProfileGamesPage.tsx";
 import { ProfileSettingsPage } from "./user/components/ProfilePages/ProfileSettingsPage.tsx";
 import { TruthOrLiePage } from "./user/components/Games/TruthOrLie/TruthOrLiePage.tsx";
+import { GamesLayout } from "./user/components/GamesLayout/GamesLayout.tsx";
+import { MatchGame } from "./user/components/Profile/MatchGame.tsx";
 import AdminProtectedRoute from "./pages/admin/AdminProtectedRoute.tsx";
 import AdminContent from "./pages/admin/adminComponents/AdminContent.tsx";
 import AdminHome from "./pages/admin/AdminHome.tsx";
@@ -54,26 +56,31 @@ const App: React.FC = () => {
               <Route path="grammar" element={<ProfileGrammarPage />} />
               <Route path="games" element={<ProfileGamesPage />} />
               <Route path="settings" element={<ProfileSettingsPage />} />
-              <Route path="exercises" element={<ProfileExercisesPage />} />
             </Route>
-            <Route path="/truth-or-lie" element={<TruthOrLiePage />} />
 
+            <Route path="/truth-or-lie" element={<TruthOrLiePage />} />
             <Route path="/reset-password" element={<PasswordReset />} />
             <Route path="/auth-callback" element={<AuthCallback />} />
             <Route path="/courses" element={<Courses />} />
             <Route path="/course/create" element={<CreateCourse />} />
             <Route path="/course/:id" element={<Course />} />
-            <Route
-              path="/course/:courseId/module/:moduleId"
-              element={<EditModule />}
-            />
-            <Route
-              path="/course/:courseId/module/:moduleId/lesson/:lessonId"
-              element={<EditLesson />}
-            />
+            <Route path="/games" element={<GamesLayout />}>
+              <Route path="matchgame" element={<MatchGame />} />
+            </Route>
+
+            <Route path="/course/:courseId/module/:moduleId" element={<EditModule />} />
+            <Route path="/course/:courseId/module/:moduleId/lesson/:lessonId" element={<EditLesson />} />
             <Route
               path="/course/:courseId/module/:moduleId/lesson/:lessonId/listening"
               element={<ListeningExercise />}
+            />
+            <Route
+              path="/admin/*"
+              element={
+                <ProtectedRoute>
+                  <AdminContent />
+                </ProtectedRoute>
+              }
             />
             <Route
               path="/admin"

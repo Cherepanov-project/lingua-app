@@ -1,7 +1,7 @@
 export interface Statement {
   id: number;
-  text: string;
-  isTrue: boolean;
+  statement: string;
+  correctValue: boolean;
 }
 
 export interface UserSelection extends Statement {
@@ -9,7 +9,7 @@ export interface UserSelection extends Statement {
 }
 
 export type TruthOrLieData = {
-  id: string;
+  id: number;
   level: number;
   statements: Statement[];
 };

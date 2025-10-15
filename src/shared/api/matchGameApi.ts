@@ -1,4 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import type { WordPair, LevelData } from "../helpers/matchGameHelpers";
+import { generateDynamicLevel } from "../helpers/matchGameHelpers";
 
 export type MatchGame = {
   id: number;
@@ -12,11 +14,26 @@ export type MatchGame = {
 const API_BASE_URL =
   import.meta.env.VITE_API_BASE_URL || "http://localhost:3001";
 
-export const matchGamesApi = createApi({
-  reducerPath: "matchGames",
-  baseQuery: fetchBaseQuery({ baseUrl: API_BASE_URL }),
-  tagTypes: ["MatchGames"],
+export const matchGameApi = createApi({
+  reducerPath: "matchGameApi",
+  baseQuery: fetchBaseQuery({
+    baseUrl: API_BASE_URL,
+  }),
+  tagTypes: ["MatchGame", "MatchGames"],
   endpoints: (builder) => ({
+    getWordPairs: builder.query<WordPair[], void>({
+      query: () => "/matchgame",
+      providesTags: ["MatchGame"],
+    }),
+
+    getLevel: builder.query<LevelData, number>({
+      query: () => "/matchgame",
+      transformResponse: (response: WordPair[], _meta, arg: number) => {
+        return generateDynamicLevel(arg, 5, response);
+      },
+      providesTags: ["MatchGame"],
+    }),
+
     getMatchGames: builder.query<MatchGame[], void>({
       query: () => "matchgame",
       providesTags: (result) =>
@@ -27,35 +44,43 @@ export const matchGamesApi = createApi({
             ]
           : [{ type: "MatchGames", id: "LIST" }],
     }),
+
     addMatchGame: builder.mutation<MatchGame, Omit<MatchGame, "id">>({
       query: (newGame) => ({
         url: "matchgame",
         method: "POST",
         body: newGame,
       }),
-      invalidatesTags: [{ type: "MatchGames", id: "LIST" }],
+      invalidatesTags: [{ type: "MatchGames", id: "LIST" }, "MatchGame"],
     }),
-    deleteMatchGame: builder.mutation<MatchGame, number>({
+
+    deleteMatchGame: builder.mutation<void, number>({
       query: (id) => ({
         url: `matchgame/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: [{ type: "MatchGames", id: "LIST" }],
+      invalidatesTags: [{ type: "MatchGames", id: "LIST" }, "MatchGame"],
     }),
+
     editMatchGame: builder.mutation<MatchGame, MatchGame>({
-      query: (newGame) => ({
-        url: `matchgame/${newGame.id}`,
+      query: (updatedGame) => ({
+        url: `matchgame/${updatedGame.id}`,
         method: "PATCH",
-        body: newGame,
+        body: updatedGame,
       }),
-      invalidatesTags: [{ type: "MatchGames", id: "LIST" }],
+      invalidatesTags: [{ type: "MatchGames", id: "LIST" }, "MatchGame"],
     }),
   }),
 });
 
 export const {
+  useGetWordPairsQuery,
+  useGetLevelQuery,
   useGetMatchGamesQuery,
+
   useAddMatchGameMutation,
   useDeleteMatchGameMutation,
   useEditMatchGameMutation,
-} = matchGamesApi;
+} = matchGameApi;
+
+export type { WordPair, LevelData } from "../helpers/matchGameHelpers";

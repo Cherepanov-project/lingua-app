@@ -1,5 +1,5 @@
 import { Button, Stack, Typography } from "@mui/material";
-import { nextLevelTitle, restartTitle, showAnswerTitle } from "../../../../shared/constants/textConsts";
+import { NextLevelTitle, RestartTitle, ShowAnswerTitle } from "../../../../shared/constants/textConsts";
 import { useTruthOrLie } from "./hooks/useTruthOrLie";
 
 export const TruthOrLieGameControls = () => {
@@ -18,7 +18,7 @@ export const TruthOrLieGameControls = () => {
         }}
       >
         <Typography variant="button" sx={{ display: "block", fontSize: "16px" }}>
-          {showAnswerTitle}
+          {ShowAnswerTitle}
         </Typography>
       </Button>
       <Button
@@ -33,7 +33,7 @@ export const TruthOrLieGameControls = () => {
         }}
       >
         <Typography variant="button" sx={{ display: "block", fontSize: "16px" }}>
-          {restartTitle}
+          {RestartTitle}
         </Typography>
       </Button>
       <Button
@@ -55,7 +55,7 @@ export const TruthOrLieGameControls = () => {
             color: "white",
           }}
         >
-          {nextLevelTitle}
+          {NextLevelTitle}
         </Typography>
       </Button>
     </Stack>

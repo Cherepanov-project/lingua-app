@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import { levelCompletedTitle } from "../../../shared/constants/textConsts";
+import { LevelCompletedTitle } from "../../../shared/constants/textConsts";
 
 export const LevelCompleted = () => {
   return (
@@ -25,7 +25,7 @@ export const LevelCompleted = () => {
             textAlign: "center",
           }}
         >
-          {levelCompletedTitle}
+          {LevelCompletedTitle}
         </Typography>
       </Box>
     </>

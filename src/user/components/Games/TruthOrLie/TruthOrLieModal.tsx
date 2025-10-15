@@ -33,16 +33,17 @@ const TruthOrLieModal = ({ closeModal, userSelection }: TruthOrLieModalProps) =>
           <TableBody>
             {userSelection &&
               userSelection.map((row) => (
-                <TableRow key={row.text} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+                <TableRow key={row.statement} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
                   <TableCell component="th" scope="row">
-                    {row.text}
+                    {row.statement}
                   </TableCell>
-                  <TableCell align="center">{row.isTrue ? "Правда" : "Ложь"}</TableCell>
+                  <TableCell align="center">{row.correctValue ? "Правда" : "Ложь"}</TableCell>
                   <TableCell
                     align="center"
                     sx={{
                       color:
-                        (row.isTrue && row.userAnswer === "Правда") || (!row.isTrue && row.userAnswer === "Ложь")
+                        (row.correctValue && row.userAnswer === "Правда") ||
+                        (!row.correctValue && row.userAnswer === "Ложь")
                           ? "green"
                           : "red",
                     }}

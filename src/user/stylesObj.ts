@@ -15,6 +15,8 @@ interface StyleObject {
   adminPageTitle: CSSProperties;
   adminButton: CSSProperties;
   gamesModal: CSSProperties;
+  gameTitle: CSSProperties;
+  toggleButton: CSSProperties;
 }
 
 export const vars = {
@@ -142,6 +144,28 @@ export const stylesObj: StyleObject = {
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-between",
+  },
+  gameTitle: {
+    fontWeight: "500",
+    fontSize: "28px",
+  },
+  toggleButton: {
+    " &.MuiToggleButtonGroup-grouped": {
+      borderRadius: "8px",
+      border: "0.5px solid #000",
+    },
+    width: "85px",
+    height: "35px",
+    color: "#000",
+    textTransform: "none",
+    fontSize: "18px",
+    "&.Mui-selected": {
+      border: "none",
+      backgroundColor: "#eff2ff",
+      "&:hover": {
+        backgroundColor: "rgba(215, 219, 237, 1)",
+      },
+    },
   },
 };
 

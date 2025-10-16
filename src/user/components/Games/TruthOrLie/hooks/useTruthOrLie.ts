@@ -21,8 +21,6 @@ export const useTruthOrLie = () => {
   const isLevelCompleted = useAppSelector((state) => state.truthOrLie.isLevelCompleted);
 
   const { data: statements, isLoading } = useGetStatementsByLevelQuery(currentLevel);
-  console.log(statements);
-  console.log(currentStatement);
 
   useEffect(() => {
     if (!statements) return;

@@ -10,3 +10,16 @@ export type TMatchGame = {
 };
 
 export type TMatchGamesResponse = TMatchGame[];
+
+export type TTruthOrLieGame = {
+  id: number;
+  level: number;
+  statements:
+    | {
+        statement: string;
+        correctValue: string;
+      }[]
+    | string;
+};
+
+export type TTruthOrLieGamesResponse = TTruthOrLieGame[];

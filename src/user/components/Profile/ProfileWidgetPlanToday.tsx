@@ -1,16 +1,14 @@
-import { Stack } from '@mui/material'
-import { Grid } from '@mui/material'
-import { Typography } from '@mui/material'
-import { ChallengeItem } from './ChallengeItem'
+import { Stack } from "@mui/material";
+import { Grid } from "@mui/material";
+import { Typography } from "@mui/material";
+import { ChallengeItem } from "./ChallengeItem";
 
 const ProfileWidgetPlanToday = () => {
   return (
     <>
-      <Stack sx={{ minHeight: '100px' }}>
+      <Stack sx={{ minHeight: "100px" }}>
         <Typography variant="h4">Твой план на сегодня</Typography>
-        <Typography sx={{ color: '#878787', fontSize: '20px' }}>
-          Тренируйся каждый день и забирай звезды
-        </Typography>
+        <Typography sx={{ color: "#878787", fontSize: "18px" }}>Тренируйся каждый день и забирай звезды</Typography>
       </Stack>
       <Grid container spacing={2.4}>
         <Grid size={6}>
@@ -27,7 +25,7 @@ const ProfileWidgetPlanToday = () => {
         </Grid>
       </Grid>
     </>
-  )
-}
+  );
+};
 
-export { ProfileWidgetPlanToday }
+export { ProfileWidgetPlanToday };

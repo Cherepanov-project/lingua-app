@@ -11,7 +11,6 @@ node_modules
 dist
 dist-ssr
 *.local
-.env
 auth0export/config-target.json
 auth0export/config-source.json
 
@@ -26,3 +25,10 @@ auth0export/config-source.json
 *.sln
 *.sw?
 .vercel
+
+.dev.vars*
+!.dev.vars.example
+.env*
+!.env.example
+.wrangler/
+.github/

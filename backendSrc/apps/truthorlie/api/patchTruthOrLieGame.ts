@@ -1,7 +1,7 @@
 import { IRequest } from "itty-router";
 import { OpenAPIRoute } from "chanfana";
 import { z } from "zod";
-import { matchgamesTable } from "../models/MatchGame";
+import { truthorlieGamesTable } from "../models/TruthOrLieGame";
 import { drizzle } from "drizzle-orm/d1";
 import { eq } from "drizzle-orm";
 import type { Env } from "../../..";
@@ -9,17 +9,17 @@ import type { Env } from "../../..";
 const PatchGameSchema = z.object({
   id: z.number(),
   level: z.number().optional(),
-  pairs: z
+  statements: z
     .array(
       z.object({
-        left: z.string(),
-        right: z.string(),
+        statement: z.string(),
+        correctValue: z.string(),
       })
     )
     .optional(),
 });
 
-export class PatchMatchGamesApi extends OpenAPIRoute {
+export class PatchTruthOrLieGamesApi extends OpenAPIRoute {
   async handle(request: IRequest, env: Env) {
     const db = drizzle(env.DB);
 
@@ -42,37 +42,37 @@ export class PatchMatchGamesApi extends OpenAPIRoute {
 
     const setData: Record<string, unknown> = { ...updateFields };
 
-    if (updateFields.pairs) {
-      setData.pairs = JSON.stringify(updateFields.pairs);
+    if (updateFields.statements) {
+      setData.statements = JSON.stringify(updateFields.statements);
     }
 
     try {
       const result = await db
-        .update(matchgamesTable)
+        .update(truthorlieGamesTable)
         .set(setData)
-        .where(eq(matchgamesTable.id, id))
+        .where(eq(truthorlieGamesTable.id, id))
         .run();
 
       if (result.rowsAffected === 0) {
         return Response.json(
-          { error: "Match game not found" },
+          { error: "Truth or lie game not found" },
           { status: 404 }
         );
       }
 
       const updatedRow = await env.DB.prepare(
-        "SELECT * FROM matchgames_table WHERE id = ?"
+        "SELECT * FROM truthorlie_table WHERE id = ?"
       )
         .bind(id)
-        .first<{ id: number; level: number; pairs: string }>();
+        .first<{ id: number; level: number; statements: string }>();
 
       if (!updatedRow) {
-        throw new Error("Failed to fetch updated match game");
+        throw new Error("Failed to fetch updated truth or lie game");
       }
 
       const response = {
         ...updatedRow,
-        pairs: JSON.parse(updatedRow.pairs),
+        statements: JSON.parse(updatedRow.statements),
       };
 
       return Response.json(response, { status: 200 });

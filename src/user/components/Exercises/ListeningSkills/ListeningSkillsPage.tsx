@@ -1,21 +1,24 @@
 import { ListeningCard } from "./ListeningCard.tsx";
 import { Stack, Typography } from "@mui/material";
-import { mockListeningExercises } from "../../Profile/mockDataSlider.ts"; // Импорт mock
+import { mockListeningExercises } from "../../Profile/mockDataSlider.ts";
+import {
+  audio,
+  listeningSkillsPageStack,
+  selectAudio
+} from "./listeningConst.ts";
 
 export const ListeningSkillsPage = () => {
   return (
     <Stack
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        padding: "70px",
-        overflowY: "scroll",
-      }}
+      sx={listeningSkillsPageStack}
     >
-      <Typography variant="h4">Аудиозаписи</Typography>
-      <Typography sx={{ fontSize: "24px" }}>Выберите запись для прослушивания</Typography>
-      <Stack spacing={2} sx={{ width: "100%", marginTop: "20px" }}>
+      <Typography variant="h4" sx={{ marginBottom: "10px" }}>
+        {audio}
+      </Typography>
+      <Typography sx={{ fontSize: "24px", marginBottom: "20px" }}>
+        {selectAudio}
+      </Typography>
+      <Stack spacing={2} sx={{ width: "100%", maxWidth: "1200px" }}>
         {mockListeningExercises.map((exercise) => (
           <ListeningCard
             key={exercise.id}
@@ -23,7 +26,6 @@ export const ListeningSkillsPage = () => {
             name={exercise.name}
             description={exercise.description}
             level={exercise.level}
-            progress={exercise.progress}
           />
         ))}
       </Stack>

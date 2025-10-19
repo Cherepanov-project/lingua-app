@@ -52,7 +52,7 @@ const ExercisesCard: React.FC<ExercisesCardProps> = ({ name, text, progress, ima
             </Box>
             <LinearProgress sx={linearProgress} variant="determinate" value={progress} />
             <Button sx={button} variant="contained" onClick={handleButtonClick}>
-              Начать
+              {progress > 0 ? "Продолжить" : "Начать"}
             </Button>
           </Stack>
         </Stack>

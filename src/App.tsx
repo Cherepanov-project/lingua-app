@@ -62,9 +62,13 @@ const App: React.FC = () => {
               <Route index element={<ProfilePage />} />
               <Route path="courses" element={<ProfileCoursesPage />} />
               <Route path="exercises" element={<ProfileExercisesPage />} />
+              <Route path="exercises/listening" element={<ListeningSkillsPage />}/>
+              <Route path="exercises/listening/:id" element={<AudioPage />} />
+              <Route path="exercises/listening/:id/quiz" element={<QuizPage />} />
               <Route path="grammar" element={<ProfileGrammarPage />} />
               <Route path="games" element={<ProfileGamesPage />} />
               <Route path="settings" element={<ProfileSettingsPage />} />
+
             </Route>
 
             <Route path="/truth-or-lie" element={<TruthOrLiePage />} />
@@ -73,9 +77,6 @@ const App: React.FC = () => {
             <Route path="/courses" element={<Courses />} />
             <Route path="/course/create" element={<CreateCourse />} />
             <Route path="/course/:id" element={<Course />} />
-            <Route path="/listening-exercises" element={<ListeningSkillsPage />}/>
-            <Route path="/listening-exercises/:id" element={<AudioPage />} />
-            <Route path="/listening-exercises/:id/quiz" element={<QuizPage />} />
             <Route path="/games" element={<GamesLayout />}>
               <Route path="matchgame" element={<MatchGame />} />
             </Route>

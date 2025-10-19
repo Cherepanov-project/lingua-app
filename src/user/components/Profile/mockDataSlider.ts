@@ -72,7 +72,7 @@ export const mockDataExercisesCard = [
     text: "Прослушай и напиши правильно",
     imageUrl: "/exercises-image-headphones.png",
     questions: [],
-    navigate: '/listening-exercises',
+    navigate: '/profile/exercises/listening',
   },
   {
     id: crypto.randomUUID(),
@@ -87,22 +87,22 @@ export const mockDataExercisesCard = [
 export const mockListeningExercises = [
   {
     id: "1",
-    name: "Разговор в кафе",
-    description: "Прослушайте диалог и ответьте на вопросы",
+    name: "Семья",
+    description: "Прослушайте монолог и ответьте на вопросы",
     level: "A1",
     imageUrl: "/exercises-image-headphones.png",
-    audioUrl: "/audio/cafe-conversation.mp3",
+    audioUrl: "../../../../public/mp3/family.mp3",
     progress: 50,
     questions: [
       {
-        question: "Что заказал мужчина?",
-        options: ["Кофе", "Чай", "Сок"],
-        correct: "Кофе",
+        question: "Как зовут говорящего?",
+        options: ["Доминик в Торенте", "Доминик Торетто", "Владими Владимирович"],
+        correct: "Доминик Торетто",
       },
       {
         question: "Где происходит разговор?",
-        options: ["В парке", "В кафе", "В офисе"],
-        correct: "В кафе",
+        options: ["Форсаж", "Новости", "Чайхана"],
+        correct: "Форсаж",
       },
     ],
   },

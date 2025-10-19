@@ -26,7 +26,10 @@ export const picturesApi = createApi({
     }),
 
     getPicture: builder.query<Picture, number>({
-      query: (id) => `pictures/${id}`,
+      query: () => "pictures",
+      transformResponse: (response: Picture[], _meta, arg: number) => {
+        return response.filter((picture) => picture.id === arg)[0];
+      },
       providesTags: (_result, _error, id) => [{ type: "Pictures", id }],
     }),
 

@@ -23,3 +23,12 @@ export type TTruthOrLieGame = {
 };
 
 export type TTruthOrLieGamesResponse = TTruthOrLieGame[];
+
+export type TPicture = {
+  id: number;
+  img: string;
+  title: string;
+  tag: string;
+};
+
+export type TPicturesResponse = TPicture[];

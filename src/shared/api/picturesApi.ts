@@ -7,11 +7,11 @@ type Picture = {
 };
 
 const API_BASE_URL =
-  import.meta.env.VITE_API_BASE_URL || "http://localhost:3001";
+  import.meta.env.VITE_API_BASE_URL || "http://localhost:8787";
 
 export const picturesApi = createApi({
   reducerPath: "userPictures",
-  baseQuery: fetchBaseQuery({ baseUrl: API_BASE_URL }),
+  baseQuery: fetchBaseQuery({ baseUrl: `${API_BASE_URL}/api/` }),
   tagTypes: ["Pictures"],
   endpoints: (builder) => ({
     getPictures: builder.query<Picture[], void>({

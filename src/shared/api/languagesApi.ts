@@ -15,7 +15,7 @@ import {
 } from "../constants/mockDB";
 
 const API_BASE_URL =
-  import.meta.env.VITE_API_BASE_URL || "http://localhost:3001";
+  import.meta.env.VITE_API_BASE_URL || "http://localhost:8787";
 
 const mockBaseQuery: BaseQueryFn<
   string | FetchArgs,
@@ -48,7 +48,7 @@ const mockBaseQuery: BaseQueryFn<
   }
 };
 
-const realBaseQuery = fetchBaseQuery({ baseUrl: API_BASE_URL });
+const realBaseQuery = fetchBaseQuery({ baseUrl: `${API_BASE_URL}/api` });
 
 export const languagesApi = createApi({
   reducerPath: "languagesApi",

@@ -32,3 +32,11 @@ export type TPicture = {
 };
 
 export type TPicturesResponse = TPicture[];
+
+export type TLanguage = {
+  label: string;
+  code: string;
+  emoji: string;
+};
+
+export type TLanguagesResponse = TLanguage[];

@@ -72,6 +72,7 @@ export const mockDataExercisesCard = [
     text: "Прослушай и напиши правильно",
     imageUrl: "/exercises-image-headphones.png",
     questions: [],
+    navigate: '/listening-exercises',
   },
   {
     id: crypto.randomUUID(),
@@ -80,5 +81,45 @@ export const mockDataExercisesCard = [
     text: "Напиши слово правильно",
     imageUrl: "/exercises-image-pencil.png",
     questions: [],
+  },
+];
+
+export const mockListeningExercises = [
+  {
+    id: "1",
+    name: "Разговор в кафе",
+    description: "Прослушайте диалог и ответьте на вопросы",
+    level: "A1",
+    imageUrl: "/exercises-image-headphones.png",
+    audioUrl: "/audio/cafe-conversation.mp3",
+    progress: 50,
+    questions: [
+      {
+        question: "Что заказал мужчина?",
+        options: ["Кофе", "Чай", "Сок"],
+        correct: "Кофе",
+      },
+      {
+        question: "Где происходит разговор?",
+        options: ["В парке", "В кафе", "В офисе"],
+        correct: "В кафе",
+      },
+    ],
+  },
+  {
+    id: "2",
+    name: "Новости",
+    description: "Прослушайте новостной отрывок",
+    level: "B1",
+    imageUrl: "/exercises-image-notepad.png",
+    audioUrl: "/audio/news.mp3",
+    progress: 0,
+    questions: [
+      {
+        question: "О чём новости?",
+        options: ["Погода", "Спорт", "Политика"],
+        correct: "Погода",
+      },
+    ],
   },
 ];

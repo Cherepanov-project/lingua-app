@@ -32,6 +32,15 @@ import Users from "./pages/admin/Users.tsx";
 import Pictures from "./pages/admin/Pictures.tsx";
 import Reviews from "./pages/admin/Reviews.tsx";
 import Games from "./pages/admin/Games.tsx";
+import {
+  ListeningSkillsPage
+} from "./user/components/Exercises/ListeningSkills/ListeningSkillsPage.tsx";
+import {
+  AudioPage
+} from "./user/components/Exercises/ListeningSkills/AudioPage.tsx";
+import {
+  QuizPage
+} from "./user/components/Exercises/ListeningSkills/QuizPage.tsx";
 
 const App: React.FC = () => {
   return (
@@ -64,6 +73,9 @@ const App: React.FC = () => {
             <Route path="/courses" element={<Courses />} />
             <Route path="/course/create" element={<CreateCourse />} />
             <Route path="/course/:id" element={<Course />} />
+            <Route path="/listening-exercises" element={<ListeningSkillsPage />}/>
+            <Route path="/listening-exercises/:id" element={<AudioPage />} />
+            <Route path="/listening-exercises/:id/quiz" element={<QuizPage />} />
             <Route path="/games" element={<GamesLayout />}>
               <Route path="matchgame" element={<MatchGame />} />
             </Route>
@@ -107,5 +119,6 @@ const App: React.FC = () => {
     </Auth0ProviderWithNavigate>
   );
 };
+
 
 export default App;

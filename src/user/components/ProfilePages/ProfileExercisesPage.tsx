@@ -39,6 +39,7 @@ const ProfileExercisesPage = () => {
               type={exercise.type}
               imageUrl={exercise.imageUrl}
               progress={Math.random() * 100}
+              nav={exercise.navigate}
             />
           );
         })}

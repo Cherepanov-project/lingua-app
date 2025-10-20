@@ -79,7 +79,7 @@ export class PostTruthOrLieGamesApi extends OpenAPIRoute {
         .first<{ id: number; level: number; statements: string }>();
 
       if (!inserted) {
-        throw new Error("Failed to fetch inserted match game");
+        throw new Error("Failed to fetch inserted truth or lie game");
       }
 
       const response = {

@@ -4,6 +4,10 @@ import registerMatchGamesRoutes from "./apps/matchgames/urls";
 import registerTruthOrLieGamesRoutes from "./apps/truthorlie/urls";
 import registerPicturesRoutes from "./apps/pictures/urls";
 import registerLanguagesRoutes from "./apps/languages/urls";
+import registerLevelsRoutes from "./apps/levels/urls";
+import registerCoursesRoutes from "./apps/courses/urls";
+import registerModulesRoutes from "./apps/modules/urls";
+import registerLessonsRoutes from "./apps/lessons/urls";
 
 export function registerAllRoutes(router: RouterType) {
   registerSwaggerRoutes(router);
@@ -11,4 +15,8 @@ export function registerAllRoutes(router: RouterType) {
   registerTruthOrLieGamesRoutes(router);
   registerPicturesRoutes(router);
   registerLanguagesRoutes(router);
+  registerLevelsRoutes(router);
+  registerCoursesRoutes(router);
+  registerModulesRoutes(router);
+  registerLessonsRoutes(router);
 }

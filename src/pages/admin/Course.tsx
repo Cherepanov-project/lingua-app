@@ -19,7 +19,7 @@ export default function Course() {
   const { id } = useParams();
   const { data: courses = [], isLoading } = useGetCoursesQuery({});
   const { data: modules = [] } = useGetModulesQuery({});
-  const currentCourse = courses.find((course: Course) => course.id === id);
+  const currentCourse = courses.find((course: Course) => course.id === Number(id));
 
   const courseModules = modules.filter((mod: CourseModule) =>
     currentCourse.modules.includes(mod.id)
@@ -42,6 +42,7 @@ export default function Course() {
   const handleSaveModule = async () => {
     if (newModule.trim()) {
       const newMod = {
+        id: crypto.randomUUID(),
         name: newModule,
         lessons: [],
       };

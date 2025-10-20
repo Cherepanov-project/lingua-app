@@ -73,7 +73,7 @@ export const languagesApi = createApi({
       query: () => "/courses",
       providesTags: [{ type: "Courses", id: "LIST" }],
     }),
-    deleteCourse: builder.mutation<void, string>({
+    deleteCourse: builder.mutation<void, number>({
       query: (id) => ({
         url: `/courses/${id}`,
         method: "DELETE",
@@ -101,17 +101,17 @@ export const languagesApi = createApi({
     }),
     updateLessonsInModule: builder.mutation({
       query: ({ id, lessons }) => ({
-        url: `/modules/${id}`,
+        url: '/modules',
         method: "PATCH",
-        body: { lessons },
+        body: { id, lessons },
       }),
       invalidatesTags: [{ type: "Modules", id: "LIST" }],
     }),
     updateCourseModules: builder.mutation({
       query: ({ id, modules }) => ({
-        url: `/courses/${id}`,
+        url: '/courses',
         method: "PATCH",
-        body: { modules },
+        body: { id, modules },
       }),
       invalidatesTags: [{ type: "Courses", id: "LIST" }],
     }),

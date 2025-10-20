@@ -59,7 +59,7 @@ export const mockDataGamesSlider = [
 export const mockDataExercisesCard = [
   {
     id: crypto.randomUUID(),
-    type: "listening",
+    type: "reading",
     name: "Тренировка словаря",
     text: "Соедини слово и перевод",
     imageUrl: "/exercises-image-notepad.png",
@@ -67,7 +67,7 @@ export const mockDataExercisesCard = [
   },
   {
     id: crypto.randomUUID(),
-    type: "reading",
+    type: "listening",
     name: "Аудирование",
     text: "Прослушай и напиши правильно",
     imageUrl: "/exercises-image-headphones.png",
@@ -92,7 +92,7 @@ export const mockListeningExercises = [
     level: "A1",
     imageUrl: "/exercises-image-headphones.png",
     audioUrl: "../../../../public/mp3/family.mp3",
-    progress: 50,
+    progress: false,
     questions: [
       {
         question: "Как зовут говорящего?",
@@ -112,8 +112,8 @@ export const mockListeningExercises = [
     description: "Прослушайте новостной отрывок",
     level: "B1",
     imageUrl: "/exercises-image-notepad.png",
-    audioUrl: "/audio/news.mp3",
-    progress: 0,
+    audioUrl: "../../../../public/mp3/family.mp3",
+    progress: false,
     questions: [
       {
         question: "О чём новости?",

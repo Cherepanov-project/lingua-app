@@ -1,13 +1,22 @@
-import { type SxProps } from "@mui/material";
-import { Stack } from "@mui/material";
-import { Button } from "@mui/material";
-import { Typography } from "@mui/material";
-import { LinearProgress } from "@mui/material";
-import { ExercisesCard } from "../Profile/ExercisesCard";
-import { percentage } from "../../utils/percentage";
-import { mockDataExercisesCard } from "../Profile/mockDataSlider";
+import {type SxProps} from "@mui/material";
+import {Stack, Button, Typography, LinearProgress} from "@mui/material";
+import {ExercisesCard} from "../Profile/ExercisesCard";
+import {percentage} from "../../utils/percentage";
+import {
+  mockDataExercisesCard,
+  mockListeningExercises
+} from "../Profile/mockDataSlider";
+import {
+  exercises,
+  practice
+} from "../Exercises/ListeningSkills/listeningConst.ts";
 
 const ProfileExercisesPage = () => {
+  const completedListeningTasks = mockListeningExercises.filter(
+    (exercise) => exercise.progress).length;
+  const totalListeningTasks = mockListeningExercises.length;
+  const listeningProgress = percentage(completedListeningTasks, totalListeningTasks)
+
   return (
     <Stack
       sx={{
@@ -17,20 +26,38 @@ const ProfileExercisesPage = () => {
         scrollbarColor: "#d9e0ff transparent",
       }}
     >
-      <Typography variant="h4">Упражнения</Typography>
-      <Typography sx={{ fontSize: "24px" }}>Тренируйтесь каждый день, чтобы закрепить знания</Typography>
-      <Stack sx={{ marginBottom: "40px", alignItems: "end" }} direction={"row"} spacing={7} useFlexGap>
-        <Stack sx={{ flexGrow: "1" }}>
-          <Typography sx={{ fontSize: "20px", color: "#878787" }} gutterBottom>
+      <Typography variant="h4">{exercises}</Typography>
+      <Typography sx={{fontSize: "24px"}}>{practice}</Typography>
+      <Stack
+        sx={{marginBottom: "40px", alignItems: "end"}}
+        direction={"row"}
+        spacing={7}
+        useFlexGap
+      >
+        <Stack sx={{flexGrow: "1"}}>
+          <Typography
+            sx={{fontSize: "20px", color: "#878787"}}
+            gutterBottom
+          >
             Выполнено 12 из 20
           </Typography>
-          <LinearProgress sx={mainLinearProgress} variant="determinate" value={percentage(12, 20)}></LinearProgress>
+          <LinearProgress
+            sx={mainLinearProgress}
+            variant="determinate"
+            value={percentage(12, 20)}
+          ></LinearProgress>
         </Stack>
-        <Button sx={mainButton} variant="contained">
+        <Button
+          sx={mainButton}
+          variant="contained"
+        >
           Продолжить
         </Button>
       </Stack>
-      <Stack spacing={2} sx={{ height: "80%" }}>
+      <Stack
+        spacing={2}
+        sx={{height: "80%"}}
+      >
         {mockDataExercisesCard.map((exercise) => {
           return (
             <ExercisesCard
@@ -38,17 +65,21 @@ const ProfileExercisesPage = () => {
               text={exercise.text}
               type={exercise.type}
               imageUrl={exercise.imageUrl}
-              progress={Math.random() * 100}
+              progress={
+                exercise.type === "listening"
+                  ? listeningProgress
+                  : Math.random() * 100}
               nav={exercise.navigate}
             />
           );
-        })}
+        })
+        }
       </Stack>
     </Stack>
   );
 };
 
-export { ProfileExercisesPage };
+export {ProfileExercisesPage};
 
 ///////////////////////////////////////////////////////////////////////////////
 

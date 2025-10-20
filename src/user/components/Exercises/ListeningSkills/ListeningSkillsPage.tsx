@@ -26,6 +26,7 @@ export const ListeningSkillsPage = () => {
             name={exercise.name}
             description={exercise.description}
             level={exercise.level}
+            progress={exercise.progress}
           />
         ))}
       </Stack>

@@ -3,7 +3,11 @@ export const audio = 'Аудиозаписи'
 export const selectAudio = 'Выберите запись для прослушивания'
 export const nextStep = 'Перейти к упражнению'
 export const exercises = 'Упражнение'
-export const sendAnswer = 'Отправить ответы'
+export const check = 'Проверить'
+export const contin = "Продолжить дальше"
+export const incorrect = "Неверные ответы"
+export const done = "Выполнено"
+export const practice = 'Тренируйтесь каждый день, чтобы закрепить знания'
 
 
 export const audioStack = {
@@ -38,5 +42,7 @@ export const cardStack = {
   backgroundColor: "#d2daff",
   flexShrink: 0,
   width: "100%",
-  height: "auto",
 }
+
+
+

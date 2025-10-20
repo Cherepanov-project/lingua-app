@@ -1,8 +1,7 @@
-import { Box, Stack, Button, Typography} from "@mui/material";
-import { useNavigate } from "react-router-dom";
-import { type SxProps } from "@mui/material";
-import {cardStack} from "./listeningConst.ts";
-import {start} from './listeningConst.ts'
+import {Box, Stack, Button, Typography} from "@mui/material";
+import {useNavigate} from "react-router-dom";
+import {type SxProps} from "@mui/material";
+import {cardStack, done, start} from "./listeningConst.ts";
 
 
 interface ListeningCardProps {
@@ -10,6 +9,7 @@ interface ListeningCardProps {
   name: string;
   description: string;
   level: string;
+  progress: boolean;
 }
 
 const button: SxProps = {
@@ -20,9 +20,16 @@ const button: SxProps = {
   alignSelf: "flex-end",
   fontSize: "20px",
   textTransform: "capitalize",
+
 };
 
-export const ListeningCard = ({ id, name, description, level}: ListeningCardProps) => {
+export const ListeningCard = ({
+                                id,
+                                name,
+                                description,
+                                level,
+                                progress
+                              }: ListeningCardProps) => {
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -33,17 +40,39 @@ export const ListeningCard = ({ id, name, description, level}: ListeningCardProp
     <Stack
       sx={cardStack}
     >
-      <Stack direction={"row"} sx={{ width: "100%" }}>
-        <Stack sx={{ width: "100%" }} direction={"row"} spacing={5} useFlexGap>
-          <Stack sx={{ width: "100%" }} justifyContent={"space-around"} spacing={2}>
+      <Stack
+        direction={"row"}
+        sx={{width: "100%"}}
+      >
+        <Stack
+          sx={{width: "100%"}}
+          direction={"row"}
+          spacing={5}
+          useFlexGap
+        >
+          <Stack
+            sx={{width: "100%"}}
+            justifyContent={"space-around"}
+            spacing={2}
+          >
             <Box>
               <Typography variant="h4">{name}</Typography>
-              <Typography gutterBottom color="#878787">
+              <Typography
+                gutterBottom
+                color="#878787"
+              >
                 {description} (Уровень: {level})
               </Typography>
             </Box>
-            <Button sx={button} variant="contained" onClick={handleClick}>
-              {start}
+            <Button
+              sx={{
+                ...button,
+                backgroundColor: progress ? "#4caf50" : undefined,
+              }}
+              variant="contained"
+              onClick={handleClick}
+            >
+              {progress ? done : start}
             </Button>
           </Stack>
         </Stack>

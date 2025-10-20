@@ -9,6 +9,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "start:server": "node server.mjs",
+    "deploy": "tsc -b && vite build && wrangler deploy && wrangler d1 migrations apply lingua-db --remote",
     "dev:api": "wrangler dev",
     "start": "concurrently \"npm run dev\" \"npm run dev:api\"",
     "start:api": "node server.cjs",

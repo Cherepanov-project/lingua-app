@@ -19,7 +19,7 @@ const ExercisesCard: React.FC<ExercisesCardProps> = ({ name, text, progress, ima
   return (
     <Stack
       sx={{
-        padding: "25px 55px",
+        padding: "15px 55px",
         borderRadius: "40px",
         backgroundColor: "#d2daff",
         flexShrink: 1,

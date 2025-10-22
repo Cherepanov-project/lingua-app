@@ -40,8 +40,6 @@ export const cardStack = {
   padding: "25px 55px",
   borderRadius: "40px",
   backgroundColor: "#d2daff",
-  flexShrink: 0,
-  width: "100%",
 }
 
 

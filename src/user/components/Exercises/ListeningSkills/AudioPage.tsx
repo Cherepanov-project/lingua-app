@@ -1,7 +1,7 @@
 import {Box, Stack, Button, Typography} from "@mui/material";
 import {useParams, useNavigate} from "react-router-dom";
 import {mockListeningExercises} from "../../Profile/mockDataSlider.ts";
-import {audioStack, nextStep} from "./listeningConst.ts";
+import {audioStack, nextStep, cardStack} from "./listeningConst.ts";
 
 export const AudioPage = () => {
   const {id} = useParams<{ id: string }>();
@@ -17,28 +17,57 @@ export const AudioPage = () => {
   };
 
   return (
-    <Stack
-      sx={audioStack}
-    >
-      <Typography variant="h4">{exercise.name}</Typography>
-      <Box sx={{margin: "20px 0"}}>
-        <img
-          style={{width: "300px"}}
-          src={exercise.imageUrl}
-          alt="Изображение"
-        />
-      </Box>
-      <audio
-        controls
-        src={exercise.audioUrl}
-      />
-      <Button
-        sx={{marginTop: "20px", borderRadius: "3rem"}}
-        variant="contained"
-        onClick={handleContinue}
+    <Stack sx={audioStack}>
+      <Stack
+        sx={{
+          ...cardStack,
+          width: "100%",
+          maxWidth: "1200px",
+          alignItems: "center",
+          maxHeight: "80vh",
+          padding: "20px 40px",
+        }}
       >
-        {nextStep}
-      </Button>
+        <Typography variant="h4">{exercise.name}</Typography>
+        <Box
+          sx={{
+            margin: "15px 0",
+            width: "100%",
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          <img
+            style={{
+              width: "100%",
+              maxWidth: "100%",
+              height: "auto",
+              maxHeight: "500px",
+              objectFit: "contain",
+            }}
+            src={exercise.imageUrl}
+            alt="Изображение"
+          />
+        </Box>
+        <Box sx={{ width: "100%" }}>
+          <audio
+            controls
+            src={exercise.audioUrl}
+            style={{
+              width: "100%",
+            }}
+          />
+        </Box>
+        <Box sx={{ width: "100%", display: "flex", justifyContent: "flex-end" }}>
+          <Button
+            sx={{ marginTop: "15px", borderRadius: "3rem" }}
+            variant="contained"
+            onClick={handleContinue}
+          >
+            {nextStep}
+          </Button>
+        </Box>
+      </Stack>
     </Stack>
   );
 };

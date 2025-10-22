@@ -42,7 +42,7 @@ export const ListeningCard = ({
     >
       <Stack
         direction={"row"}
-        sx={{width: "100%"}}
+        sx={{width: "100%" }}
       >
         <Stack
           sx={{width: "100%"}}

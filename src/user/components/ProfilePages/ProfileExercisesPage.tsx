@@ -20,7 +20,7 @@ const ProfileExercisesPage = () => {
   return (
     <Stack
       sx={{
-        padding: "70px",
+        padding: "60px 70px 0 70px",
         flexGrow: "1",
         overflowY: "scroll",
         scrollbarColor: "#d9e0ff transparent",

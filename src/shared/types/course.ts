@@ -1,7 +1,7 @@
 export interface Course {
   language: string
   level: string
-  id: string
+  id: number
   modules: string[]
   published: boolean
   description: string

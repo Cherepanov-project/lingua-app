@@ -32,11 +32,7 @@ const ProfilePage = () => {
     }
   }
 
-  const {
-    data: userProfile,
-    isLoading,
-    error,
-  } = useGetUserProfileQuery(userId as string, { skip: !token || !userId });
+  const { data: userProfile, isLoading, error } = useGetUserProfileQuery(userId as string, { skip: !token || !userId });
 
   if (!token) {
     return <Navigate to="/login" />;
@@ -68,8 +64,8 @@ const ProfilePage = () => {
       sx={{
         flexGrow: "1",
         padding: "0 80px",
-        paddingBottom: "80px",
-        overflowY: "hidden",
+        overflowY: "scroll",
+        height: "100vh",
       }}
     >
       <ProfileHeader userProfile={userProfile} />

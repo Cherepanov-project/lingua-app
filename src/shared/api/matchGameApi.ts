@@ -12,24 +12,24 @@ export type MatchGame = {
 };
 
 const API_BASE_URL =
-  import.meta.env.VITE_API_BASE_URL || "http://localhost:3001";
+  import.meta.env.VITE_API_BASE_URL || "http://localhost:8787";
 
 export const matchGameApi = createApi({
   reducerPath: "matchGameApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: API_BASE_URL,
+    baseUrl: `${API_BASE_URL}/api/`,
   }),
   tagTypes: ["MatchGame", "MatchGames"],
   endpoints: (builder) => ({
     getWordPairs: builder.query<WordPair[], void>({
-      query: () => "/matchgame",
+      query: () => "matchgame",
       providesTags: ["MatchGame"],
     }),
 
     getLevel: builder.query<LevelData, number>({
-      query: () => "/matchgame",
-      transformResponse: (response: WordPair[], _meta, arg: number) => {
-        return generateDynamicLevel(arg, 5, response);
+      query: () => "matchgame",
+      transformResponse: (response: MatchGame[], _meta, arg: number) => {
+        return generateDynamicLevel(arg, response);
       },
       providesTags: ["MatchGame"],
     }),
@@ -64,7 +64,7 @@ export const matchGameApi = createApi({
 
     editMatchGame: builder.mutation<MatchGame, MatchGame>({
       query: (updatedGame) => ({
-        url: `matchgame/${updatedGame.id}`,
+        url: "matchgame",
         method: "PATCH",
         body: updatedGame,
       }),

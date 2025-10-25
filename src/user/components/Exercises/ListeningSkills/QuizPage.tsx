@@ -8,27 +8,28 @@ import {
 } from "@mui/material";
 import {useNavigate, useParams} from "react-router-dom";
 import {useState} from "react";
-import {mockListeningExercises} from "../../Profile/mockDataSlider.ts";
 import {
   cardStack,
   check, contin,
   exercises, incorrect,
   quizStack,
 } from "./listeningConst.ts";
-
-
+import {
+  useGetListeningExerciseQuery,
+  useUpdateListeningProgressMutation
+} from "../../../../shared/api/listeningApi.ts";
 
 export const QuizPage = () => {
   const {id} = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const exercise = mockListeningExercises.find((ex) => ex.id === id);
+  const {data: exercise, isLoading, error} = useGetListeningExerciseQuery(id!);
+  const [updateProgress] = useUpdateListeningProgressMutation();
   const [answers, setAnswers] = useState<string[]>([]);
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
   const [resetTrigger, setResetTrigger] = useState(0);
 
-  if (!exercise) {
-    return <Typography>Упражнение не найдено</Typography>;
-  }
+  if (isLoading) return <Typography>Загрузка...</Typography>;
+  if (error || !exercise) return <Typography>Упражнение не найдено</Typography>;
 
   const handleAnswerChange = (index: number, value: string) => {
     const newAnswers = [...answers];
@@ -37,19 +38,23 @@ export const QuizPage = () => {
     setIsCorrect(null);
   };
 
-  const handleCheck = () => {
+  const handleCheck = async () => {
     const allCorrect = exercise.questions.every(
       (q, index) => answers[index] === q.correct)
     setIsCorrect(allCorrect);
 
     if (allCorrect) {
-      exercise.progress = true;
+      try {
+        await updateProgress({exerciseId: id!, progress: true}).unwrap();
+      } catch (err) {
+        console.error("Failed to update progress:", err);
+      }
     } else {
       setTimeout(() => {
         setAnswers([]);
         setIsCorrect(null);
         setResetTrigger((prev) => prev + 1);
-      }, 1000)
+      }, 1000);
     }
   }
 
@@ -62,8 +67,15 @@ export const QuizPage = () => {
   return (
     <Stack sx={quizStack}>
       <Typography variant="h4">{exercises}: {exercise.name}</Typography>
-      <audio controls src={exercise.audioUrl} style={{ margin: "20px 0" }} />
-      <Stack spacing={3} sx={{ width: "80%", maxWidth: "1200px" }}>
+      <audio
+        controls
+        src={exercise.audioUrl}
+        style={{margin: "20px 0"}}
+      />
+      <Stack
+        spacing={3}
+        sx={{width: "80%", maxWidth: "1200px"}}
+      >
         {exercise.questions.map((q, index) => {
           const isAnswerCorrect =
             isCorrect !== null && answers[index] === q.correct;
@@ -119,7 +131,7 @@ export const QuizPage = () => {
               : isCorrect === false
                 ? "#f44336"
                 : undefined,
-           }}
+        }}
         variant="contained"
         disabled={isButtonDisabled}
         onClick={isCorrect === true ? handleContinue : handleCheck}

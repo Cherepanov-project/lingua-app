@@ -1,16 +1,16 @@
 import {Box, Stack, Button, Typography} from "@mui/material";
 import {useParams, useNavigate} from "react-router-dom";
-import {mockListeningExercises} from "../../Profile/mockDataSlider.ts";
 import {audioStack, nextStep, cardStack} from "./listeningConst.ts";
+import {useGetListeningExerciseQuery} from "../../../../shared/api/listeningApi.ts";
 
 export const AudioPage = () => {
   const {id} = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const exercise = mockListeningExercises.find((ex) => ex.id === id);
+  const {data: exercise, isLoading, error} = useGetListeningExerciseQuery(id!);
 
-  if (!exercise) {
-    return <Typography>Запись не найдена</Typography>;
-  }
+  if (isLoading) return <Typography>Загрузка...</Typography>
+
+  if (error || !exercise) return <Typography>Запись не найдена</Typography>;
 
   const handleContinue = () => {
     navigate(`/profile/exercises/listening/${id}/quiz`);

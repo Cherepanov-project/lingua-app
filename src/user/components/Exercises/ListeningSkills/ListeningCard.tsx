@@ -9,7 +9,7 @@ interface ListeningCardProps {
   name: string;
   description: string;
   level: string;
-  progress: boolean;
+  progress: number;
 }
 
 const button: SxProps = {

@@ -10,7 +10,7 @@ export interface ListeningExercise {
   imageUrl: string;
   audioUrl: string;
   questions: Array<{ question: string; options: string[]; correct: string }>;
-  progress: boolean;
+  progress: number;
 }
 
 const realBaseQuery = fetchBaseQuery({
@@ -30,7 +30,7 @@ export const listeningApi = createApi({
       query: (id) => `/listening/exercise?id=${id}`,
       providesTags: (_result, _error, id) => [{ type: "ListeningExercises", id }],
     }),
-    updateListeningProgress: builder.mutation<void, { exerciseId: string; progress: boolean }>({
+    updateListeningProgress: builder.mutation<void, { exerciseId: string; progress: number }>({
       query: ({ exerciseId, progress }) => ({
         url: "/listening/progress",
         method: "POST",

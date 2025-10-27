@@ -39,7 +39,7 @@ export class GetListeningExercisesApi extends OpenAPIRoute {
           imageUrl: row.image_url,
           audioUrl: row.audio_url,
           questions: JSON.parse(row.questions),
-          progress: false,
+          progress: 0,
         };
 
         if (userId) {
@@ -53,7 +53,7 @@ export class GetListeningExercisesApi extends OpenAPIRoute {
               )
             )
             .get();
-          exercise.progress = !!progress?.progress;
+          exercise.progress = progress?.progress || 0;
         }
 
         return exercise;

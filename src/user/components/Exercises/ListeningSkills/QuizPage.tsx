@@ -45,7 +45,7 @@ export const QuizPage = () => {
 
     if (allCorrect) {
       try {
-        await updateProgress({exerciseId: id!, progress: true}).unwrap();
+        await updateProgress({exerciseId: id!, progress: 100});
       } catch (err) {
         console.error("Failed to update progress:", err);
       }

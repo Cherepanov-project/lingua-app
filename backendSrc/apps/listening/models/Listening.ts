@@ -34,7 +34,7 @@ export const listeningExerciseSchema = z.object({
       correct: z.string(),
     })
   ),
-  progress: z.boolean().optional(),
+  progress: z.number().default(0),
 });
 
 export const listeningExercisesResponseSchema = z.array(listeningExerciseSchema);

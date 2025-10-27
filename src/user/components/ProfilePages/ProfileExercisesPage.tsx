@@ -4,18 +4,22 @@ import {ExercisesCard} from "../Profile/ExercisesCard";
 import {percentage} from "../../utils/percentage";
 import {
   mockDataExercisesCard,
-  mockListeningExercises
 } from "../Profile/mockDataSlider";
 import {
   exercises,
   practice
 } from "../Exercises/ListeningSkills/listeningConst.ts";
+import {
+  useGetListeningExercisesQuery
+} from "../../../shared/api/listeningApi.ts";
 
 const ProfileExercisesPage = () => {
-  const completedListeningTasks = mockListeningExercises.filter(
-    (exercise) => exercise.progress).length;
-  const totalListeningTasks = mockListeningExercises.length;
-  const listeningProgress = percentage(completedListeningTasks, totalListeningTasks)
+  const { data: listeningExercises } = useGetListeningExercisesQuery();
+  const completedListeningTasks = listeningExercises?.filter(
+    (exercise) => exercise.progress === 100
+  ).length || 0;
+  const totalListeningTasks = listeningExercises?.length || 1;
+  const listeningProgress = percentage(completedListeningTasks, totalListeningTasks);
 
   return (
     <Stack
@@ -44,7 +48,7 @@ const ProfileExercisesPage = () => {
           <LinearProgress
             sx={mainLinearProgress}
             variant="determinate"
-            value={percentage(12, 20)}
+            value={listeningProgress}
           ></LinearProgress>
         </Stack>
         <Button

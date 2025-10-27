@@ -11,7 +11,7 @@ interface RequestWithUser extends Request {
 
 const requestSchema = z.object({
   exerciseId: z.string(),
-  progress: z.boolean(),
+  progress: z.number(),
 });
 
 export class UpdateListeningProgressApi extends OpenAPIRoute {
@@ -26,7 +26,7 @@ export class UpdateListeningProgressApi extends OpenAPIRoute {
             required: ["exerciseId", "progress"],
             properties: {
               exerciseId: { type: "string" },
-              progress: { type: "boolean" },
+              progress: { type: "number" },
             },
           },
         },
@@ -60,11 +60,9 @@ export class UpdateListeningProgressApi extends OpenAPIRoute {
         },
       },
     },
-    security: [{ BearerAuth: [] }],
   };
 
   async handle(request: RequestWithUser, env: Env) {
-    if (!request.user) return new Response(JSON.stringify({ error: "Unauthorized" }), { status: 401 });
 
     const body = await request.json();
     const { exerciseId, progress } = requestSchema.parse(body);
@@ -73,7 +71,7 @@ export class UpdateListeningProgressApi extends OpenAPIRoute {
     await db
       .insert(userListeningProgressTable)
       .values({
-        user_id: request.user.sub,
+        user_id: request.user?.sub,
         exercise_id: exerciseId,
         progress: progress ? 1 : 0,
       })

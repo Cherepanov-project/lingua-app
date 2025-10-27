@@ -14,7 +14,7 @@ export type Env = {
 
 function handleCors(request: Request) {
   const headers = {
-    "Access-Control-Allow-Origin": "https://lingua-app-psi.vercel.app", // http://localhost:5173 - для дев-сервера при разработке, перед деплоем на продакшн поменять на https://lingua-app-psi.vercel.app
+    "Access-Control-Allow-Origin": "http://localhost:5173", // http://localhost:5173 - для дев-сервера при разработке, перед деплоем на продакшн поменять на https://lingua-app-psi.vercel.app
     "Access-Control-Allow-Methods": "GET, POST, PATCH, DELETE, OPTIONS",
     "Access-Control-Allow-Headers": "Content-Type, Authorization",
   };

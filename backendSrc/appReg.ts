@@ -8,6 +8,7 @@ import registerLevelsRoutes from "./apps/levels/urls";
 import registerCoursesRoutes from "./apps/courses/urls";
 import registerModulesRoutes from "./apps/modules/urls";
 import registerLessonsRoutes from "./apps/lessons/urls";
+import registerOrphographiesRoutes from "./apps/orphography/urls";
 
 export function registerAllRoutes(router: RouterType) {
   registerSwaggerRoutes(router);
@@ -19,4 +20,5 @@ export function registerAllRoutes(router: RouterType) {
   registerCoursesRoutes(router);
   registerModulesRoutes(router);
   registerLessonsRoutes(router);
+  registerOrphographiesRoutes(router);
 }

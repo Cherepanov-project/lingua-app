@@ -75,3 +75,12 @@ export type TLesson = {
 };
 
 export type TLessonsResponse = TLesson[];
+
+export type TOrphography = {
+  id: number;
+  word: string;
+  image: string;
+  description: string;
+};
+
+export type TOrphographiesResponse = TOrphography[];

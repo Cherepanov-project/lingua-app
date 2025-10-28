@@ -4,6 +4,7 @@ import { Stack } from "@mui/material";
 import { Button } from "@mui/material";
 import { Typography } from "@mui/material";
 import { LinearProgress } from "@mui/material";
+import {useNavigate} from "react-router-dom";
 
 interface ExercisesCardProps {
   id?: string;
@@ -13,9 +14,18 @@ interface ExercisesCardProps {
   imageUrl: string;
   questions?: [];
   progress: number;
+  nav?: string;
 }
 
-const ExercisesCard: React.FC<ExercisesCardProps> = ({ name, text, progress, imageUrl }) => {
+const ExercisesCard: React.FC<ExercisesCardProps> = ({ name, text, progress, imageUrl, nav }) => {
+  const navigate = useNavigate();
+
+  const handleButtonClick = () => {
+    if (nav) {
+      navigate(nav);
+    }
+  }
+
   return (
     <Stack
       sx={{
@@ -41,8 +51,8 @@ const ExercisesCard: React.FC<ExercisesCardProps> = ({ name, text, progress, ima
               </Typography>
             </Box>
             <LinearProgress sx={linearProgress} variant="determinate" value={progress} />
-            <Button sx={button} variant="contained">
-              Начать
+            <Button sx={button} variant="contained" onClick={handleButtonClick}>
+              {progress === 0 ? "Начать" : "Продолжить"}
             </Button>
           </Stack>
         </Stack>

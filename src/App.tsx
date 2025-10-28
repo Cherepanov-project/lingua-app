@@ -32,6 +32,15 @@ import Users from "./pages/admin/Users.tsx";
 import Pictures from "./pages/admin/Pictures.tsx";
 import Reviews from "./pages/admin/Reviews.tsx";
 import Games from "./pages/admin/Games.tsx";
+import {
+  ListeningSkillsPage
+} from "./user/components/Exercises/ListeningSkills/ListeningSkillsPage.tsx";
+import {
+  AudioPage
+} from "./user/components/Exercises/ListeningSkills/AudioPage.tsx";
+import {
+  QuizPage
+} from "./user/components/Exercises/ListeningSkills/QuizPage.tsx";
 
 const App: React.FC = () => {
   return (
@@ -53,9 +62,13 @@ const App: React.FC = () => {
               <Route index element={<ProfilePage />} />
               <Route path="courses" element={<ProfileCoursesPage />} />
               <Route path="exercises" element={<ProfileExercisesPage />} />
+              <Route path="exercises/listening" element={<ListeningSkillsPage />}/>
+              <Route path="exercises/listening/:id" element={<AudioPage />} />
+              <Route path="exercises/listening/:id/quiz" element={<QuizPage />} />
               <Route path="grammar" element={<ProfileGrammarPage />} />
               <Route path="games" element={<ProfileGamesPage />} />
               <Route path="settings" element={<ProfileSettingsPage />} />
+
             </Route>
 
             <Route path="/truth-or-lie" element={<TruthOrLiePage />} />
@@ -107,5 +120,6 @@ const App: React.FC = () => {
     </Auth0ProviderWithNavigate>
   );
 };
+
 
 export default App;

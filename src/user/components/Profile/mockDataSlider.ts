@@ -27,32 +27,55 @@ export const mockDataGrammarSlider = [
 
 export const mockDataGamesSlider = [
   {
-    title: "Квиз",
-    imageUrl: "./game-image-synchronize.png",
-  },
-  {
-    title: "Найди пару",
-    imageUrl: "./game-image-tickets.png",
-  },
-  {
-    title: "Пазл",
-    imageUrl: "./game-image-puzzle.png",
-  },
-  {
+    id: crypto.randomUUID(),
     title: "Правда или Ложь",
     imageUrl: "./game-image-true-or-lie.png",
+    link: "/truth-or-lie",
   },
+
   {
-    title: "Квиз",
-    imageUrl: "./game-image-synchronize.png",
-  },
-  {
+    id: crypto.randomUUID(),
     title: "Найди пару",
     imageUrl: "./game-image-tickets.png",
+    link: "/games/matchgame",
   },
   {
+    id: crypto.randomUUID(),
+    title: "Квиз",
+    imageUrl: "./game-image-synchronize.png",
+    link: "#",
+  },
+  {
+    id: crypto.randomUUID(),
     title: "Пазл",
     imageUrl: "./game-image-puzzle.png",
+    link: "#",
+  },
+
+  {
+    id: crypto.randomUUID(),
+    title: "Правда или Ложь",
+    imageUrl: "./game-image-true-or-lie.png",
+    link: "/truth-or-lie",
+  },
+
+  {
+    id: crypto.randomUUID(),
+    title: "Найди пару",
+    imageUrl: "./game-image-tickets.png",
+    link: "/games/matchgame",
+  },
+  {
+    id: crypto.randomUUID(),
+    title: "Квиз",
+    imageUrl: "./game-image-synchronize.png",
+    link: "#",
+  },
+  {
+    id: crypto.randomUUID(),
+    title: "Пазл",
+    imageUrl: "./game-image-puzzle.png",
+    link: "#",
   },
 ];
 
@@ -72,7 +95,7 @@ export const mockDataExercisesCard = [
     text: "Прослушай и напиши правильно",
     imageUrl: "/exercises-image-headphones.png",
     questions: [],
-    navigate: '/profile/exercises/listening',
+    navigate: "/profile/exercises/listening",
   },
   {
     id: crypto.randomUUID(),
@@ -96,7 +119,11 @@ export const mockListeningExercises = [
     questions: [
       {
         question: "Как зовут говорящего?",
-        options: ["Доминик в Торенте", "Доминик Торетто", "Владими Владимирович"],
+        options: [
+          "Доминик в Торенте",
+          "Доминик Торетто",
+          "Владими Владимирович",
+        ],
         correct: "Доминик Торетто",
       },
       {

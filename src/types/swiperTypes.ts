@@ -1,4 +1,6 @@
 export interface SliderItem {
-  title: string
-  imageUrl: string
+  title: string;
+  imageUrl: string;
+  link?: string;
+  id?: string;
 }

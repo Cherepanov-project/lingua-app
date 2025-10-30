@@ -1,25 +1,24 @@
-import {type SxProps} from "@mui/material";
-import {Stack, Button, Typography, LinearProgress} from "@mui/material";
-import {ExercisesCard} from "../Profile/ExercisesCard";
-import {percentage} from "../../utils/percentage";
-import {
-  mockDataExercisesCard,
-} from "../Profile/mockDataSlider";
+import { type SxProps } from "@mui/material";
+import { Stack, Button, Typography, LinearProgress } from "@mui/material";
+import { ExercisesCard } from "../Profile/ExercisesCard";
+import { percentage } from "../../utils/percentage";
+import { mockDataExercisesCard } from "../Profile/mockDataSlider";
 import {
   exercises,
-  practice
+  practice,
 } from "../Exercises/ListeningSkills/listeningConst.ts";
-import {
-  useGetListeningExercisesQuery
-} from "../../../shared/api/listeningApi.ts";
+import { useGetListeningExercisesQuery } from "../../../shared/api/listeningApi.ts";
 
 const ProfileExercisesPage = () => {
   const { data: listeningExercises } = useGetListeningExercisesQuery();
-  const completedListeningTasks = listeningExercises?.filter(
-    (exercise) => exercise.progress === 100
-  ).length || 0;
+  const completedListeningTasks =
+    listeningExercises?.filter((exercise) => exercise.progress === 100)
+      .length || 0;
   const totalListeningTasks = listeningExercises?.length || 1;
-  const listeningProgress = percentage(completedListeningTasks, totalListeningTasks);
+  const listeningProgress = percentage(
+    completedListeningTasks,
+    totalListeningTasks
+  );
 
   return (
     <Stack
@@ -31,18 +30,15 @@ const ProfileExercisesPage = () => {
       }}
     >
       <Typography variant="h4">{exercises}</Typography>
-      <Typography sx={{fontSize: "24px"}}>{practice}</Typography>
+      <Typography sx={{ fontSize: "24px" }}>{practice}</Typography>
       <Stack
-        sx={{marginBottom: "40px", alignItems: "end"}}
+        sx={{ marginBottom: "40px", alignItems: "end" }}
         direction={"row"}
         spacing={7}
         useFlexGap
       >
-        <Stack sx={{flexGrow: "1"}}>
-          <Typography
-            sx={{fontSize: "20px", color: "#878787"}}
-            gutterBottom
-          >
+        <Stack sx={{ flexGrow: "1" }}>
+          <Typography sx={{ fontSize: "20px", color: "#878787" }} gutterBottom>
             Выполнено 12 из 20
           </Typography>
           <LinearProgress
@@ -51,17 +47,11 @@ const ProfileExercisesPage = () => {
             value={listeningProgress}
           ></LinearProgress>
         </Stack>
-        <Button
-          sx={mainButton}
-          variant="contained"
-        >
+        <Button sx={mainButton} variant="contained">
           Продолжить
         </Button>
       </Stack>
-      <Stack
-        spacing={2}
-        sx={{height: "80%"}}
-      >
+      <Stack spacing={2} sx={{ height: "80%" }}>
         {mockDataExercisesCard.map((exercise) => {
           return (
             <ExercisesCard
@@ -72,18 +62,18 @@ const ProfileExercisesPage = () => {
               progress={
                 exercise.type === "listening"
                   ? listeningProgress
-                  : Math.random() * 100}
+                  : Math.random() * 100
+              }
               nav={exercise.navigate}
             />
           );
-        })
-        }
+        })}
       </Stack>
     </Stack>
   );
 };
 
-export {ProfileExercisesPage};
+export { ProfileExercisesPage };
 
 ///////////////////////////////////////////////////////////////////////////////
 

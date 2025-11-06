@@ -36,6 +36,8 @@ import Games from './pages/admin/Games.tsx';
 import { ListeningSkillsPage } from './user/components/Exercises/ListeningSkills/ListeningSkillsPage.tsx';
 import { AudioPage } from './user/components/Exercises/ListeningSkills/AudioPage.tsx';
 import { QuizPage } from './user/components/Exercises/ListeningSkills/QuizPage.tsx';
+import { NewWordPage } from './user/components/PlanToday/NewWord/NewWordPage.tsx';
+import {WordsPage} from './user/components/PlanToday/NewWord/WordsPage.tsx';
 
 const App: React.FC = () => {
   return (
@@ -63,6 +65,8 @@ const App: React.FC = () => {
               <Route path="grammar" element={<ProfileGrammarPage />} />
               <Route path="games" element={<ProfileGamesPage />} />
               <Route path="settings" element={<ProfileSettingsPage />} />
+              <Route path="new-word" element={<NewWordPage />} />
+              <Route path="new-word/:id" element={<WordsPage />} />
             </Route>
 
             <Route path="profile/exercises/orthography" element={<OrthographyPage />} />

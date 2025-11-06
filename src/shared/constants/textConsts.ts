@@ -19,3 +19,6 @@ export const TruthOrLieGameTitle = "Правда или ложь";
 export const TruthTitle = "Правда";
 export const LieTitle = "Ложь";
 export const AddNewStatement = "Добавить новое утверждение";
+
+export const newWords = 'Новые слова'
+export const selectTheme = 'Выберите предпочтительную тему для изучения'

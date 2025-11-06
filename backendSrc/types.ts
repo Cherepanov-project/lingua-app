@@ -75,3 +75,18 @@ export type TLesson = {
 };
 
 export type TLessonsResponse = TLesson[];
+
+export type Word = {
+  id: number;        
+  topic_id: number;  
+  ru: string;       
+  en: string;        
+};
+
+export type TopicWithWords = {
+  id: number;       
+  title: string;    
+  words: Word[];    
+};
+
+export type NewWords = TopicWithWords[];

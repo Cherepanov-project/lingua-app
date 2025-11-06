@@ -1,13 +1,14 @@
-import truthOrLieReducer from '../store/reducers/TruthOrLieSlice';
-import { configureStore } from '@reduxjs/toolkit';
-import { authApi } from '../user/features/auth/authApi';
-import { languagesApi } from '../shared/api/languagesApi';
-import { usersApi } from '../shared/api/usersApi';
-import { picturesApi } from '../shared/api/picturesApi';
-import { matchGameApi } from '../shared/api/matchGameApi.ts';
-import { truthOrLieGamesApi } from '../shared/api/truthOrLieGameApi.ts';
-import { listeningApi } from '../shared/api/listeningApi';
-import { orthographyApi } from '../shared/api/orthographyjApi.ts';
+import truthOrLieReducer from '../store/reducers/TruthOrLieSlice'
+import { configureStore } from '@reduxjs/toolkit'
+import { authApi } from '../user/features/auth/authApi'
+import { languagesApi } from '../shared/api/languagesApi'
+import { usersApi } from '../shared/api/usersApi'
+import { picturesApi } from '../shared/api/picturesApi'
+import { matchGameApi } from '../shared/api/matchGameApi.ts'
+import { truthOrLieGamesApi } from '../shared/api/truthOrLieGameApi.ts'
+import { listeningApi } from '../shared/api/listeningApi'
+import { orthographyApi } from '../shared/api/orthographyjApi.ts'
+import { newWordsApi } from '../shared/api/newWordsApi.ts'
 
 export const store = configureStore({
   reducer: {
@@ -20,8 +21,9 @@ export const store = configureStore({
     [matchGameApi.reducerPath]: matchGameApi.reducer,
     [orthographyApi.reducerPath]: orthographyApi.reducer,
     [listeningApi.reducerPath]: listeningApi.reducer,
+    [newWordsApi.reducerPath]: newWordsApi.reducer,
   },
-  middleware: (getDefaultMiddleware) =>
+  middleware: getDefaultMiddleware =>
     getDefaultMiddleware()
       .concat(authApi.middleware)
       .concat(languagesApi.middleware)
@@ -30,8 +32,9 @@ export const store = configureStore({
       .concat(truthOrLieGamesApi.middleware)
       .concat(matchGameApi.middleware)
       .concat(orthographyApi.middleware)
-      .concat(listeningApi.middleware),
-});
+      .concat(listeningApi.middleware)
+      .concat(newWordsApi.middleware),
+})
 
-export type RootState = ReturnType<typeof store.getState>;
-export type AppDispatch = typeof store.dispatch;
+export type RootState = ReturnType<typeof store.getState>
+export type AppDispatch = typeof store.dispatch

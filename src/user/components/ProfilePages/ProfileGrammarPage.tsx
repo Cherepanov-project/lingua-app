@@ -1,17 +1,36 @@
-import { Box } from '@mui/material'
-import { Typography } from '@mui/material'
+import { Box, Stack, Typography } from "@mui/material";
+import { GrammarTitle } from "../../../shared/constants/textConsts";
+import { GrammarCard } from "../Grammar/GrammarCard";
+import { useGetRulesQuery } from "../../../shared/api/grammarApi";
 
 const ProfileGrammarPage = () => {
-  return (
-    <Box sx={{ padding: 3 }}>
-      <Typography variant="h4" gutterBottom>
-        Грамматика
-      </Typography>
-      <Typography variant="body1">
-        Страница с материалами по грамматике. Содержимое будет добавлено позже.
-      </Typography>
-    </Box>
-  )
-}
+  const { data: grammarData } = useGetRulesQuery();
 
-export { ProfileGrammarPage }
+  return (
+    <Stack
+      direction="row"
+      useFlexGap
+      sx={{
+        flexWrap: "wrap",
+        justifyContent: "center",
+        alignItems: "flex-start",
+        alignContent: "flex-start",
+        maxWidth: "1400px",
+        padding: "20px 20px",
+        columnGap: "32px",
+        rowGap: "32px",
+      }}
+    >
+      <Box sx={{ textAlign: "center", width: "100%" }}>
+        <Typography variant="h4" gutterBottom>
+          {GrammarTitle}
+        </Typography>
+      </Box>
+
+      {grammarData &&
+        grammarData.map((item) => <GrammarCard key={item.id} item={item} />)}
+    </Stack>
+  );
+};
+
+export { ProfileGrammarPage };

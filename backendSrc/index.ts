@@ -13,8 +13,19 @@ export type Env = {
 };
 
 function handleCors(request: Request) {
+  const origin = request.headers.get("Origin") || "";
+
+  const allowedOrigins = [
+    "http://localhost:5173",
+    "https://lingua-app-psi.vercel.app",
+  ];
+
+  const isAllowed =
+    allowedOrigins.includes(origin) ||
+    (origin.startsWith("https://lingua-") && origin.endsWith(".vercel.app"));
+
   const headers = {
-    "Access-Control-Allow-Origin": "https://lingua-app-psi.vercel.app", // http://localhost:5173 - для дев-сервера при разработке, перед деплоем на продакшн поменять на https://lingua-app-psi.vercel.app
+    "Access-Control-Allow-Origin": isAllowed ? origin : "null",
     "Access-Control-Allow-Methods": "GET, POST, PATCH, DELETE, OPTIONS",
     "Access-Control-Allow-Headers": "Content-Type, Authorization",
   };

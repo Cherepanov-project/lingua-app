@@ -19,3 +19,9 @@ export const TruthOrLieGameTitle = "Правда или ложь";
 export const TruthTitle = "Правда";
 export const LieTitle = "Ложь";
 export const AddNewStatement = "Добавить новое утверждение";
+
+export const GrammarTitle = "Грамматика";
+export const LearnGrammarButton = "Изучить";
+export const Back = "Назад";
+export const NotFound = "Не найдено";
+export const Err = "Ошибка";

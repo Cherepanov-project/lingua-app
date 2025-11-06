@@ -1,15 +1,18 @@
 import { Typography } from "@mui/material";
 import { Stack } from "@mui/material";
-import { ProfileWidgetSlider } from "./ProfileWidgetSlider";
-import { mockDataGrammarSlider } from "./mockDataSlider";
+import { GrammarTitle } from "../../../shared/constants/textConsts";
+import { useGetRulesQuery } from "../../../shared/api/grammarApi";
+import { ProfileWidgetGrammarSlider } from "./ProfileWidgetGrammarSlider";
 
 const ProfileWidgetGrammar = () => {
+  const { data: grammarData } = useGetRulesQuery();
+
   return (
     <Stack>
       <Stack sx={{ minHeight: "90px" }}>
-        <Typography variant="h4">Грамматика</Typography>
+        <Typography variant="h4">{GrammarTitle}</Typography>
       </Stack>
-      <ProfileWidgetSlider itemList={mockDataGrammarSlider} />
+      {grammarData && <ProfileWidgetGrammarSlider itemList={grammarData} />}
     </Stack>
   );
 };

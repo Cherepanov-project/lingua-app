@@ -32,7 +32,11 @@ const ProfilePage = () => {
     }
   }
 
-  const { data: userProfile, isLoading, error } = useGetUserProfileQuery(userId as string, { skip: !token || !userId });
+  const {
+    data: userProfile,
+    isLoading,
+    error,
+  } = useGetUserProfileQuery(userId as string, { skip: !token || !userId });
 
   if (!token) {
     return <Navigate to="/login" />;

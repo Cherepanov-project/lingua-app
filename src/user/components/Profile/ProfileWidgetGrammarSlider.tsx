@@ -1,4 +1,3 @@
-import type { SliderItem } from "../../../types/swiperTypes";
 import { Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { SlideItem } from "./SlideItem";
@@ -7,12 +6,13 @@ import { Link } from "@mui/material";
 import "swiper/css";
 import "swiper/css/pagination";
 import "./ProfileWidgetSlider.css";
+import type { Grammar } from "../../../types/grammar";
 
-interface ProfileWidgetSliderProps {
-  itemList: SliderItem[];
+interface ProfileWidgetGrammarSlider {
+  itemList: Grammar[];
 }
 
-const ProfileWidgetSlider: React.FC<ProfileWidgetSliderProps> = ({
+const ProfileWidgetGrammarSlider: React.FC<ProfileWidgetGrammarSlider> = ({
   itemList,
 }) => {
   return (
@@ -26,11 +26,11 @@ const ProfileWidgetSlider: React.FC<ProfileWidgetSliderProps> = ({
       }}
     >
       {itemList.map((item, index) => (
-        <SwiperSlide key={item.id || item.link || index}>
-          {item.link ? (
+        <SwiperSlide key={item.id || item.slug || index}>
+          {item.slug ? (
             <Link
               component={RouterLink}
-              to={item.link}
+              to={`/profile/grammar/${item.slug}`}
               underline="none"
               color="inherit"
               sx={{
@@ -38,10 +38,16 @@ const ProfileWidgetSlider: React.FC<ProfileWidgetSliderProps> = ({
                 textDecoration: "none",
               }}
             >
-              <SlideItem title={item.title} imageUrl={item.imageUrl} />
+              <SlideItem
+                title={item.title}
+                imageUrl={"./grammar-image-document.png"}
+              />
             </Link>
           ) : (
-            <SlideItem title={item.title} imageUrl={item.imageUrl} />
+            <SlideItem
+              title={item.title}
+              imageUrl={"./grammar-image-document.png"}
+            />
           )}
         </SwiperSlide>
       ))}
@@ -49,4 +55,4 @@ const ProfileWidgetSlider: React.FC<ProfileWidgetSliderProps> = ({
   );
 };
 
-export { ProfileWidgetSlider };
+export { ProfileWidgetGrammarSlider };

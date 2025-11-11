@@ -10,17 +10,15 @@ const Auth0ProviderWithNavigate: React.FC<Auth0ProviderWithNavigateProps> = ({
 }) => {
   return (
     <Auth0Provider
+      domain={import.meta.env.VITE_AUTH0_DOMAIN}
+      clientId={import.meta.env.VITE_AUTH0_CLIENT_ID_SPA} // SPA client
       useRefreshTokens={true}
       cacheLocation="localstorage"
-      domain={import.meta.env.VITE_AUTH0_DOMAIN}
-      clientId={import.meta.env.VITE_AUTH0_CLIENT_ID_SPA} // SPA
       authorizationParams={{
-        // redirect_uri: window.location.origin,
         redirect_uri: window.location.origin + "/auth-callback",
         audience: import.meta.env.VITE_AUTH0_AUDIENCE,
-        scope: "openid profile email", // scope for social logins
-        connection_scope:
-          "https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email",
+        scope: "openid profile email",
+        connection: "Username-Password-Authentication",
       }}
     >
       {children}

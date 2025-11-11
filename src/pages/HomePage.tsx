@@ -19,7 +19,6 @@ import NavigationButton from "../shared/components/NavigationButton";
 const HomePage = () => {
   const navigate = useNavigate();
   const [showDialog, setShowDialog] = useState(false);
-
   const handleStartClick = () => {
     const storedLang = localStorage.getItem("learningLang");
     if (!storedLang) {
@@ -49,13 +48,15 @@ const HomePage = () => {
               to="/auth"
               variant="contained"
               color="primary"
-              onClick={handleStartClick}>
+              onClick={handleStartClick}
+            >
               Начать учиться
             </NavigationButton>
             <NavigationButton
               to="#about"
               variant="outlined"
-              onClick={handleAboutClick}>
+              onClick={handleAboutClick}
+            >
               О нас
             </NavigationButton>
           </Box>
@@ -71,7 +72,8 @@ const HomePage = () => {
         open={showDialog}
         onClose={() => setShowDialog(false)}
         aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description">
+        aria-describedby="alert-dialog-description"
+      >
         <DialogTitle id="alert-dialog-title">{"Выберите язык"}</DialogTitle>
         <DialogContent>
           <Typography variant="body1">

@@ -11,6 +11,8 @@ const ProfileGrammarPage = () => {
       direction="row"
       useFlexGap
       sx={{
+        overflowY: "scroll",
+        scrollbarColor: "#d9e0ff transparent",
         flexWrap: "wrap",
         justifyContent: "center",
         alignItems: "flex-start",

@@ -17,6 +17,8 @@ interface StyleObject {
   gamesModal: CSSProperties;
   gameTitle: CSSProperties;
   toggleButton: CSSProperties;
+  registerInput: CSSProperties;
+  modal: CSSProperties;
 }
 
 export const vars = {
@@ -33,7 +35,7 @@ export const stylesObj: StyleObject = {
     justifyContent: "space-between",
     alignItems: "center",
     backgroundColor: "#f0f4f8",
-    padding: "40px 100px 87px",
+    padding: "40px 100px 57px",
     borderRadius: "50px",
     maxWidth: 500,
     minHeight: 608,
@@ -46,6 +48,9 @@ export const stylesObj: StyleObject = {
       padding: "0 20px",
       border: "1px solid #878787",
       width: "100%",
+      "&:last-child": {
+        marginBottom: "5px",
+      },
       "& input:-webkit-autofill": {
         WebkitBackgroundClip: "text",
         backgroundColor: "transparent !important",
@@ -58,6 +63,21 @@ export const stylesObj: StyleObject = {
       },
     },
   },
+  registerInput: {
+    margin: "13px 0",
+    borderRadius: "50px",
+    height: "40px",
+    border: "1px solid #878787",
+    width: "100%",
+    "& .MuiSelect-select": {
+      padding: "0 30px",
+      display: "flex",
+      alignItems: "center",
+      height: "40px",
+      boxSizing: "border-box",
+    },
+  },
+
   title: {
     color: "#8b9dfc",
     marginBottom: "6px",
@@ -66,7 +86,7 @@ export const stylesObj: StyleObject = {
     fontSize: "48px",
   },
   subtitle: {
-    mb: "70px",
+    mb: "20px",
     fontFamily: "Manrope, sans-serif",
     fontWeight: 400,
     fontSize: "36px",
@@ -166,6 +186,18 @@ export const stylesObj: StyleObject = {
         backgroundColor: "rgba(215, 219, 237, 1)",
       },
     },
+  },
+  modal: {
+    borderRadius: "20px",
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 400,
+    bgcolor: "background.paper",
+    border: "2px solid #000",
+    boxShadow: "24",
+    p: 4,
   },
 };
 

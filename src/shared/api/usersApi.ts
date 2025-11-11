@@ -1,4 +1,9 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import type {
+  BaseQueryFn,
+  FetchArgs,
+  FetchBaseQueryError,
+} from "@reduxjs/toolkit/query";
 
 export type Auth0User = {
   user_id: string;
@@ -7,6 +12,7 @@ export type Auth0User = {
   created_at: string;
   logins_count: number;
   picture: string;
+  user_metadata?: Record<string, unknown>;
 };
 
 export type Auth0Role = {
@@ -20,26 +26,90 @@ type NewUserRequest = {
   password: string;
 };
 
+// Базовый запрос
+const rawBaseQuery = fetchBaseQuery({
+  baseUrl: `https://${import.meta.env.VITE_AUTH0_DOMAIN}/api/v2/`,
+});
+
+// Обёртка, которая автоматически получает management_token
+const baseQueryWithAuth: BaseQueryFn<
+  string | FetchArgs,
+  unknown,
+  FetchBaseQueryError
+> = async (args, api, extraOptions) => {
+  let token = sessionStorage.getItem("management_token");
+
+  // Если токена нет — запрашиваем новый
+  if (!token) {
+    const tokenResponse = await fetch(
+      `https://${import.meta.env.VITE_AUTH0_DOMAIN}/oauth/token`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          client_id: import.meta.env.VITE_AUTH0_CLIENT_ID, // ⚙️ M2M Client ID
+          client_secret: import.meta.env.VITE_AUTH0_CLIENT_SECRET, // ⚙️ M2M Secret
+          audience: `https://${import.meta.env.VITE_AUTH0_DOMAIN}/api/v2/`,
+          grant_type: "client_credentials",
+        }),
+      }
+    );
+
+    const data = await tokenResponse.json();
+    token = data.access_token;
+    sessionStorage.setItem("management_token", token!);
+  }
+
+  // Добавляем токен к запросу
+  const requestArgs: FetchArgs =
+    typeof args === "string" ? { url: args } : { ...args };
+  requestArgs.headers = {
+    ...(requestArgs.headers || {}),
+    Authorization: `Bearer ${token}`,
+  };
+
+  const result = await rawBaseQuery(requestArgs, api, extraOptions);
+
+  // Если токен устарел → очищаем и пробуем снова
+  if (
+    result.error &&
+    (result.error.status === 401 || result.error.status === 403)
+  ) {
+    sessionStorage.removeItem("management_token");
+    return baseQueryWithAuth(args, api, extraOptions);
+  }
+
+  return result;
+};
+
 export const usersApi = createApi({
   reducerPath: "usersApi",
   tagTypes: ["Users"],
-  baseQuery: fetchBaseQuery({
-    baseUrl: `https://${import.meta.env.VITE_AUTH0_DOMAIN}/api/v2/`,
-    prepareHeaders: (headers) => {
-      const token = sessionStorage.getItem("management_token");
-      if (token) {
-        headers.set("authorization", `Bearer ${token}`);
-      }
-      return headers;
-    },
-  }),
+  baseQuery: baseQueryWithAuth,
   endpoints: (builder) => ({
     getUsers: builder.query<Auth0User[], void>({
       query: () => "users",
       providesTags: ["Users"],
     }),
+
     getUserRoles: builder.query<Auth0Role[], string>({
       query: (userId) => `users/${userId}/roles`,
+    }),
+
+    getUserMeta: builder.query<Auth0User, string>({
+      query: (userId) => `users/${userId}`,
+    }),
+    updateUserMeta: builder.mutation<
+      void,
+      { userId: string; level?: string; language?: string }
+    >({
+      query: ({ userId, ...meta }) => ({
+        url: `users/${userId}`,
+        method: "PATCH",
+        body: {
+          user_metadata: meta,
+        },
+      }),
     }),
     addUser: builder.mutation<Auth0User, NewUserRequest>({
       query: (newUser) => ({
@@ -50,7 +120,6 @@ export const usersApi = createApi({
           connection: "Username-Password-Authentication",
         },
       }),
-      // invalidatesTags: ['Users']
 
       async onQueryStarted(_newUser, { dispatch, queryFulfilled }) {
         try {
@@ -61,26 +130,22 @@ export const usersApi = createApi({
             })
           );
         } catch (err) {
-          if (err instanceof Error) {
-            throw new Error(`Ошибка при добавлении пользователя: ${err}`);
-          }
+          console.error("Ошибка при добавлении пользователя:", err);
         }
       },
     }),
+
     deleteUser: builder.mutation<void, string>({
       query: (userId) => ({
         url: `users/${userId}`,
         method: "DELETE",
       }),
-      // invalidatesTags: ['Users']
 
       async onQueryStarted(userId, { dispatch, queryFulfilled }) {
         const patchResult = dispatch(
           usersApi.util.updateQueryData("getUsers", undefined, (draft) => {
             const index = draft.findIndex((user) => user.user_id === userId);
-            if (index !== -1) {
-              draft.splice(index, 1);
-            }
+            if (index !== -1) draft.splice(index, 1);
           })
         );
         try {
@@ -98,4 +163,6 @@ export const {
   useAddUserMutation,
   useDeleteUserMutation,
   useGetUserRolesQuery,
+  useGetUserMetaQuery,
+  useUpdateUserMetaMutation,
 } = usersApi;

@@ -11,6 +11,7 @@ import registerLessonsRoutes from "./apps/lessons/urls";
 import registerListeningRoutes from "./apps/listening/urls";
 import registerOrthographyRoutes from "./apps/orthography/urls";
 import registerGrammarRoutes from "./apps/grammar/urs";
+import registerGrammarExerciseRoutes from "./apps/grammarExercises/urls";
 
 export function registerAllRoutes(router: RouterType) {
   registerSwaggerRoutes(router);
@@ -25,4 +26,5 @@ export function registerAllRoutes(router: RouterType) {
   registerOrthographyRoutes(router);
   registerListeningRoutes(router);
   registerGrammarRoutes(router);
+  registerGrammarExerciseRoutes(router);
 }

@@ -90,3 +90,12 @@ export type TopicWithWords = {
 };
 
 export type NewWords = TopicWithWords[];
+export type TGrammarExercise = {
+  id: number;                
+  grammar_id: number;        
+  level: string;             
+  sentence: string;              
+  missing_words: string[] | string;   
+};
+
+export type TGrammarExerciseResponse = TGrammarExercise[];

@@ -25,6 +25,8 @@ interface RegisterRequest {
   email: string;
   name: string;
   password: string;
+  language: string;
+  level: string;
 }
 interface PasswordResetRequest {
   email: string;
@@ -97,6 +99,10 @@ export const authApi = createApi({
           name: userData.name,
           password: userData.password,
           connection: "Username-Password-Authentication",
+          user_metadata: {
+            level: userData.level,
+            language: userData.language,
+          },
         },
       }),
     }),

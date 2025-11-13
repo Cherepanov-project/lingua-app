@@ -55,6 +55,7 @@ const ProfileExercisesPage = () => {
         {mockDataExercisesCard.map((exercise) => {
           return (
             <ExercisesCard
+              key={exercise.id}
               name={exercise.name}
               text={exercise.text}
               type={exercise.type}

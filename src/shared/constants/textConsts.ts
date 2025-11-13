@@ -22,3 +22,13 @@ export const AddNewStatement = "Добавить новое утверждени
 
 export const newWords = 'Новые слова'
 export const selectTheme = 'Выберите предпочтительную тему для изучения'
+export const GrammarTitle = "Грамматика";
+export const LearnGrammarButton = "Изучить";
+export const Back = "Назад";
+export const NotFound = "Не найдено";
+export const Err = "Ошибка";
+export const Exercise = "К упражнению"
+export const EngLanguage = "Английский язык"
+export const MissWords = "Вставь пропущенные слова:"
+export const RightWords = "Все ответы правильные!"
+export const ErrWords = "Есть ошибки, попробуй снова!"

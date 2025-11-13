@@ -1,51 +1,36 @@
 import React, { useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
 import {
   Container,
   Box,
   Button,
   TextField,
   Typography,
-  styled,
   Divider,
+  Link,
 } from "@mui/material";
 import GoogleIcon from "@mui/icons-material/Google";
-// import GitHubIcon from '@mui/icons-material/GitHub';
-import { useAuthUserMutation } from "../../features/auth/authApi";
-import { setCookie } from "../../utils/cookies";
 import { stylesObj } from "../../stylesObj";
-
-const LoginLinks = styled("div")({
-  ...stylesObj.loginLinks,
-});
-
-const LoginLink = styled(Link)({
-  ...stylesObj.loginLink,
-});
-
-const SocialButton = styled(Button)({
-  margin: "8px 0",
-  textTransform: "none",
-  fontSize: "1rem",
-});
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [authUser, { isLoading, isError }] = useAuthUserMutation();
-  const { loginWithRedirect } = useAuth0();
-  const navigate = useNavigate();
+  const { loginWithRedirect, isLoading } = useAuth0();
+
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await authUser({ username: email, password }).unwrap();
-      setCookie("auth_token", response.access_token);
-      navigate("/profile");
+      await loginWithRedirect({
+        authorizationParams: {
+          connection: "Username-Password-Authentication",
+          login_hint: email,
+          redirect_uri: `${window.location.origin}/auth-callback`,
+          scope: "openid profile email",
+          audience: import.meta.env.VITE_AUTH0_AUDIENCE,
+        },
+      });
     } catch (error) {
-      if (error instanceof Error) {
-        throw new Error(`Ошибка входа: ${error}`);
-      }
+      console.error("Ошибка входа:", error);
     }
   };
 
@@ -60,9 +45,7 @@ const Login: React.FC = () => {
         },
       });
     } catch (error) {
-      if (error instanceof Error) {
-        throw new Error(`Ошибка социального входа: ${error}`);
-      }
+      console.error("Ошибка социального входа:", error);
     }
   };
 
@@ -74,26 +57,16 @@ const Login: React.FC = () => {
         onSubmit={handleLogin}
       >
         <Container>
-          <Typography
-            variant="h4"
-            sx={{
-              ...stylesObj.title,
-            }}
-          >
+          <Typography variant="h4" sx={stylesObj.title}>
             LinguaStep
           </Typography>
-          <Typography
-            variant="h6"
-            sx={{
-              ...stylesObj.subtitle,
-            }}
-          >
+          <Typography variant="h6" sx={stylesObj.subtitle}>
             Вход
           </Typography>
         </Container>
 
         <TextField
-          sx={{ ...stylesObj.authTextField }}
+          sx={stylesObj.authTextField}
           placeholder="Email"
           type="email"
           value={email}
@@ -102,54 +75,42 @@ const Login: React.FC = () => {
           margin="normal"
         />
 
-        <TextField
-          sx={{ ...stylesObj.authTextField }}
-          placeholder="Ваш пароль"
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          fullWidth
-          margin="normal"
-        />
-
         <Button
-          sx={{ ...stylesObj.loginButton }}
+          sx={stylesObj.loginButton}
           type="submit"
-          disabled={isLoading}
+          disabled={isLoading || !email}
         >
-          Войти
+          Войти по Email
         </Button>
 
         <Divider sx={{ my: 2 }}>или</Divider>
 
-        <SocialButton
+        <Button
+          sx={{ margin: "8px 0", textTransform: "none", fontSize: "1rem" }}
           variant="outlined"
           startIcon={<GoogleIcon />}
           onClick={() => handleSocialLogin("google-oauth2")}
           fullWidth
         >
           Войти через Google
-        </SocialButton>
+        </Button>
 
-        {/* <SocialButton
-          variant="outlined"
-          startIcon={<GitHubIcon />}
-          onClick={() => handleSocialLogin('github')}
-          fullWidth
-        >
-          Войти через GitHub
-        </SocialButton> */}
-
-        <LoginLinks>
-          <LoginLink to="/reset-password">Забыли пароль?</LoginLink>
-          <LoginLink to="/register">Нет аккаунта?</LoginLink>
-        </LoginLinks>
-
-        {isError && (
-          <Typography color="error" sx={{ mt: 2 }}>
-            Ошибка входа. Проверьте данные.
-          </Typography>
-        )}
+        <Box sx={{ ...stylesObj.loginLinks }}>
+          <Link
+            component={RouterLink}
+            sx={{ ...stylesObj.loginLink }}
+            to="/reset-password"
+          >
+            Забыли пароль?
+          </Link>
+          <Link
+            component={RouterLink}
+            sx={{ ...stylesObj.loginLink }}
+            to="/register"
+          >
+            Нет аккаунта?
+          </Link>
+        </Box>
       </Box>
     </Container>
   );

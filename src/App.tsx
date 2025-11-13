@@ -1,44 +1,43 @@
-import OrthographyPage from './user/components/Exercises/OrthographyPage.tsx'
-import { Route, Routes } from 'react-router-dom'
-import Auth0ProviderWithNavigate from './user/auth0/auth0-provider'
-import Login from './user/components/Login/Login'
-import Register from './user/components/Register/Register'
-import AuthCallback from './user/components/AuthCallback'
-import ProtectedRoute from './user/components/ProtectedRoute'
-import PasswordReset from './user/components/PasswordReset/PasswordReset'
-import HomePage from './pages/HomePage'
-import Courses from './pages/admin/Courses.tsx'
-import CreateCourse from './pages/admin/CreateCourse.tsx'
-import Course from './pages/admin/Course.tsx'
-import EditModule from './pages/admin/EditModule.tsx'
-import EditLesson from './pages/admin/EditLesson.tsx'
-import ListeningExercise from './pages/admin/ListeningExercise.tsx'
-import { ThemeProvider } from '@mui/material/styles'
-import CssBaseline from '@mui/material/CssBaseline'
-import { authTheme } from './user/stylesObj'
-import { ProfileLayout } from './user/components/ProfileLayout/ProfileLayout.tsx'
-import { ProfileCoursesPage } from './user/components/ProfilePages/ProfileCoursesPage.tsx'
-import { ProfilePage } from './user/components/ProfilePages/ProfilePage.tsx'
-import { ProfileExercisesPage } from './user/components/ProfilePages/ProfileExercisesPage.tsx'
-import { ProfileGrammarPage } from './user/components/ProfilePages/ProfileGrammarPage.tsx'
-import { ProfileGamesPage } from './user/components/ProfilePages/ProfileGamesPage.tsx'
-import { ProfileSettingsPage } from './user/components/ProfilePages/ProfileSettingsPage.tsx'
-import { TruthOrLiePage } from './user/components/Games/TruthOrLie/TruthOrLiePage.tsx'
-import { GamesLayout } from './user/components/GamesLayout/GamesLayout.tsx'
-import { MatchGame } from './user/components/Profile/MatchGame.tsx'
-import AdminProtectedRoute from './pages/admin/AdminProtectedRoute.tsx'
-import AdminContent from './pages/admin/adminComponents/AdminContent.tsx'
-import AdminHome from './pages/admin/AdminHome.tsx'
-import Users from './pages/admin/Users.tsx'
-import Pictures from './pages/admin/Pictures.tsx'
-import Reviews from './pages/admin/Reviews.tsx'
-import Games from './pages/admin/Games.tsx'
-import { ListeningSkillsPage } from './user/components/Exercises/ListeningSkills/ListeningSkillsPage.tsx'
-import { AudioPage } from './user/components/Exercises/ListeningSkills/AudioPage.tsx'
-import { QuizPage } from './user/components/Exercises/ListeningSkills/QuizPage.tsx'
-import { GrammarDetailPage } from './user/components/Grammar/GrammarDetail.tsx'
-import { AddMetaToAccountModal } from './user/components/Register/AddMetaToAccountModal.tsx'
-import { GrammarExercise } from './user/components/Grammar/GrammarExercise.tsx'
+import OrthographyPage from "./user/components/Exercises/OrthographyPage.tsx";
+import { Route, Routes } from "react-router-dom";
+import Auth0ProviderWithNavigate from "./user/auth0/auth0-provider";
+import Login from "./user/components/Login/Login";
+import Register from "./user/components/Register/Register";
+import AuthCallback from "./user/components/AuthCallback";
+import ProtectedRoute from "./user/components/ProtectedRoute";
+import PasswordReset from "./user/components/PasswordReset/PasswordReset";
+import HomePage from "./pages/HomePage";
+import Courses from "./pages/admin/Courses.tsx";
+import CreateCourse from "./pages/admin/CreateCourse.tsx";
+import Course from "./pages/admin/Course.tsx";
+import EditModule from "./pages/admin/EditModule.tsx";
+import EditLesson from "./pages/admin/EditLesson.tsx";
+import ListeningExercise from "./pages/admin/ListeningExercise.tsx";
+import { ThemeProvider } from "@mui/material/styles";
+import CssBaseline from "@mui/material/CssBaseline";
+import { authTheme } from "./user/stylesObj";
+import { ProfileLayout } from "./user/components/ProfileLayout/ProfileLayout.tsx";
+import { ProfileCoursesPage } from "./user/components/ProfilePages/ProfileCoursesPage.tsx";
+import { ProfilePage } from "./user/components/ProfilePages/ProfilePage.tsx";
+import { ProfileExercisesPage } from "./user/components/ProfilePages/ProfileExercisesPage.tsx";
+import { ProfileGrammarPage } from "./user/components/ProfilePages/ProfileGrammarPage.tsx";
+import { ProfileGamesPage } from "./user/components/ProfilePages/ProfileGamesPage.tsx";
+import { ProfileSettingsPage } from "./user/components/ProfilePages/ProfileSettingsPage.tsx";
+import { TruthOrLiePage } from "./user/components/Games/TruthOrLie/TruthOrLiePage.tsx";
+import { GamesLayout } from "./user/components/GamesLayout/GamesLayout.tsx";
+import { MatchGame } from "./user/components/Profile/MatchGame.tsx";
+import AdminProtectedRoute from "./pages/admin/AdminProtectedRoute.tsx";
+import AdminContent from "./pages/admin/adminComponents/AdminContent.tsx";
+import AdminHome from "./pages/admin/AdminHome.tsx";
+import Users from "./pages/admin/Users.tsx";
+import Pictures from "./pages/admin/Pictures.tsx";
+import Reviews from "./pages/admin/Reviews.tsx";
+import Games from "./pages/admin/Games.tsx";
+import { ListeningSkillsPage } from "./user/components/Exercises/ListeningSkills/ListeningSkillsPage.tsx";
+import { AudioPage } from "./user/components/Exercises/ListeningSkills/AudioPage.tsx";
+import { QuizPage } from "./user/components/Exercises/ListeningSkills/QuizPage.tsx";
+import { GrammarDetailPage } from "./user/components/Grammar/GrammarDetail.tsx";
+import { AfterLogin } from "./user/components/Register/AfterLogin.tsx";
 
 const App: React.FC = () => {
   return (
@@ -49,19 +48,23 @@ const App: React.FC = () => {
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+
           <Route
             path="/profile"
             element={
               <ProtectedRoute>
-                <ProfileLayout>
-                  <AddMetaToAccountModal />
-                </ProfileLayout>
+                <ProfileLayout />
               </ProtectedRoute>
             }>
             <Route index element={<ProfilePage />} />
+
             <Route path="courses" element={<ProfileCoursesPage />} />
             <Route path="exercises" element={<ProfileExercisesPage />} />
-            <Route path="exercises/listening" element={<ListeningSkillsPage />} />
+            <Route
+              path="exercises/listening"
+              element={<ListeningSkillsPage />}
+            />
+            <Route path="after-login" element={<AfterLogin />} />
             <Route path="exercises/listening/:id" element={<AudioPage />} />
             <Route path="exercises/listening/:id/quiz" element={<QuizPage />} />
             <Route path="grammar" element={<ProfileGrammarPage />} />

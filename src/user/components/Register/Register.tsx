@@ -81,8 +81,8 @@ const Register: React.FC = () => {
           redirect_uri: `${window.location.origin}/auth-callback`,
           scope: "openid profile email",
           audience: import.meta.env.VITE_AUTH0_AUDIENCE,
-          // prompt: 'select-account',
         },
+        appState: { provider: connection },
       });
     } catch (error) {
       console.error("Ошибка социального входа:", error);

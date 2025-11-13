@@ -55,8 +55,7 @@ const App: React.FC = () => {
               <ProtectedRoute>
                 <ProfileLayout />
               </ProtectedRoute>
-            }
-          >
+            }>
             <Route index element={<ProfilePage />} />
 
             <Route path="courses" element={<ProfileCoursesPage />} />
@@ -70,14 +69,12 @@ const App: React.FC = () => {
             <Route path="exercises/listening/:id/quiz" element={<QuizPage />} />
             <Route path="grammar" element={<ProfileGrammarPage />} />
             <Route path="grammar/:slug" element={<GrammarDetailPage />} />
+            <Route path="grammar/:slug/:level" element={<GrammarExercise />} />
             <Route path="games" element={<ProfileGamesPage />} />
             <Route path="settings" element={<ProfileSettingsPage />} />
           </Route>
 
-          <Route
-            path="profile/exercises/orthography"
-            element={<OrthographyPage />}
-          />
+          <Route path="profile/exercises/orthography" element={<OrthographyPage />} />
           <Route path="/truth-or-lie" element={<TruthOrLiePage />} />
           <Route path="/reset-password" element={<PasswordReset />} />
           <Route path="/auth-callback" element={<AuthCallback />} />
@@ -88,18 +85,9 @@ const App: React.FC = () => {
             <Route path="matchgame" element={<MatchGame />} />
           </Route>
 
-          <Route
-            path="/course/:courseId/module/:moduleId"
-            element={<EditModule />}
-          />
-          <Route
-            path="/course/:courseId/module/:moduleId/lesson/:lessonId"
-            element={<EditLesson />}
-          />
-          <Route
-            path="/course/:courseId/module/:moduleId/lesson/:lessonId/listening"
-            element={<ListeningExercise />}
-          />
+          <Route path="/course/:courseId/module/:moduleId" element={<EditModule />} />
+          <Route path="/course/:courseId/module/:moduleId/lesson/:lessonId" element={<EditLesson />} />
+          <Route path="/course/:courseId/module/:moduleId/lesson/:lessonId/listening" element={<ListeningExercise />} />
           <Route
             path="/admin/*"
             element={
@@ -116,8 +104,7 @@ const App: React.FC = () => {
                   <AdminContent />
                 </AdminProtectedRoute>
               </ProtectedRoute>
-            }
-          >
+            }>
             <Route index element={<AdminHome />} />
             <Route path="users" element={<Users />} />
             <Route path="courses" element={<Courses />} />
@@ -130,7 +117,7 @@ const App: React.FC = () => {
         </Routes>
       </ThemeProvider>
     </Auth0ProviderWithNavigate>
-  );
-};
+  )
+}
 
-export default App;
+export default App

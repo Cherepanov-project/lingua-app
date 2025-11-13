@@ -75,3 +75,13 @@ export type TLesson = {
 };
 
 export type TLessonsResponse = TLesson[];
+
+export type TGrammarExercise = {
+  id: number;                
+  grammar_id: number;        
+  level: string;             
+  sentence: string;              
+  missing_words: string[] | string;   
+};
+
+export type TGrammarExerciseResponse = TGrammarExercise[];

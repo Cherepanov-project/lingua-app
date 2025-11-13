@@ -9,6 +9,7 @@ import { truthOrLieGamesApi } from "../shared/api/truthOrLieGameApi.ts";
 import { listeningApi } from "../shared/api/listeningApi";
 import { orthographyApi } from "../shared/api/orthographyjApi.ts";
 import { grammarApi } from "../shared/api/grammarApi.ts";
+import { grammarExercisesApi } from "../shared/api/grammarExercisesApi.ts";
 
 export const store = configureStore({
   reducer: {
@@ -22,6 +23,7 @@ export const store = configureStore({
     [orthographyApi.reducerPath]: orthographyApi.reducer,
     [listeningApi.reducerPath]: listeningApi.reducer,
     [grammarApi.reducerPath]: grammarApi.reducer,
+    [grammarExercisesApi.reducerPath]: grammarExercisesApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware()
@@ -33,7 +35,8 @@ export const store = configureStore({
       .concat(matchGameApi.middleware)
       .concat(orthographyApi.middleware)
       .concat(listeningApi.middleware)
-      .concat(grammarApi.middleware),
+      .concat(grammarApi.middleware)
+      .concat(grammarExercisesApi.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { setCookie } from "../utils/cookies";
+import { Alert } from "@mui/material";
 
 const AuthCallback: React.FC = () => {
   const { getAccessTokenSilently, isLoading, user } = useAuth0();
@@ -15,19 +16,14 @@ const AuthCallback: React.FC = () => {
 
         const isGoogle = user?.sub?.startsWith("google-oauth2|");
         const isNewUser = user?.["https://linguaapp/new_user"];
-        console.log("🔎 isGoogle:", isGoogle, "isNewUser:", isNewUser);
 
         if (isGoogle && isNewUser) {
-          console.log(
-            "Новый пользователь Google redirect to /profile/after-login"
-          );
           navigate("/profile/after-login", { replace: true });
         } else {
-          console.log("Обычный вход redirect to /profile");
           navigate("/profile", { replace: true });
         }
-      } catch (error) {
-        console.error("❌ Ошибка обработки callback:", error);
+      } catch {
+        <Alert severity="error">"Ошибка обработки callback"</Alert>;
         navigate("/login", { replace: true });
       }
     };

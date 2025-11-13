@@ -1,4 +1,11 @@
-import { Box, Button, MenuItem, Select, Typography } from "@mui/material";
+import {
+  Alert,
+  Box,
+  Button,
+  MenuItem,
+  Select,
+  Typography,
+} from "@mui/material";
 import { useState } from "react";
 import {
   useGetLanguagesQuery,
@@ -20,9 +27,8 @@ export const AfterLogin = () => {
     if (level && language) {
       try {
         await updateUserMeta({ userId, level, language }).unwrap();
-        console.log("metadata обновлены");
-      } catch (error) {
-        console.error("Ошибка при обновлении meta:", error);
+      } catch {
+        <Alert severity="error">"Ошибка при обновлении Meta"</Alert>;
       }
     }
   };

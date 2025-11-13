@@ -10,6 +10,7 @@ import registerModulesRoutes from "./apps/modules/urls";
 import registerLessonsRoutes from "./apps/lessons/urls";
 import registerListeningRoutes from "./apps/listening/urls";
 import registerOrthographyRoutes from "./apps/orthography/urls";
+import registerNewWordsRoutes from './apps/newword/urls';
 import registerGrammarRoutes from "./apps/grammar/urs";
 import registerGrammarExerciseRoutes from "./apps/grammarExercises/urls";
 
@@ -25,6 +26,7 @@ export function registerAllRoutes(router: RouterType) {
   registerLessonsRoutes(router);
   registerOrthographyRoutes(router);
   registerListeningRoutes(router);
+  registerNewWordsRoutes(router)
   registerGrammarRoutes(router);
   registerGrammarExerciseRoutes(router);
 }

@@ -12,16 +12,16 @@ const ProfileWidgetPlanToday = () => {
       </Stack>
       <Grid container spacing={2.4}>
         <Grid size={6}>
-          <ChallengeItem itemTitle="Аудирование" imageUrl="./plan-image-headphones.png" />
+          <ChallengeItem itemTitle="Аудирование" imageUrl="./plan-image-headphones.png" link='*'/>
         </Grid>
         <Grid size={6}>
-          <ChallengeItem itemTitle="Упражнение" imageUrl="./plan-image-pencil.png" />
+          <ChallengeItem itemTitle="Упражнение" imageUrl="./plan-image-pencil.png" link='*'/>
         </Grid>
         <Grid size={6}>
-          <ChallengeItem itemTitle="Чтение" imageUrl="./plan-image-notepad.png" />
+          <ChallengeItem itemTitle="Чтение" imageUrl="./plan-image-notepad.png" link='*'/>
         </Grid>
         <Grid size={6}>
-          <ChallengeItem itemTitle="Новые слова" imageUrl="./plan-image-todo-list.png" />
+          <ChallengeItem itemTitle="Новые слова" imageUrl="./plan-image-todo-list.png" link='new-word'/>
         </Grid>
       </Grid>
     </>

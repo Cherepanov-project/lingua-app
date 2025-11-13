@@ -20,6 +20,8 @@ export const TruthTitle = "Правда";
 export const LieTitle = "Ложь";
 export const AddNewStatement = "Добавить новое утверждение";
 
+export const newWords = 'Новые слова'
+export const selectTheme = 'Выберите предпочтительную тему для изучения'
 export const GrammarTitle = "Грамматика";
 export const LearnGrammarButton = "Изучить";
 export const Back = "Назад";

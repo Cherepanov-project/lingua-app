@@ -39,8 +39,8 @@ export const AudioPage = () => {
         >
           <img
             style={{
-              width: "100%",
-              maxWidth: "100%",
+              width: "10%",
+              maxWidth: "10%",
               height: "auto",
               maxHeight: "500px",
               objectFit: "contain",

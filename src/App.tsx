@@ -36,8 +36,11 @@ import Games from "./pages/admin/Games.tsx";
 import { ListeningSkillsPage } from "./user/components/Exercises/ListeningSkills/ListeningSkillsPage.tsx";
 import { AudioPage } from "./user/components/Exercises/ListeningSkills/AudioPage.tsx";
 import { QuizPage } from "./user/components/Exercises/ListeningSkills/QuizPage.tsx";
+import { NewWordPage } from './user/components/PlanToday/NewWord/NewWordPage.tsx';
+import { WordsPage } from './user/components/PlanToday/NewWord/WordsPage.tsx';        
 import { GrammarDetailPage } from "./user/components/Grammar/GrammarDetail.tsx";
 import { AfterLogin } from "./user/components/Register/AfterLogin.tsx";
+
 
 const App: React.FC = () => {
   return (
@@ -67,12 +70,15 @@ const App: React.FC = () => {
             <Route path="after-login" element={<AfterLogin />} />
             <Route path="exercises/listening/:id" element={<AudioPage />} />
             <Route path="exercises/listening/:id/quiz" element={<QuizPage />} />
+            <Route path="new-word" element={<NewWordPage />} />
+            <Route path="new-word/:id" element={<WordsPage />} />
             <Route path="grammar" element={<ProfileGrammarPage />} />
             <Route path="grammar/:slug" element={<GrammarDetailPage />} />
             <Route path="grammar/:slug/:level" element={<GrammarExercise />} />
             <Route path="games" element={<ProfileGamesPage />} />
             <Route path="settings" element={<ProfileSettingsPage />} />
           </Route>
+
 
           <Route path="profile/exercises/orthography" element={<OrthographyPage />} />
           <Route path="/truth-or-lie" element={<TruthOrLiePage />} />

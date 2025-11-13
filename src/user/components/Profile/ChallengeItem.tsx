@@ -3,20 +3,22 @@ import { Box } from "@mui/material";
 import { Stack } from "@mui/material";
 import { Button } from "@mui/material";
 import { Typography } from "@mui/material";
+import { Link } from "react-router-dom";
 
 interface ChallengeItemProps {
   itemTitle: string;
   imageUrl: string;
+  link: string;
 }
 
-const ChallengeItem: React.FC<ChallengeItemProps> = ({ itemTitle, imageUrl }) => {
+const ChallengeItem: React.FC<ChallengeItemProps> = ({ itemTitle, imageUrl, link }) => {
   return (
     <Stack sx={challengeItem} direction={"row"}>
       <Box>
         <Typography variant="h6" sx={{ marginBottom: "10px" }}>
           {itemTitle}
         </Typography>
-        <Button sx={challengeButton} variant="outlined">
+        <Button sx={challengeButton} variant="outlined" component={Link} to={link}>
           Начать
         </Button>
       </Box>

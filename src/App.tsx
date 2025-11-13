@@ -37,7 +37,7 @@ import { ListeningSkillsPage } from "./user/components/Exercises/ListeningSkills
 import { AudioPage } from "./user/components/Exercises/ListeningSkills/AudioPage.tsx";
 import { QuizPage } from "./user/components/Exercises/ListeningSkills/QuizPage.tsx";
 import { GrammarDetailPage } from "./user/components/Grammar/GrammarDetail.tsx";
-import { AddMetaToAccountModal } from "./user/components/Register/AddMetaToAccountModal.tsx";
+import { AfterLogin } from "./user/components/Register/AfterLogin.tsx";
 
 const App: React.FC = () => {
   return (
@@ -48,23 +48,24 @@ const App: React.FC = () => {
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+
           <Route
             path="/profile"
             element={
               <ProtectedRoute>
-                <ProfileLayout>
-                  <AddMetaToAccountModal />
-                </ProfileLayout>
+                <ProfileLayout />
               </ProtectedRoute>
             }
           >
             <Route index element={<ProfilePage />} />
+
             <Route path="courses" element={<ProfileCoursesPage />} />
             <Route path="exercises" element={<ProfileExercisesPage />} />
             <Route
               path="exercises/listening"
               element={<ListeningSkillsPage />}
             />
+            <Route path="after-login" element={<AfterLogin />} />
             <Route path="exercises/listening/:id" element={<AudioPage />} />
             <Route path="exercises/listening/:id/quiz" element={<QuizPage />} />
             <Route path="grammar" element={<ProfileGrammarPage />} />

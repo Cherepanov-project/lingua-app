@@ -84,7 +84,7 @@ const baseQueryWithAuth: BaseQueryFn<
 
 export const usersApi = createApi({
   reducerPath: "usersApi",
-  tagTypes: ["Users"],
+  tagTypes: ["Users", "UserMeta"],
   baseQuery: baseQueryWithAuth,
   endpoints: (builder) => ({
     getUsers: builder.query<Auth0User[], void>({
@@ -98,6 +98,7 @@ export const usersApi = createApi({
 
     getUserMeta: builder.query<Auth0User, string>({
       query: (userId) => `users/${userId}`,
+      providesTags: ["UserMeta"],
     }),
     updateUserMeta: builder.mutation<
       void,
@@ -110,6 +111,7 @@ export const usersApi = createApi({
           user_metadata: meta,
         },
       }),
+      invalidatesTags: ["UserMeta"],
     }),
     addUser: builder.mutation<Auth0User, NewUserRequest>({
       query: (newUser) => ({

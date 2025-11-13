@@ -4,7 +4,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { setCookie } from "../utils/cookies";
 
 const AuthCallback: React.FC = () => {
-  const { getAccessTokenSilently, isLoading } = useAuth0();
+  const { getAccessTokenSilently, isLoading, user } = useAuth0();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -12,19 +12,28 @@ const AuthCallback: React.FC = () => {
       try {
         const token = await getAccessTokenSilently();
         setCookie("auth_token", token);
-        navigate("/profile");
-      } catch (error) {
-        if (error instanceof Error) {
-          throw new Error(`Ошибка обработки callback: ${error}`);
+
+        const isGoogle = user?.sub?.startsWith("google-oauth2|");
+        const isNewUser = user?.["https://linguaapp/new_user"];
+        console.log("🔎 isGoogle:", isGoogle, "isNewUser:", isNewUser);
+
+        if (isGoogle && isNewUser) {
+          console.log(
+            "Новый пользователь Google redirect to /profile/after-login"
+          );
+          navigate("/profile/after-login", { replace: true });
+        } else {
+          console.log("Обычный вход redirect to /profile");
+          navigate("/profile", { replace: true });
         }
-        navigate("/login");
+      } catch (error) {
+        console.error("❌ Ошибка обработки callback:", error);
+        navigate("/login", { replace: true });
       }
     };
 
-    if (!isLoading) {
-      handleCallback();
-    }
-  }, [isLoading, getAccessTokenSilently, navigate]);
+    if (!isLoading) handleCallback();
+  }, [isLoading, getAccessTokenSilently, navigate, user]);
 
   return <div>Обработка входа...</div>;
 };

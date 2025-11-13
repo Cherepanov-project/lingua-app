@@ -2,13 +2,8 @@ import { Outlet } from "react-router-dom";
 import { ProfileSidebarLeft } from "../Profile/ProfileSidebarLeft";
 import { Container } from "@mui/material";
 import { Stack } from "@mui/material";
-import type { ReactNode } from "react";
 
-interface LayoutProps {
-  children: ReactNode;
-}
-
-const ProfileLayout = ({ children }: LayoutProps) => {
+const ProfileLayout = () => {
   return (
     <>
       <Container maxWidth={"xl"} disableGutters>
@@ -21,7 +16,6 @@ const ProfileLayout = ({ children }: LayoutProps) => {
           <Outlet />
         </Stack>
       </Container>
-      {children}
     </>
   );
 };

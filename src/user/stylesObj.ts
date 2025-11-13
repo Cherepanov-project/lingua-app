@@ -18,7 +18,8 @@ interface StyleObject {
   gameTitle: CSSProperties;
   toggleButton: CSSProperties;
   registerInput: CSSProperties;
-  modal: CSSProperties;
+  afterLoginForm: CSSProperties;
+  afterLoginText: CSSProperties;
 }
 
 export const vars = {
@@ -187,17 +188,21 @@ export const stylesObj: StyleObject = {
       },
     },
   },
-  modal: {
+
+  afterLoginForm: {
+    width: 600,
+    padding: "30px",
+    background: "white",
     borderRadius: "20px",
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: 400,
-    bgcolor: "background.paper",
-    border: "2px solid #000",
-    boxShadow: "24",
-    p: 4,
+    boxShadow: "0 6px 30px rgba(0,0,0,0.1)",
+    marginTop: "20px",
+  },
+
+  afterLoginText: {
+    textAlign: "center",
+    marginBottom: "10px",
+    fontWeight: 700,
+    color: "#000",
   },
 };
 

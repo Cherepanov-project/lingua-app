@@ -40,6 +40,9 @@ import { NewWordPage } from './user/components/PlanToday/NewWord/NewWordPage.tsx
 import { WordsPage } from './user/components/PlanToday/NewWord/WordsPage.tsx';        
 import { GrammarDetailPage } from "./user/components/Grammar/GrammarDetail.tsx";
 import { AfterLogin } from "./user/components/Register/AfterLogin.tsx";
+import { GrammarExercise } from "./user/components/Grammar/GrammarExercise.tsx";
+import { BooksListPage } from "./user/components/PlanToday/Reading/BooksListPage.tsx";
+import { ReaderPage } from "./user/components/PlanToday/Reading/ReaderPage.tsx";
 
 
 const App: React.FC = () => {
@@ -77,6 +80,8 @@ const App: React.FC = () => {
             <Route path="grammar/:slug/:level" element={<GrammarExercise />} />
             <Route path="games" element={<ProfileGamesPage />} />
             <Route path="settings" element={<ProfileSettingsPage />} />
+            <Route path="reader" element={<BooksListPage />} />
+            <Route path="reader/:id" element={<ReaderPage />} />
           </Route>
 
 

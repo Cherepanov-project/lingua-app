@@ -18,7 +18,7 @@ const ProfileWidgetPlanToday = () => {
           <ChallengeItem itemTitle="Упражнение" imageUrl="./plan-image-pencil.png" link='*'/>
         </Grid>
         <Grid size={6}>
-          <ChallengeItem itemTitle="Чтение" imageUrl="./plan-image-notepad.png" link='*'/>
+          <ChallengeItem itemTitle="Чтение" imageUrl="./plan-image-notepad.png" link='reader'/>
         </Grid>
         <Grid size={6}>
           <ChallengeItem itemTitle="Новые слова" imageUrl="./plan-image-todo-list.png" link='new-word'/>

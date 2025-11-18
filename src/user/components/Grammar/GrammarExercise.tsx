@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom'
 import { Box, Button, TextField, Typography } from '@mui/material'
-import { EngLanguage, MissWords, } from '../../../shared/constants/textConsts'
+import { EngLanguage, MissWords } from '../../../shared/constants/textConsts'
 import { GrammarLayout } from './GrammarLayout'
 import { useGetGrammarExercisesByLevelQuery } from '../../../shared/api/grammarExercisesApi'
 import { useGetRulesQuery } from '../../../shared/api/grammarApi'
@@ -8,21 +8,15 @@ import { useGrammarExercise } from './hooks/useGrammarExercise'
 
 export const GrammarExercise = () => {
   const { slug, level } = useParams()
-  const {data: exercises} = useGetGrammarExercisesByLevelQuery(`${level}`)
-  const { data: grammarData } = useGetRulesQuery();
+  const { data: exercises } = useGetGrammarExercisesByLevelQuery(`${level}`)
+  const { data: grammarData } = useGetRulesQuery()
 
-  const grammarItem = grammarData?.find(i => i.slug === slug);
+  const grammarItem = grammarData?.find(i => i.slug === slug)
   const exercisesItem = exercises?.find(ex => ex.grammar_id === Number(grammarItem?.id))
   const missing_words = exercisesItem?.missing_words ?? []
   const sentence = exercisesItem?.sentence ?? ''
-  
-  const {
-    userAnswers,
-    isChecked,
-    result,
-    handleChange,
-    handleCheck,
-  } = useGrammarExercise(missing_words);
+
+  const { userAnswers, isChecked, result, handleChange, handleCheck } = useGrammarExercise(missing_words)
 
   return (
     <GrammarLayout>
@@ -44,6 +38,7 @@ export const GrammarExercise = () => {
           </Typography>
 
           <Typography
+            component="div"
             sx={{
               backgroundColor: '#f6f8ff',
               borderRadius: '1rem',
@@ -89,8 +84,7 @@ export const GrammarExercise = () => {
           </Button>
 
           {isChecked && (
-            <Typography
-              sx={{ mt: 3, fontWeight: 'bold', color: result?.includes("правильные") ? 'green' : 'red' }}>
+            <Typography sx={{ mt: 3, fontWeight: 'bold', color: result?.includes('правильные') ? 'green' : 'red' }}>
               {result}
             </Typography>
           )}

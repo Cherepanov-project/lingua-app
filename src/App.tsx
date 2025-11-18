@@ -36,11 +36,11 @@ import Games from "./pages/admin/Games.tsx";
 import { ListeningSkillsPage } from "./user/components/Exercises/ListeningSkills/ListeningSkillsPage.tsx";
 import { AudioPage } from "./user/components/Exercises/ListeningSkills/AudioPage.tsx";
 import { QuizPage } from "./user/components/Exercises/ListeningSkills/QuizPage.tsx";
-import { NewWordPage } from './user/components/PlanToday/NewWord/NewWordPage.tsx';
-import { WordsPage } from './user/components/PlanToday/NewWord/WordsPage.tsx';        
+import { NewWordPage } from "./user/components/PlanToday/NewWord/NewWordPage.tsx";
+import { WordsPage } from "./user/components/PlanToday/NewWord/WordsPage.tsx";
 import { GrammarDetailPage } from "./user/components/Grammar/GrammarDetail.tsx";
 import { AfterLogin } from "./user/components/Register/AfterLogin.tsx";
-
+import { GrammarExercise } from "./user/components/Grammar/GrammarExercise.tsx";
 
 const App: React.FC = () => {
   return (
@@ -58,7 +58,8 @@ const App: React.FC = () => {
               <ProtectedRoute>
                 <ProfileLayout />
               </ProtectedRoute>
-            }>
+            }
+          >
             <Route index element={<ProfilePage />} />
 
             <Route path="courses" element={<ProfileCoursesPage />} />
@@ -79,8 +80,10 @@ const App: React.FC = () => {
             <Route path="settings" element={<ProfileSettingsPage />} />
           </Route>
 
-
-          <Route path="profile/exercises/orthography" element={<OrthographyPage />} />
+          <Route
+            path="profile/exercises/orthography"
+            element={<OrthographyPage />}
+          />
           <Route path="/truth-or-lie" element={<TruthOrLiePage />} />
           <Route path="/reset-password" element={<PasswordReset />} />
           <Route path="/auth-callback" element={<AuthCallback />} />
@@ -91,9 +94,18 @@ const App: React.FC = () => {
             <Route path="matchgame" element={<MatchGame />} />
           </Route>
 
-          <Route path="/course/:courseId/module/:moduleId" element={<EditModule />} />
-          <Route path="/course/:courseId/module/:moduleId/lesson/:lessonId" element={<EditLesson />} />
-          <Route path="/course/:courseId/module/:moduleId/lesson/:lessonId/listening" element={<ListeningExercise />} />
+          <Route
+            path="/course/:courseId/module/:moduleId"
+            element={<EditModule />}
+          />
+          <Route
+            path="/course/:courseId/module/:moduleId/lesson/:lessonId"
+            element={<EditLesson />}
+          />
+          <Route
+            path="/course/:courseId/module/:moduleId/lesson/:lessonId/listening"
+            element={<ListeningExercise />}
+          />
           <Route
             path="/admin/*"
             element={
@@ -110,7 +122,8 @@ const App: React.FC = () => {
                   <AdminContent />
                 </AdminProtectedRoute>
               </ProtectedRoute>
-            }>
+            }
+          >
             <Route index element={<AdminHome />} />
             <Route path="users" element={<Users />} />
             <Route path="courses" element={<Courses />} />
@@ -123,7 +136,7 @@ const App: React.FC = () => {
         </Routes>
       </ThemeProvider>
     </Auth0ProviderWithNavigate>
-  )
-}
+  );
+};
 
-export default App
+export default App;

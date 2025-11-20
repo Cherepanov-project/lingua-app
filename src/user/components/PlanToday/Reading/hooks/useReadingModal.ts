@@ -29,7 +29,7 @@ export function useReadingModal() {
     }
 
     prevIndexRef.current = currentChunkIndex
-  }, [chunks, id, currentChunkIndex])
+  }, [chunks, id])
 
   useEffect(() => {
     if (!chunks || !id) return
@@ -66,7 +66,7 @@ export function useReadingModal() {
       setWasFinished(true)
       localStorage.setItem(`reader-finished-${id}`, "1")
     }
-  }, [currentChunkIndex, chunks, id, wasFinished])
+  }, [currentChunkIndex, chunks])
 
 
   return {

@@ -3,7 +3,8 @@ import { useLocation, useParams } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../../../../../shared/hooks/redux'
 import { readerSlice } from '../../../../../store/reducers/Reading'
 import { useGetBookHtmlQuery } from '../../../../../shared/api/bookApi'
-import { htmlToPlainText, splitTextIntoChunksAsHtml } from '../utils'
+import { splitHtmlByParagraphs } from '../utils'
+
 
 export function useReader() {
   const { id } = useParams()
@@ -16,21 +17,20 @@ export function useReader() {
   useEffect(() => {
     if (id) dispatch(setCurrentBook(id))
   }, [id, dispatch, setCurrentBook])
-
-  const { chunksByBook, currentChunkIndexByBook, chunkSizeWords } = useAppSelector(state => state.reader)
+  
+  const { chunksByBook, currentChunkIndexByBook, maxCharsPerChunk } = useAppSelector(state => state.reader)
   const currentChunkIndex = currentChunkIndexByBook[id ?? ''] ?? 0
   const chunks = chunksByBook[id ?? '']
-
+  
   const { data: htmlText, isLoading, error } = useGetBookHtmlQuery(url, { skip: !url })
 
   useEffect(() => {
-    if (htmlText && !chunks) {
-      const plainText = htmlToPlainText(htmlText)
-      const newChunks = splitTextIntoChunksAsHtml(plainText, chunkSizeWords)
+  if (htmlText && !chunks) {
+    const newChunks = splitHtmlByParagraphs(htmlText, maxCharsPerChunk)
 
-      dispatch(setChunksForBook({ bookId: id, chunks: newChunks }))
-    }
-  }, [htmlText, chunks, chunkSizeWords, dispatch, id, setChunksForBook])
+    dispatch(setChunksForBook({ bookId: id, chunks: newChunks }))
+  }
+}, [htmlText, chunks, maxCharsPerChunk, dispatch, id, setChunksForBook])
 
   useEffect(() => {
     if (!id || chunks == null) return
@@ -70,8 +70,8 @@ export function useReader() {
     dispatch(
       setCurrentChunkIndex({
         bookId: id!,
-        index: page - 1, 
-      })
+        index: page - 1,
+      }),
     )
   }
 

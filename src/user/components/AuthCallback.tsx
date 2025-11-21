@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { setCookie } from "../utils/cookies";
-import { Alert } from "@mui/material";
 
 const AuthCallback: React.FC = () => {
   const { getAccessTokenSilently, isLoading, user } = useAuth0();
@@ -23,8 +22,10 @@ const AuthCallback: React.FC = () => {
           navigate("/profile", { replace: true });
         }
       } catch {
-        <Alert severity="error">"Ошибка обработки callback"</Alert>;
-        navigate("/login", { replace: true });
+        navigate("/login", {
+          replace: true,
+          state: { error: "Ошибка обработки callback" },
+        });
       }
     };
 

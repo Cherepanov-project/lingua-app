@@ -31,7 +31,7 @@ export const store = configureStore({
     reader: readerReducer,
     [bookApi.reducerPath]: bookApi.reducer,
   },
-  middleware: getDefaultMiddleware =>
+  middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware()
       .concat(authApi.middleware)
       .concat(languagesApi.middleware)
@@ -47,5 +47,5 @@ export const store = configureStore({
       .concat(bookApi.middleware),
 });
 
-export type RootState = ReturnType<typeof store.getState>
-export type AppDispatch = typeof store.dispatch
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;

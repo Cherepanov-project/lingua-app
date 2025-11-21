@@ -20,35 +20,37 @@ export const GrammarExercise = () => {
 
   return (
     <GrammarLayout>
-      {grammarItem => (
+      {(grammarItem) => (
         <Box
           sx={{
-            padding: '20px',
-          }}>
+            padding: "20px",
+          }}
+        >
           <Typography variant="h4" sx={{ mb: 2 }}>
             {grammarItem.title}
           </Typography>
 
-          <Typography variant="h6" sx={{ color: '#666', mb: 3 }}>
+          <Typography variant="h6" sx={{ color: "#666", mb: 3 }}>
             {EngLanguage} {level}
           </Typography>
 
-          <Typography variant="h5" sx={{ mb: 3, textAlign: 'center' }}>
+          <Typography variant="h5" sx={{ mb: 3, textAlign: "center" }}>
             {MissWords}
           </Typography>
 
           <Typography
             component="div"
             sx={{
-              backgroundColor: '#f6f8ff',
-              borderRadius: '1rem',
-              padding: '20px',
-              maxWidth: '800px',
+              backgroundColor: "#f6f8ff",
+              borderRadius: "1rem",
+              padding: "20px",
+              maxWidth: "800px",
               lineHeight: 1.8,
-              textAlign: 'center',
-              fontSize: '1.2rem',
-            }}>
-            {sentence.split('____').map((part, index) => (
+              textAlign: "center",
+              fontSize: "1.2rem",
+            }}
+          >
+            {sentence.split("____").map((part, index) => (
               <span key={index}>
                 {part}
                 {index < missing_words.length && (
@@ -56,12 +58,12 @@ export const GrammarExercise = () => {
                     variant="outlined"
                     size="small"
                     value={userAnswers[index]}
-                    onChange={e => handleChange(index, e.target.value)}
+                    onChange={(e) => handleChange(index, e.target.value)}
                     sx={{
-                      width: '100px',
+                      width: "100px",
                       mx: 1,
-                      '& .MuiOutlinedInput-root': {
-                        borderRadius: '1rem',
+                      "& .MuiOutlinedInput-root": {
+                        borderRadius: "1rem",
                       },
                     }}
                   />
@@ -74,12 +76,13 @@ export const GrammarExercise = () => {
             variant="contained"
             onClick={handleCheck}
             sx={{
-              borderRadius: '3rem',
+              borderRadius: "3rem",
               mt: 4,
-              backgroundColor: '#d2daff',
-              color: 'black',
-              fontWeight: 'bold',
-            }}>
+              backgroundColor: "#d2daff",
+              color: "black",
+              fontWeight: "bold",
+            }}
+          >
             Проверить
           </Button>
 
@@ -91,5 +94,5 @@ export const GrammarExercise = () => {
         </Box>
       )}
     </GrammarLayout>
-  )
-}
+  );
+};

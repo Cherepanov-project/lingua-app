@@ -1,20 +1,23 @@
-import { StrictMode } from "react";
-import ReactDOM from "react-dom/client";
-import { Provider } from "react-redux";
-import { BrowserRouter } from "react-router-dom";
-import { store } from "./store/store";
-import { StyledEngineProvider } from "@mui/material";
-import App from "./App";
-import "./user/variables.scss";
+import { StrictMode } from 'react'
+import ReactDOM from 'react-dom/client'
+import { Provider } from 'react-redux'
+import { BrowserRouter } from 'react-router-dom'
+import { persistor, store } from './store/store'
+import { StyledEngineProvider } from '@mui/material'
+import App from './App'
+import './user/variables.scss'
+import { PersistGate } from 'redux-persist/integration/react'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <StyledEngineProvider injectFirst>
       <Provider store={store}>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
+        <PersistGate loading={null} persistor={persistor}>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </PersistGate>
       </Provider>
     </StyledEngineProvider>
-  </StrictMode>
-);
+  </StrictMode>,
+)

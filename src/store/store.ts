@@ -1,5 +1,3 @@
-import truthOrLieReducer from '../store/reducers/TruthOrLieSlice'
-import readerReducer from '../store/reducers/Reading.ts'
 import { configureStore } from '@reduxjs/toolkit'
 import { authApi } from '../user/features/auth/authApi'
 import { languagesApi } from '../shared/api/languagesApi'
@@ -13,26 +11,26 @@ import { newWordsApi } from '../shared/api/newWordsApi.ts'
 import { grammarApi } from "../shared/api/grammarApi.ts";
 import { grammarExercisesApi } from "../shared/api/grammarExercisesApi.ts";
 import { bookApi } from '../shared/api/bookApi.ts'
+import storage from 'redux-persist/lib/storage'
+import { type PersistConfig } from 'redux-persist'
+import persistReducer from 'redux-persist/es/persistReducer'
+import rootReducer, { type RootReducer } from './rootReducer.ts'
+import persistStore from 'redux-persist/es/persistStore'
+
+export const persistConfig: PersistConfig<RootReducer> = {
+  key: 'root',
+  storage,
+  whitelist: ['readerPersist'], 
+}
+
+const persistedReducer = persistReducer<RootReducer>(persistConfig, rootReducer)
 
 export const store = configureStore({
-  reducer: {
-    [authApi.reducerPath]: authApi.reducer,
-    [languagesApi.reducerPath]: languagesApi.reducer,
-    [usersApi.reducerPath]: usersApi.reducer,
-    [picturesApi.reducerPath]: picturesApi.reducer,
-    [truthOrLieGamesApi.reducerPath]: truthOrLieGamesApi.reducer,
-    truthOrLie: truthOrLieReducer,
-    [matchGameApi.reducerPath]: matchGameApi.reducer,
-    [orthographyApi.reducerPath]: orthographyApi.reducer,
-    [listeningApi.reducerPath]: listeningApi.reducer,
-    [newWordsApi.reducerPath]: newWordsApi.reducer,
-    [grammarApi.reducerPath]: grammarApi.reducer,
-    [grammarExercisesApi.reducerPath]: grammarExercisesApi.reducer,
-    reader: readerReducer,
-    [bookApi.reducerPath]: bookApi.reducer,
-  },
+  reducer: persistedReducer,
   middleware: getDefaultMiddleware =>
-    getDefaultMiddleware()
+    getDefaultMiddleware({
+      serializableCheck: false,
+    })
       .concat(authApi.middleware)
       .concat(languagesApi.middleware)
       .concat(usersApi.middleware)
@@ -46,6 +44,8 @@ export const store = configureStore({
       .concat(grammarExercisesApi.middleware)
       .concat(bookApi.middleware),
 });
+
+export const persistor = persistStore(store)
 
 export type RootState = ReturnType<typeof store.getState>
 export type AppDispatch = typeof store.dispatch

@@ -1,57 +1,37 @@
-import { useEffect, useState } from "react";
-import {
-  Box,
-  InputBase,
-  List,
-  ListItemButton,
-  ListItemText,
-  Typography,
-  Paper,
-} from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
-import { useGetLanguagesQuery } from "../../api/languagesApi";
-import {
-  inputStyle,
-  listItemStyle,
-  paperStyle,
-  searchWrapperStyle,
-} from "./LanguageSelect.styles";
+import { useEffect, useState } from 'react'
+import { Box, InputBase, List, ListItemButton, ListItemText, Typography, Paper } from '@mui/material'
+import SearchIcon from '@mui/icons-material/Search'
+import { useGetLanguagesQuery } from '../../api/languagesApi'
+import { inputStyle, listItemStyle, paperStyle, searchWrapperStyle } from './LanguageSelect.styles'
+import { useAppDispatch, useAppSelector } from '../../hooks/redux'
+import { setLanguage } from '../../../store/reducers/ReaderPersistSlice'
 
 interface LanguageSelectProps {
-  label: string;
-  storageKey: string;
+  label: string
+  storageKey: string
 }
 
 const LanguageSelect = ({ label, storageKey }: LanguageSelectProps) => {
-  const { data: languages = [], isLoading, isError } = useGetLanguagesQuery();
-  const [selectedLang, setSelectedLang] = useState("");
-  const [search, setSearch] = useState("");
+  const { data: languages = [], isLoading, isError } = useGetLanguagesQuery()
+  const dispatch = useAppDispatch()
+  const selectedLang = useAppSelector(state => state.readerPersist.selectedLanguage?.[storageKey] || '')
+  const [search, setSearch] = useState('')
 
   useEffect(() => {
-    const stored = localStorage.getItem(storageKey);
-    if (stored) {
-      setSelectedLang(stored);
-      return;
-    }
-
-    if (storageKey === "speakingLang") {
-      const browserLang = navigator.language.slice(0, 2);
-      const match = languages.find((lang) => lang.code === browserLang);
+    if (!selectedLang && storageKey === 'speakingLang') {
+      const browserLang = navigator.language.slice(0, 2)
+      const match = languages.find(lang => lang.code === browserLang)
       if (match) {
-        setSelectedLang(match.code);
-        localStorage.setItem(storageKey, match.code);
+        dispatch(setLanguage({ key: storageKey, value: match.code }))
       }
     }
-  }, [storageKey, languages]);
+  }, [storageKey, languages])
 
   const handleSelect = (code: string) => {
-    setSelectedLang(code);
-    localStorage.setItem(storageKey, code);
-  };
+    dispatch(setLanguage({ key: storageKey, value: code }))
+  }
 
-  const filteredLanguages = languages.filter((lang) =>
-    lang.label.toLowerCase().includes(search.toLowerCase())
-  );
+  const filteredLanguages = languages.filter(lang => lang.label.toLowerCase().includes(search.toLowerCase()))
 
   return (
     <Box>
@@ -60,11 +40,11 @@ const LanguageSelect = ({ label, storageKey }: LanguageSelectProps) => {
       </Typography>
       <Paper elevation={1} sx={paperStyle}>
         <Box sx={searchWrapperStyle}>
-          <SearchIcon sx={{ mr: 1, color: "#000000" }} />
+          <SearchIcon sx={{ mr: 1, color: '#000000' }} />
           <InputBase
             placeholder="Поиск"
             value={search}
-            onChange={(e) => setSearch(e.target.value)}
+            onChange={e => setSearch(e.target.value)}
             fullWidth
             sx={inputStyle}
           />
@@ -76,7 +56,7 @@ const LanguageSelect = ({ label, storageKey }: LanguageSelectProps) => {
           <Typography color="error">Ошибка загрузки</Typography>
         ) : (
           <List disablePadding>
-            {filteredLanguages.map((lang) => (
+            {filteredLanguages.map(lang => (
               <ListItemButton
                 key={lang.code}
                 selected={selectedLang === lang.code}
@@ -96,7 +76,7 @@ const LanguageSelect = ({ label, storageKey }: LanguageSelectProps) => {
         )}
       </Paper>
     </Box>
-  );
-};
+  )
+}
 
-export default LanguageSelect;
+export default LanguageSelect

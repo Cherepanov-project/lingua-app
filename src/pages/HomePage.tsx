@@ -15,13 +15,17 @@ import LanguagesBlock from "../shared/components/LanguagesBlock/LanguagesBlock";
 import StatsSection from "../shared/components/StatsSection/StatsSection";
 import AboutSection from "../shared/components/AboutSection/AboutSection";
 import NavigationButton from "../shared/components/NavigationButton";
+import { useAppSelector } from "../shared/hooks/redux";
 
 const HomePage = () => {
   const navigate = useNavigate();
   const [showDialog, setShowDialog] = useState(false);
+  const selectedLang = useAppSelector(
+    (state) => state.readerPersist.selectedLanguage?.["learningLang"] || ""
+  );
+
   const handleStartClick = () => {
-    const storedLang = localStorage.getItem("learningLang");
-    if (!storedLang) {
+    if (!selectedLang) {
       setShowDialog(true);
       return;
     }

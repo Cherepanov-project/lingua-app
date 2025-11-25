@@ -1,31 +1,33 @@
-import { useEffect, useRef, useState } from "react"
-import { useParams } from "react-router-dom"
-import { useAppSelector } from "../../../../../shared/hooks/redux"
+import { useEffect, useRef, useState } from 'react'
+import { useParams } from 'react-router-dom'
+import { useAppDispatch, useAppSelector } from '../../../../../shared/hooks/redux'
+import { setFinished, setVisited } from '../../../../../store/reducers/ReaderPersistSlice'
 
 export function useReadingModal() {
   const { id } = useParams()
   const { chunksByBook, currentChunkIndexByBook } = useAppSelector(state => state.reader)
-  const currentChunkIndex = currentChunkIndexByBook[id ?? ""] ?? 0
-  const chunks = chunksByBook[id ?? ""]
+  const savedVisited = useAppSelector(state => state.readerPersist.visited[id ?? ''])
+  const savedFinished = useAppSelector(state => state.readerPersist.finished[id ?? ''])
+  const dispatch = useAppDispatch()
+  const currentChunkIndex = currentChunkIndexByBook[id ?? ''] ?? 0
+  const chunks = chunksByBook[id ?? '']
 
   const prevIndexRef = useRef<number>(currentChunkIndex)
   const visitedRef = useRef<boolean[]>([])
   const [isCongratsOpen, setCongratsOpen] = useState(false)
 
   const [wasFinished, setWasFinished] = useState(() => {
-    return localStorage.getItem(`reader-finished-${id}`) === "1"
+    return savedFinished
   })
 
   useEffect(() => {
     if (!chunks || !id) return
 
-    const saved = localStorage.getItem(`reader-visited-${id}`)
-
-    if (saved) {
-      visitedRef.current = JSON.parse(saved)
+    if (savedVisited) {
+      visitedRef.current = [...savedVisited]
     } else {
       visitedRef.current = Array(chunks.length).fill(false)
-      visitedRef.current[0] = true 
+      visitedRef.current[0] = true
     }
 
     prevIndexRef.current = currentChunkIndex
@@ -40,11 +42,10 @@ export function useReadingModal() {
     const isSequentialForward = current === prev + 1
 
     if (isSequentialForward) {
-      visitedRef.current[current] = true
-      localStorage.setItem(
-        `reader-visited-${id}`,
-        JSON.stringify(visitedRef.current)
-      )
+      const updatedVisited = [...visitedRef.current]
+      updatedVisited[current] = true
+      visitedRef.current = updatedVisited
+      dispatch(setVisited({ bookId: id, visited: visitedRef.current }))
     }
 
     prevIndexRef.current = current
@@ -54,20 +55,17 @@ export function useReadingModal() {
     if (!chunks?.length) return
 
     const lastIndex = chunks.length - 1
-
-    const allSequential =
-      visitedRef.current.length === chunks.length &&
-      visitedRef.current.every(Boolean)
-
+    const allSequential = visitedRef.current.length === chunks.length && visitedRef.current.every(Boolean)
     const onLastPage = currentChunkIndex === lastIndex
 
-    if (allSequential && onLastPage && !wasFinished) {
+    if (allSequential && onLastPage) {
       setCongratsOpen(true)
-      setWasFinished(true)
-      localStorage.setItem(`reader-finished-${id}`, "1")
+      if (!wasFinished) {
+        setWasFinished(true)
+        dispatch(setFinished({ bookId: String(id), finished: true }))
+      }
     }
   }, [currentChunkIndex, chunks])
-
 
   return {
     isCongratsOpen,

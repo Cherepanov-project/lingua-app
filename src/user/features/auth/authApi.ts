@@ -82,7 +82,7 @@ const baseQuery: BaseQueryFn<
     Authorization: `Bearer ${token}`,
   };
 
-  let result = await rawBaseQuery(requestArgs, api, extraOptions);
+  const result = await rawBaseQuery(requestArgs, api, extraOptions);
 
   if (
     result.error &&

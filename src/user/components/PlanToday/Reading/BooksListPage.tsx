@@ -30,7 +30,7 @@ export function BooksListPage() {
             {OpenBooks}
           </Typography>
           <Stack spacing={2}>
-            {books.map(b => (
+            {books.map((b: BookItem) => (
               <Card key={b.id} variant="outlined">
                 <CardContent style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                   

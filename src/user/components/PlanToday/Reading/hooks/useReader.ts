@@ -1,23 +1,23 @@
 import { useEffect, useMemo } from 'react'
 import { useLocation, useParams } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../../../../../shared/hooks/redux'
-import { readerSlice } from '../../../../../store/reducers/Reading'
+import { setChunksForBook, setCurrentBook, setCurrentChunkIndex } from '../../../../../store/reducers/Reading'
 import { useGetBookHtmlQuery } from '../../../../../shared/api/bookApi'
 import { splitHtmlByParagraphs } from '../utils'
+import { setProgress } from '../../../../../store/reducers/ReaderPersistSlice'
 
 
 export function useReader() {
   const { id } = useParams()
   const location = useLocation()
   const { url, title } = location.state
-
   const dispatch = useAppDispatch()
-  const { setCurrentBook, setCurrentChunkIndex, setChunksForBook } = readerSlice.actions
 
   useEffect(() => {
     if (id) dispatch(setCurrentBook(id))
   }, [id, dispatch, setCurrentBook])
   
+  const saved = useAppSelector(state => state.readerPersist.progress[id ?? ""])
   const { chunksByBook, currentChunkIndexByBook, maxCharsPerChunk } = useAppSelector(state => state.reader)
   const currentChunkIndex = currentChunkIndexByBook[id ?? ''] ?? 0
   const chunks = chunksByBook[id ?? '']
@@ -34,12 +34,11 @@ export function useReader() {
 
   useEffect(() => {
     if (!id || chunks == null) return
-    localStorage.setItem(`reader-progress-${id}`, JSON.stringify(currentChunkIndex))
+    dispatch(setProgress({ bookId: id, index: currentChunkIndex }))
   }, [currentChunkIndex, id, chunks])
 
   useEffect(() => {
     if (!id || !chunks) return
-    const saved = localStorage.getItem(`reader-progress-${id}`)
     if (saved) {
       dispatch(setCurrentChunkIndex({ bookId: id, index: Number(saved) }))
     }

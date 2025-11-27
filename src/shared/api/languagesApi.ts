@@ -1,7 +1,8 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import type { LanguageOption } from "../types/language";
 import type { LevelOptions } from "../types/levels";
-
+import type { CourseModule } from "../types/module";
+import type { Lesson } from "../types/lesson";
 const API_BASE_URL =
   import.meta.env.VITE_API_BASE_URL || "http://localhost:8787";
 
@@ -30,6 +31,10 @@ export const languagesApi = createApi({
       query: () => "/courses",
       providesTags: [{ type: "Courses", id: "LIST" }],
     }),
+    getCourseById: builder.query({
+      query: (id) => `/courses/${id}`,
+      providesTags: (_result, _error, id) => [{ type: "Courses", id }],
+    }),
     deleteCourse: builder.mutation<void, number>({
       query: (id) => ({
         url: `/courses/${id}`,
@@ -37,7 +42,7 @@ export const languagesApi = createApi({
       }),
       invalidatesTags: [{ type: "Courses", id: "LIST" }],
     }),
-    getModules: builder.query({
+    getModules: builder.query<CourseModule[], void>({
       query: () => "/modules",
       providesTags: [{ type: "Modules", id: "LIST" }],
     }),
@@ -56,11 +61,11 @@ export const languagesApi = createApi({
       }),
       invalidatesTags: [{ type: "Modules", id: "LIST" }],
     }),
-    updateLessonsInModule: builder.mutation({
-      query: ({ id, lessons }) => ({
+    updateModule: builder.mutation({
+      query: (body) => ({
         url: "/modules",
         method: "PATCH",
-        body: { id, lessons },
+        body,
       }),
       invalidatesTags: [{ type: "Modules", id: "LIST" }],
     }),
@@ -72,7 +77,18 @@ export const languagesApi = createApi({
       }),
       invalidatesTags: [{ type: "Courses", id: "LIST" }],
     }),
-    getLessons: builder.query({
+    updateCourseInfo: builder.mutation({
+      query: (data) => ({
+        url: "/courses",
+        method: "PATCH",
+        body: data,
+      }),
+      invalidatesTags: (_result, _error, { id }) => [
+        { type: "Courses", id },
+        { type: "Courses", id: "LIST" },
+      ],
+    }),
+    getLessons: builder.query<Lesson[], void>({
       query: () => "/lessons",
       providesTags: [{ type: "Lessons", id: "LIST" }],
     }),
@@ -100,12 +116,14 @@ export const {
   useAddCourseMutation,
   useGetCoursesQuery,
   useDeleteCourseMutation,
-  useUpdateLessonsInModuleMutation,
+  useUpdateModuleMutation,
   useGetModulesQuery,
+  useGetCourseByIdQuery,
   useAddModuleMutation,
   useDeleteModuleMutation,
   useUpdateCourseModulesMutation,
   useGetLessonsQuery,
   useDeleteLessonMutation,
   useAddLessonMutation,
+  useUpdateCourseInfoMutation,
 } = languagesApi;

@@ -15,7 +15,7 @@ const responseSchema = z.array(
     language: z.string(),
     level: z.string(),
     description: z.string(),
-    amountTime: z.number(),
+    name: z.string().optional(),
     modules: z.array(z.string()),
     published: z.boolean(),
   })
@@ -42,10 +42,10 @@ export class GetCoursesApi extends OpenAPIRoute {
     const courses = rows.map((row) => ({
       id: row.id,
       language: row.language,
-      level: row.language,
+      level: row.level,
       description: row.description,
-      amountTime: row.amountTime,
-      modules: JSON.parse(row.modules) as string[],
+      name: row.name,
+      modules: row.modules ? (JSON.parse(row.modules) as string[]) : [],
       published: row.published,
     }));
     return Response.json(responseSchema.parse(courses));

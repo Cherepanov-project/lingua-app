@@ -7,12 +7,6 @@ import AuthCallback from "./user/components/AuthCallback";
 import ProtectedRoute from "./user/components/ProtectedRoute";
 import PasswordReset from "./user/components/PasswordReset/PasswordReset";
 import HomePage from "./pages/HomePage";
-import Courses from "./pages/admin/Courses.tsx";
-import CreateCourse from "./pages/admin/CreateCourse.tsx";
-import Course from "./pages/admin/Course.tsx";
-import EditModule from "./pages/admin/EditModule.tsx";
-import EditLesson from "./pages/admin/EditLesson.tsx";
-import ListeningExercise from "./pages/admin/ListeningExercise.tsx";
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { authTheme } from "./user/stylesObj";
@@ -44,6 +38,12 @@ import { GrammarExercise } from "./user/components/Grammar/GrammarExercise.tsx";
 import { BooksListPage } from "./user/components/PlanToday/Reading/BooksListPage.tsx";
 import { ReaderPage } from "./user/components/PlanToday/Reading/ReaderPage.tsx";
 
+import Courses from "./pages/admin/adminComponents/Courses/Courses.tsx";
+import Course from "./pages/admin/adminComponents/Courses/Course.tsx";
+import AddModule from "./pages/admin/adminComponents/Module/AddModule.tsx";
+import Module from "./pages/admin/adminComponents/Module/Module.tsx";
+import AddLesson from "./pages/admin/adminComponents/Lesson/AddLesson.tsx";
+import Lesson from "./pages/admin/adminComponents/Lesson/Lesson.tsx";
 
 const App: React.FC = () => {
   return (
@@ -84,7 +84,6 @@ const App: React.FC = () => {
             <Route path="reader" element={<BooksListPage />} />
             <Route path="reader/:id" element={<ReaderPage />} />
           </Route>
-
           <Route
             path="profile/exercises/orthography"
             element={<OrthographyPage />}
@@ -93,32 +92,10 @@ const App: React.FC = () => {
           <Route path="/reset-password" element={<PasswordReset />} />
           <Route path="/auth-callback" element={<AuthCallback />} />
           <Route path="/courses" element={<Courses />} />
-          <Route path="/course/create" element={<CreateCourse />} />
-          <Route path="/course/:id" element={<Course />} />
           <Route path="/games" element={<GamesLayout />}>
             <Route path="matchgame" element={<MatchGame />} />
           </Route>
 
-          <Route
-            path="/course/:courseId/module/:moduleId"
-            element={<EditModule />}
-          />
-          <Route
-            path="/course/:courseId/module/:moduleId/lesson/:lessonId"
-            element={<EditLesson />}
-          />
-          <Route
-            path="/course/:courseId/module/:moduleId/lesson/:lessonId/listening"
-            element={<ListeningExercise />}
-          />
-          <Route
-            path="/admin/*"
-            element={
-              <ProtectedRoute>
-                <AdminContent />
-              </ProtectedRoute>
-            }
-          />
           <Route
             path="/admin"
             element={
@@ -132,6 +109,16 @@ const App: React.FC = () => {
             <Route index element={<AdminHome />} />
             <Route path="users" element={<Users />} />
             <Route path="courses" element={<Courses />} />
+            <Route path="course" element={<Courses />} />
+            <Route path="course/new-lesson" element={<AddLesson />} />
+            <Route path="course/:id" element={<Course />} />
+            <Route path="course/:id/:moduleid" element={<Module />} />
+            <Route path="course/:id/add-module" element={<AddModule />} />
+            <Route path="course/:id/:moduleid/:lessonId" element={<Lesson />} />
+            <Route
+              path="course/:id/:moduleid/new-lesson"
+              element={<AddLesson />}
+            />
             <Route path="games" element={<Games />} />
             <Route path="reviews" element={<Reviews />} />
             <Route path="stats" element={<div>Статистика</div>} />

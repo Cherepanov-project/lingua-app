@@ -1,38 +1,36 @@
-import { type SxProps } from '@mui/material'
-import { Box } from '@mui/material'
-import { Stack } from '@mui/material'
-import { Button } from '@mui/material'
-import { Typography } from '@mui/material'
-import { LinearProgress } from '@mui/material'
+import { type SxProps } from "@mui/material";
+import { Box } from "@mui/material";
+import { Stack } from "@mui/material";
+import { Button } from "@mui/material";
+import { Typography } from "@mui/material";
+import { LinearProgress } from "@mui/material";
 
 interface CourseCardProps {
-  language: string
-  level: string
-  description: string
-  amountTime: number
-  progress: number
+  language: string;
+  level: string;
+  description: string;
+  progress: number;
 }
 
 const CourseCard: React.FC<CourseCardProps> = ({
   language,
   level,
   description,
-  amountTime,
   progress,
 }) => {
   return (
     <Box
       sx={{
-        height: '100%',
-        backgroundColor: '#d2daff',
-        borderRadius: '40px',
-        padding: '25px',
-        display: 'flex',
-        flexDirection: 'column',
+        height: "100%",
+        backgroundColor: "#d2daff",
+        borderRadius: "40px",
+        padding: "25px",
+        display: "flex",
+        flexDirection: "column",
       }}
-      component={'article'}
+      component={"article"}
     >
-      <Stack spacing={2} useFlexGap sx={{ height: '100%' }}>
+      <Stack spacing={2} useFlexGap sx={{ height: "100%" }}>
         <Typography variant="h5">{language} язык</Typography>
         <Typography variant="h5">- Уровень {level}</Typography>
         <Typography variant="h6" color="#878787">
@@ -42,21 +40,19 @@ const CourseCard: React.FC<CourseCardProps> = ({
         <Stack
           spacing={3}
           sx={{
-            marginTop: 'auto',
+            marginTop: "auto",
           }}
         >
-          {progress > 0 ? (
-            <>
-              <LinearProgress sx={linearProgress} variant="determinate" value={progress} />
-              <Typography variant="h6" color="#878787">
-                Пройдено {progress} %
-              </Typography>
-            </>
-          ) : (
+          <>
+            <LinearProgress
+              sx={linearProgress}
+              variant="determinate"
+              value={progress}
+            />
             <Typography variant="h6" color="#878787">
-              ~ {amountTime} часов
+              Пройдено {progress} %
             </Typography>
-          )}
+          </>
           {progress > 0 ? (
             <Button sx={activationButton} variant="contained">
               Продолжить
@@ -69,25 +65,25 @@ const CourseCard: React.FC<CourseCardProps> = ({
         </Stack>
       </Stack>
     </Box>
-  )
-}
+  );
+};
 
-export { CourseCard }
+export { CourseCard };
 
 ///////////////////////////////////////////////////////////////////////////////
 
 const linearProgress: SxProps = {
-  height: '10px',
-  borderRadius: '3rem',
-  backgroundColor: 'white',
+  height: "10px",
+  borderRadius: "3rem",
+  backgroundColor: "white",
 
-  '& .MuiLinearProgress-bar': {
-    borderRadius: '3rem',
+  "& .MuiLinearProgress-bar": {
+    borderRadius: "3rem",
   },
-}
+};
 
 const activationButton: SxProps = {
-  borderRadius: '3rem',
-  color: 'white',
-  width: '100%',
-}
+  borderRadius: "3rem",
+  color: "white",
+  width: "100%",
+};

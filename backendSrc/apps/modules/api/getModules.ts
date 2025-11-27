@@ -14,6 +14,7 @@ const responseSchema = z.array(
     id: z.string(),
     name: z.string(),
     lessons: z.array(z.string()),
+    grammar: z.array(z.string()),
   })
 );
 
@@ -39,6 +40,7 @@ export class GetModulesApi extends OpenAPIRoute {
       id: row.id,
       name: row.name,
       lessons: JSON.parse(row.lessons) as string[],
+      grammar: JSON.parse(row.grammar),
     }));
     return Response.json(responseSchema.parse(modules));
   }

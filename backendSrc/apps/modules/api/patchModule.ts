@@ -10,6 +10,7 @@ const PatchModuleSchema = z.object({
   id: z.string(),
   name: z.string().optional(),
   lessons: z.array(z.string()).optional(),
+  grammar: z.array(z.string()).optional(),
 });
 
 export class PatchModulesApi extends OpenAPIRoute {
@@ -39,6 +40,9 @@ export class PatchModulesApi extends OpenAPIRoute {
       setData.lessons = JSON.stringify(updateFields.lessons);
     }
 
+    if (updateFields.grammar) {
+      setData.grammar = JSON.stringify(updateFields.grammar);
+    }
     try {
       const result = await db
         .update(modulesTable)
@@ -58,6 +62,7 @@ export class PatchModulesApi extends OpenAPIRoute {
           id: string;
           name: string;
           lessons: string;
+          grammar: string;
         }>();
 
       if (!updatedRow) {
@@ -67,6 +72,7 @@ export class PatchModulesApi extends OpenAPIRoute {
       const response = {
         ...updatedRow,
         lessons: JSON.parse(updatedRow.lessons),
+        grammar: JSON.parse(updatedRow.grammar),
       };
 
       return Response.json(response, { status: 200 });

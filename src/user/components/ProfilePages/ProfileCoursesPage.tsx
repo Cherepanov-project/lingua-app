@@ -94,7 +94,6 @@ const ProfileCoursesPage = () => {
               language={course.language}
               level={course.level}
               description={course.description || 'Описание курса'}
-              amountTime={course.amountTime || 0}
               progress={Math.floor(Math.random() * 100)}
             />
           </Grid>

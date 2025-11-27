@@ -3,7 +3,6 @@ import type { SystemStyleObject } from "@mui/system";
 import { createTheme } from "@mui/material/styles";
 
 interface StyleObject {
-  // authTextField: CSSProperties;
   authTextField: SystemStyleObject;
   authBox: SystemStyleObject;
   title: CSSProperties;
@@ -20,6 +19,8 @@ interface StyleObject {
   registerInput: CSSProperties;
   afterLoginForm: CSSProperties;
   afterLoginText: CSSProperties;
+  modal: CSSProperties;
+  courseButton: CSSProperties;
 }
 
 export const vars = {
@@ -65,13 +66,11 @@ export const stylesObj: StyleObject = {
     },
   },
   registerInput: {
-    margin: "13px 0",
-    borderRadius: "50px",
+    marginBottom: "15px",
+    borderRadius: "10px",
     height: "40px",
-    border: "1px solid #878787",
     width: "100%",
     "& .MuiSelect-select": {
-      padding: "0 30px",
       display: "flex",
       alignItems: "center",
       height: "40px",
@@ -203,6 +202,30 @@ export const stylesObj: StyleObject = {
     marginBottom: "10px",
     fontWeight: 700,
     color: "#000",
+  },
+  modal: {
+    position: "fixed",
+    top: "50%",
+    left: "calc(50% + 137.5px)",
+    transform: "translate(-50%, -50%)",
+    width: 400,
+    bgcolor: "background.paper",
+    borderRadius: "20px",
+    boxShadow: "24",
+    p: 4,
+  },
+
+  courseButton: {
+    border: "2px solid #020202ff",
+    borderRadius: "14px",
+    width: "250px",
+    color: "black",
+    fontWeight: "bold",
+    backgroundColor: "#d2daffff",
+    "&:hover": {
+      backgroundColor: "#b4c2ff",
+      color: "black",
+    },
   },
 };
 

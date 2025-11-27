@@ -1,4 +1,11 @@
-import { Box, Typography, List, ListItemButton, ListItemText, styled } from "@mui/material";
+import {
+  Box,
+  Typography,
+  List,
+  ListItemButton,
+  ListItemText,
+  styled,
+} from "@mui/material";
 import { useNavigate, useLocation } from "react-router-dom";
 import { menuItems } from "../adminComponents/menuItems";
 
@@ -26,7 +33,7 @@ const Sidebar = () => {
         borderRadius: "30px 0 0 30px",
         bgcolor: "#FDFDFD",
         boxShadow: 3,
-        overflow: "hidden"
+        overflow: "hidden",
       }}
     >
       <Typography
@@ -46,27 +53,33 @@ const Sidebar = () => {
       </Typography>
 
       <List component="nav">
-        {menuItems.map((item) => (
-          <StyledListItemButton
-            key={item.path}
-            selected={
-              location.pathname === item.path ||
-              (location.pathname === "/admin" && item.path === "/admin")
-            }
-            onClick={() => navigate(item.path)}
-            sx={{
-              pl: "89px",
-            }}
-          >
-            <ListItemText
-              primary={item.text}
-              primaryTypographyProps={{
-                fontWeight: location.pathname === item.path ? 600 : 400,
-                fontSize: "24px",
-              }}
-            />
-          </StyledListItemButton>
-        ))}
+        {menuItems.map((item) => {
+          const isRootAdmin =
+            item.path === "/admin" && location.pathname === "/admin";
+
+          const isActive =
+            isRootAdmin ||
+            (item.path !== "/admin" &&
+              (location.pathname === item.path ||
+                location.pathname.startsWith(item.path + "/")));
+
+          return (
+            <StyledListItemButton
+              key={item.path}
+              selected={isActive}
+              onClick={() => navigate(item.path)}
+              sx={{ pl: "89px" }}
+            >
+              <ListItemText
+                primary={item.text}
+                primaryTypographyProps={{
+                  fontWeight: isActive ? 600 : 400,
+                  fontSize: "24px",
+                }}
+              />
+            </StyledListItemButton>
+          );
+        })}
       </List>
     </Box>
   );

@@ -53,7 +53,7 @@ export type TCourse = {
   language: string;
   level: string;
   description: string;
-  amountTime: number;
+  name: string;
   modules: string[] | string;
   published: boolean;
 };
@@ -64,38 +64,44 @@ export type TModule = {
   id: string;
   name: string;
   lessons: string[] | string;
+  grammar: string[] | string;
 };
 
 export type TModulesResponse = TModule[];
 
-export type TLesson = {
+export interface TLesson {
   id: string;
   name: string;
   exercises: string[] | string;
-};
+  listening: string[] | string;
+  grammar_exercises: string[] | string;
+  orthography: string[] | string;
+  newWords: string[] | string;
+  reading: string[] | string;
+}
 
 export type TLessonsResponse = TLesson[];
 
 export type Word = {
-  id: number;        
-  topic_id: number;  
-  ru: string;       
-  en: string;        
+  id: number;
+  topic_id: number;
+  ru: string;
+  en: string;
 };
 
 export type TopicWithWords = {
-  id: number;       
-  title: string;    
-  words: Word[];    
+  id: number;
+  title: string;
+  words: Word[];
 };
 
 export type NewWords = TopicWithWords[];
 export type TGrammarExercise = {
-  id: number;                
-  grammar_id: number;        
-  level: string;             
-  sentence: string;              
-  missing_words: string[] | string;   
+  id: number;
+  grammar_id: number;
+  level: string;
+  sentence: string;
+  missing_words: string[] | string;
 };
 
 export type TGrammarExerciseResponse = TGrammarExercise[];

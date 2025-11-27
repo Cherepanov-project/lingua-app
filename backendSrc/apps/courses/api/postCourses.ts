@@ -9,7 +9,7 @@ const RequestSchema = z.object({
   language: z.string(),
   level: z.string(),
   description: z.string(),
-  amountTime: z.number(),
+  name: z.string(),
   modules: z.array(z.string()),
   published: z.boolean(),
 });
@@ -28,7 +28,7 @@ export class PostCoursesApi extends OpenAPIRoute {
               language: { type: "string" as const },
               level: { type: "string" as const },
               description: { type: "string" as const },
-              amountTime: { type: "number" as const },
+              name: { type: "string" as const },
               modules: {
                 type: "array" as const,
                 items: {
@@ -41,7 +41,7 @@ export class PostCoursesApi extends OpenAPIRoute {
               "language",
               "level",
               "description",
-              "amountTime",
+              "name",
               "modules",
               "published",
             ],
@@ -61,7 +61,7 @@ export class PostCoursesApi extends OpenAPIRoute {
         language,
         level,
         description,
-        amountTime,
+        name,
         modules,
         published,
       } = RequestSchema.parse(body);
@@ -84,7 +84,7 @@ export class PostCoursesApi extends OpenAPIRoute {
         language,
         level,
         description,
-        amountTime,
+        name,
         modules: JSON.stringify(modules),
         published,
       });
@@ -98,7 +98,7 @@ export class PostCoursesApi extends OpenAPIRoute {
           language: string;
           level: string;
           description: string;
-          amountTime: number;
+          name: string;
           modules: string;
           published: boolean;
         }>();

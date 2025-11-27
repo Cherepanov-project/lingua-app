@@ -7,11 +7,11 @@ import { eq } from "drizzle-orm";
 import type { Env } from "../../..";
 
 const PatchCourseSchema = z.object({
-  id: z.number(),
+  id: z.coerce.number(),
   language: z.string().optional(),
   level: z.string().optional(),
   description: z.string().optional(),
-  amountTime: z.number().optional(),
+  name: z.string().optional(),
   modules: z.array(z.string()).optional(),
   published: z.boolean().optional(),
 });
@@ -63,7 +63,7 @@ export class PatchCoursesApi extends OpenAPIRoute {
           language: string;
           level: string;
           description: string;
-          amountTime: number;
+          name: string;
           modules: string;
           published: boolean;
         }>();

@@ -5,6 +5,8 @@ import type {
   FetchArgs,
   FetchBaseQueryError,
 } from "@reduxjs/toolkit/query/react";
+import { getCookie, removeCookie, setCookie } from "../../utils/cookies";
+import type { BaseQueryApiWithRetry } from "../../../shared/api/usersApi";
 
 interface UserProfile {
   id: string;
@@ -38,13 +40,13 @@ const baseQuery: BaseQueryFn<
   string | FetchArgs,
   unknown,
   FetchBaseQueryError
-> = async (args, api, extraOptions) => {
+> = async (args, api: BaseQueryApiWithRetry, extraOptions) => {
   const endpointsNeedingToken = ["getUserProfile", "registerUser"];
   if (!endpointsNeedingToken.includes(api.endpoint)) {
     return rawBaseQuery(args, api, extraOptions);
   }
 
-  let token = sessionStorage.getItem("management_token");
+  let token = getCookie("management_token");
   if (!token) {
     const tokenResponse = await rawBaseQuery(
       {
@@ -63,7 +65,7 @@ const baseQuery: BaseQueryFn<
 
     if (tokenResponse.data) {
       token = (tokenResponse.data as { access_token: string }).access_token;
-      sessionStorage.setItem("management_token", token);
+      setCookie("management_token", token);
     } else {
       if (tokenResponse.error instanceof Error) {
         throw new Error(
@@ -80,7 +82,21 @@ const baseQuery: BaseQueryFn<
     Authorization: `Bearer ${token}`,
   };
 
-  return rawBaseQuery(requestArgs, api, extraOptions);
+  const result = await rawBaseQuery(requestArgs, api, extraOptions);
+
+  if (
+    result.error &&
+    (result.error.status === 401 || result.error.status === 403)
+  ) {
+    // Защита от бесконечного цикла
+    if (api.alreadyRetried) return result;
+    api.alreadyRetried = true;
+    
+    removeCookie("management_token");
+    return baseQuery(args, api, extraOptions);
+  }
+
+  return result;
 };
 
 export const authApi = createApi({

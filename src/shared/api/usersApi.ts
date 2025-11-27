@@ -1,9 +1,11 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import type {
+  BaseQueryApi,
   BaseQueryFn,
   FetchArgs,
   FetchBaseQueryError,
 } from "@reduxjs/toolkit/query";
+import { getCookie, removeCookie, setCookie } from "../../user/utils/cookies";
 
 export type Auth0User = {
   user_id: string;
@@ -26,6 +28,10 @@ type NewUserRequest = {
   password: string;
 };
 
+export interface BaseQueryApiWithRetry extends BaseQueryApi {
+  alreadyRetried?: boolean;
+}
+
 // Базовый запрос
 const rawBaseQuery = fetchBaseQuery({
   baseUrl: `https://${import.meta.env.VITE_AUTH0_DOMAIN}/api/v2/`,
@@ -36,8 +42,8 @@ const baseQueryWithAuth: BaseQueryFn<
   string | FetchArgs,
   unknown,
   FetchBaseQueryError
-> = async (args, api, extraOptions) => {
-  let token = sessionStorage.getItem("management_token");
+> = async (args, api: BaseQueryApiWithRetry, extraOptions) => {
+  let token = getCookie("management_token");
 
   // Если токена нет — запрашиваем новый
   if (!token) {
@@ -57,7 +63,7 @@ const baseQueryWithAuth: BaseQueryFn<
 
     const data = await tokenResponse.json();
     token = data.access_token;
-    sessionStorage.setItem("management_token", token!);
+    setCookie("management_token", token!);
   }
 
   // Добавляем токен к запросу
@@ -75,7 +81,11 @@ const baseQueryWithAuth: BaseQueryFn<
     result.error &&
     (result.error.status === 401 || result.error.status === 403)
   ) {
-    sessionStorage.removeItem("management_token");
+    // Защита от бесконечного цикла
+    if (api.alreadyRetried) return result;
+    api.alreadyRetried = true;
+    
+    removeCookie("management_token");
     return baseQueryWithAuth(args, api, extraOptions);
   }
 

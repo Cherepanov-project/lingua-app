@@ -1,27 +1,16 @@
-import { Box, CircularProgress, Typography } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 import Grid from '@mui/material/Grid'
 import { NewWordCard } from './NewWordCard'
 import { newWords, selectTheme } from '../../../../shared/constants/textConsts'
 import { useGetNewWordsQuery } from '../../../../shared/api/newWordsApi'
+import { ProgressBar } from '../../../../shared/components/ProgressBar'
 
 export const NewWordPage: React.FC = () => {
   const { data: topics = [], isLoading } = useGetNewWordsQuery()
 
   if (isLoading) {
-      return (
-        <Box
-          sx={{
-            flexGrow: "1",
-            height: "100vh",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <CircularProgress size="100px" />
-        </Box>
-      );
-    }
+    return <ProgressBar />
+  }
 
   return (
     <Box sx={{ maxWidth: 1000, mx: 'auto', p: 4 }}>

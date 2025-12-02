@@ -51,3 +51,10 @@ export const MissWords = "Вставь пропущенные слова:";
 export const RightWords = "Все ответы правильные!";
 export const ErrWords = "Есть ошибки, попробуй снова!";
 
+export const WordsTranslate = "Напишите перевод слов"
+export const Check = "Проверить"
+export const ReadingPractice =  "Тренировка чтения"
+export const SpellingTraining = "Тренировка правописания"
+export const InsertWords = "Вставьте в текст пропущенные слова"
+export const WriteCorrectly ="Напишите слова правильно на английском"
+

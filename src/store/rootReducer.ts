@@ -14,6 +14,8 @@ import { grammarApi } from "../shared/api/grammarApi.ts";
 import { grammarExercisesApi } from "../shared/api/grammarExercisesApi.ts";
 import { bookApi } from "../shared/api/bookApi.ts";
 import readerPersistReducer from "./reducers/ReaderPersistSlice.ts";
+import { exercisesInsertTextApi } from "../shared/api/exercisesInsertTextApi.ts";
+import { wordsTranslateApi } from "../shared/api/wordsTranslateApi.ts";
 
 const rootReducer = combineReducers({
   [authApi.reducerPath]: authApi.reducer,
@@ -31,6 +33,8 @@ const rootReducer = combineReducers({
   reader: readerReducer,
   [bookApi.reducerPath]: bookApi.reducer,
   readerPersist: readerPersistReducer,
+  [exercisesInsertTextApi.reducerPath]: exercisesInsertTextApi.reducer,
+  [wordsTranslateApi.reducerPath]: wordsTranslateApi.reducer,
 });
 
 export type RootReducer = ReturnType<typeof rootReducer>;

@@ -1,31 +1,31 @@
-import { Stack } from "@mui/material";
-import { Grid } from "@mui/material";
-import { Typography } from "@mui/material";
-import { ChallengeItem } from "./ChallengeItem";
+import { Stack } from '@mui/material'
+import { Grid } from '@mui/material'
+import { Typography } from '@mui/material'
+import { ChallengeItem } from './ChallengeItem'
 
 const ProfileWidgetPlanToday = () => {
   return (
     <>
-      <Stack sx={{ minHeight: "100px" }}>
+      <Stack sx={{ minHeight: '100px' }}>
         <Typography variant="h4">Твой план на сегодня</Typography>
-        <Typography sx={{ color: "#878787", fontSize: "18px" }}>Тренируйся каждый день и забирай звезды</Typography>
+        <Typography sx={{ color: '#878787', fontSize: '18px' }}>Тренируйся каждый день и забирай звезды</Typography>
       </Stack>
       <Grid container spacing={2.4}>
         <Grid size={6}>
-          <ChallengeItem itemTitle="Аудирование" imageUrl="./plan-image-headphones.png" link='*'/>
+          <ChallengeItem itemTitle="Аудирование" imageUrl="./plan-image-headphones.png" link="listening" />
         </Grid>
         <Grid size={6}>
-          <ChallengeItem itemTitle="Упражнение" imageUrl="./plan-image-pencil.png" link='*'/>
+          <ChallengeItem itemTitle="Упражнение" imageUrl="./plan-image-pencil.png" link="exercises-today" />
         </Grid>
         <Grid size={6}>
-          <ChallengeItem itemTitle="Чтение" imageUrl="./plan-image-notepad.png" link='reader'/>
+          <ChallengeItem itemTitle="Чтение" imageUrl="./plan-image-notepad.png" link="reader" />
         </Grid>
         <Grid size={6}>
-          <ChallengeItem itemTitle="Новые слова" imageUrl="./plan-image-todo-list.png" link='new-word'/>
+          <ChallengeItem itemTitle="Новые слова" imageUrl="./plan-image-todo-list.png" link="new-word" />
         </Grid>
       </Grid>
     </>
-  );
-};
+  )
+}
 
-export { ProfileWidgetPlanToday };
+export { ProfileWidgetPlanToday }

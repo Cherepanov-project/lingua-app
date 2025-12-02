@@ -24,7 +24,6 @@ export const listeningSkillsPageStack = {
   flexDirection: "column",
   alignItems: "center",
   overflowY: "auto",
-  backgroundColor: "#f5f5f5",
 }
 
 export const quizStack = {

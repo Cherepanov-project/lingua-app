@@ -105,3 +105,21 @@ export type TGrammarExercise = {
 };
 
 export type TGrammarExerciseResponse = TGrammarExercise[];
+
+export type TExerciseInsertText= {
+  id: number;
+  level: string;
+  sentence: string;
+  missing_words: string[] | string;
+};
+
+export type TExerciseInsertTextResponse = TExerciseInsertText[];
+
+export type TWordsTranslate= {
+  id: number;
+  level: string;
+  words_ru: string[] | string;
+  words_en: string[] | string;
+};
+
+export type TWordsTranslateResponse = TWordsTranslate[];

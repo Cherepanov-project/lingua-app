@@ -14,6 +14,8 @@ import registerNewWordsRoutes from './apps/newword/urls';
 import registerGrammarRoutes from "./apps/grammar/urs";
 import registerGrammarExerciseRoutes from "./apps/grammarExercises/urls";
 import registerProxyRoutes from "./apps/books/urls";
+import registerExerciseInsertTextRoutes from "./apps/exerciseInsertText/urls";
+import registerWordsTranslateRoutes from "./apps/wordsTranslate/urls";
 
 export function registerAllRoutes(router: RouterType) {
   registerSwaggerRoutes(router);
@@ -31,4 +33,6 @@ export function registerAllRoutes(router: RouterType) {
   registerGrammarRoutes(router);
   registerGrammarExerciseRoutes(router);
   registerProxyRoutes(router);
+  registerExerciseInsertTextRoutes(router);
+  registerWordsTranslateRoutes(router);
 }

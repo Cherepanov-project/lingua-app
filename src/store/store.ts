@@ -16,6 +16,8 @@ import { type PersistConfig } from 'redux-persist'
 import persistReducer from 'redux-persist/es/persistReducer'
 import rootReducer, { type RootReducer } from './rootReducer.ts'
 import persistStore from 'redux-persist/es/persistStore'
+import { exercisesInsertTextApi } from '../shared/api/exercisesInsertTextApi.ts'
+import { wordsTranslateApi } from '../shared/api/wordsTranslateApi.ts'
 
 export const persistConfig: PersistConfig<RootReducer> = {
   key: 'root',
@@ -42,7 +44,9 @@ export const store = configureStore({
       .concat(newWordsApi.middleware)
       .concat(grammarApi.middleware)
       .concat(grammarExercisesApi.middleware)
-      .concat(bookApi.middleware),
+      .concat(bookApi.middleware)
+      .concat(exercisesInsertTextApi.middleware)
+      .concat(wordsTranslateApi.middleware),
 });
 
 export const persistor = persistStore(store)

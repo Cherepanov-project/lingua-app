@@ -44,6 +44,9 @@ import AddModule from "./pages/admin/adminComponents/Module/AddModule.tsx";
 import Module from "./pages/admin/adminComponents/Module/Module.tsx";
 import AddLesson from "./pages/admin/adminComponents/Lesson/AddLesson.tsx";
 import Lesson from "./pages/admin/adminComponents/Lesson/Lesson.tsx";
+import { ExercisesPageToday } from "./user/components/PlanToday/Excercises/ExcercisesPageToday.tsx";
+import { InsertTextExcercise } from "./user/components/PlanToday/Excercises/InsertTextExcercise.tsx";
+import { WordsExercises } from "./user/components/PlanToday/Excercises/WordsExercises.tsx";
 
 const App: React.FC = () => {
   return (
@@ -83,6 +86,10 @@ const App: React.FC = () => {
             <Route path="settings" element={<ProfileSettingsPage />} />
             <Route path="reader" element={<BooksListPage />} />
             <Route path="reader/:id" element={<ReaderPage />} />
+            <Route path="listening" element={<ListeningSkillsPage/>} />
+            <Route path="exercises-today" element={<ExercisesPageToday />} />
+            <Route path="exercises-today/text/:level" element={<InsertTextExcercise />} />
+            <Route path="exercises-today/words/:level" element={<WordsExercises />} />
           </Route>
           <Route
             path="profile/exercises/orthography"
